@@ -1,8 +1,6 @@
-package com.kettle.demo.utils;
+package com.igA.demo.utils;
 
 import org.json.JSONException;
-import org.pentaho.di.core.logging.LogChannel;
-import org.pentaho.di.core.logging.LogChannelFactory;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -11,47 +9,67 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-public class ResultSetUtils1 {
+public class ResultSetUtils {
 
-    public static List<Map<String, Object>> allResultSetToJson(ResultSet rs, String table) throws SQLException, JSONException {
-        // json数组
+    public static Map<String, Object> allResultSetToJson(ResultSet rs) throws SQLException {
+        Map<String, Object> map = new HashMap<>();
 
-        LogChannelFactory logChannelFactory = new org.pentaho.di.core.logging.LogChannelFactory();
-        LogChannel kettleLog = logChannelFactory.create("测试");
-//        JSONArray array = new JSONArray();
-        List<Map<String, Object>> list = new ArrayList<>();
+        ResultSetMetaData metaData = rs.getMetaData();
+        int columnCount = metaData.getColumnCount();
+
+        while (rs.next()) {
+            // 遍历每一列
+            for (int i = 1; i <= columnCount; i++) {
+                String columnName = metaData.getColumnName(i);
+                    Object value = null;
+                try {
+
+                    value = rs.getObject(columnName);
+
+                } catch (SQLException e) {
+                }
+                map.put(columnName.toLowerCase(), value);
+            }
+
+        }
+
+
+        if (map.size() > 0) {
+            return map;
+        }
+        return null;
+    }
+
+
+
+    public static List<Map<String, Object>> listResultSetToJson(ResultSet rs) throws SQLException {
+
+        List<Map<String, Object>> list=new ArrayList<Map<String, Object>> ();
+
+
         // 获取列数
         ResultSetMetaData metaData = rs.getMetaData();
         int columnCount = metaData.getColumnCount();
 
         // 遍历ResultSet中的每条数据
         while (rs.next()) {
-//            JSONObject jsonObj = new JSONObject();
             Map<String, Object> map = new HashMap<>();
             // 遍历每一列
             for (int i = 1; i <= columnCount; i++) {
                 String columnName = metaData.getColumnName(i);
                 Object value = null;
                 try {
+
                     value = rs.getObject(columnName);
+
                 } catch (SQLException e) {
                 }
-                if (table.equalsIgnoreCase("ylfy") || table.equalsIgnoreCase("gzxl")
-                        || table.equalsIgnoreCase("zlzl") || table.equalsIgnoreCase("hlyy")) {
-                    map.put(columnName.toLowerCase(), String.valueOf(value));  //oracle 字段名大写改成小写
-                } else {
-                    map.put(columnName.toLowerCase(), value);  //oracle 字段名大写改成小写
-                }
+                map.put(columnName.toLowerCase(), value);
+
             }
             list.add(map);
-        }
-//        kettleLog.logBasic(String.valueOf(list));
 
-        list = list.stream()
-                .filter(p -> p.get("dataid") != null) // 过滤dataid非空的元素
-                .collect(Collectors.collectingAndThen(
-                        Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(p -> (String) p.get("dataid")))),
-                        ArrayList::new));   //根据dataid去重数据，同一批数据必须去重，否则批量插入会报错
+        }
 
 
         if (list.size() > 0) {
@@ -59,6 +77,16 @@ public class ResultSetUtils1 {
         }
         return null;
     }
+
+
+
+
+
+
+
+
+
+
 
     public static List<String> allResultSet(ResultSet rs) throws SQLException, JSONException {
         // json数组
@@ -128,6 +156,30 @@ public class ResultSetUtils1 {
                 }
             }
             String[] a = new String[7];
+            list.add(list1.toArray(a));
+        }
+
+        return list;
+    }
+
+
+    public static List<String[]> PersonResultSet(ResultSet rs) throws SQLException {
+
+        List<String[]> list = new ArrayList<>();
+        ResultSetMetaData metaData = rs.getMetaData();
+        int columnCount = metaData.getColumnCount();
+
+        while (rs.next()) {
+            // 遍历每一列
+            List<String> list1 = new ArrayList<>();
+            for (int i = 1; i <= columnCount; i++) {
+                String columnName = metaData.getColumnName(i);
+                if (rs.getObject(columnName) != null) {
+                    String value = String.valueOf(rs.getObject(columnName));
+                    list1.add(value);
+                }
+            }
+            String[] a = new String[2];
             list.add(list1.toArray(a));
         }
 

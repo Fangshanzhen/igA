@@ -1,4 +1,4 @@
-package com.kettle.demo.utils;
+package com.igA.demo.utils;
 
 public enum AreaCodeEnum {
 
