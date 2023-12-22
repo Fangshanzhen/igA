@@ -22,7 +22,7 @@ import static com.igA.demo.constant.DataTransform.*;
 @Slf4j
 public class igAData {
 
-    public static void transformData() throws Exception {
+    public static void transformData1() throws Exception {
 
         Connection connection = null; //默认postgresql
         Statement statement = null;
@@ -40,7 +40,7 @@ public class igAData {
 
             idList = commonExecute(connection, statement, resultSet);
 
-            idList = Collections.singletonList("340");
+            idList = Collections.singletonList("195");
 
 
             if (idList != null && idList.size() > 0) {
@@ -117,7 +117,7 @@ public class igAData {
                                 JSONObject jsonObj = JSONObject.parseObject(String.valueOf(newYysDataList.get(i)));
                                 if (jsonObj.keySet().contains("MED_NAME") && jsonObj.get("MED_NAME") != null) {
                                     Object o = jsonObj.get("MED_NAME");
-                                    transYysDataList.add(transformDrug(jsonObj, o));
+                                    transYysDataList.add(transformDrug(jsonObj, o,""));
                                 }
                             }
                         }
@@ -168,7 +168,7 @@ public class igAData {
                             }
                             if (jsonObj.keySet().contains("FAM_PATH") && jsonObj.get("FAM_PATH") != null) {
                                 Object o = jsonObj.get("FAM_PATH");
-                                jsonObj = transformIsOrNot(jsonObj, o);
+                                jsonObj = transformIsOrNot(jsonObj, o,"");
                             }
                             transFamilyDataList.add(jsonObj);
                         }
@@ -270,7 +270,7 @@ public class igAData {
                                             newJsonObj.put("UAC_VAL", jsonObj.get("ucr"));
                                         }
 
-                                        ngjcLab=newJsonObj;
+                                        ngjcLab = newJsonObj;
                                     }
                                 }
                             }
@@ -288,7 +288,7 @@ public class igAData {
                                             newJsonObj.put("24HUCA_VAL", jsonObj.get("val"));
                                         }
 
-                                        ngdlLab=newJsonObj;
+                                        ngdlLab = newJsonObj;
                                     }
                                 }
                             }
@@ -306,13 +306,13 @@ public class igAData {
                                             newJsonObj.put("24HUPRO_VAL", jsonObj.get("val"));
                                         }
                                         if (jsonObj.keySet().contains("blood")) {
-                                            if(String.valueOf(jsonObj.get("blood")).equals("1")){
+                                            if (String.valueOf(jsonObj.get("blood")).equals("1")) {
                                                 newJsonObj.put("24HPRO_MACHEMA", 1);
                                             }
-                                            if(String.valueOf(jsonObj.get("blood")).equals("2")){
+                                            if (String.valueOf(jsonObj.get("blood")).equals("2")) {
                                                 newJsonObj.put("24HPRO_MACHEMA", 0);
                                             }
-                                            if(String.valueOf(jsonObj.get("blood")).equals("3")){
+                                            if (String.valueOf(jsonObj.get("blood")).equals("3")) {
                                                 newJsonObj.put("24HPRO_MACHEMA", 9);
                                             }
                                         }
@@ -338,13 +338,13 @@ public class igAData {
                                             newJsonObj.put("UPC_VAL", jsonObj.get("val"));
                                         }
                                         if (jsonObj.keySet().contains("blood")) {
-                                            if(String.valueOf(jsonObj.get("blood")).equals("1")){
+                                            if (String.valueOf(jsonObj.get("blood")).equals("1")) {
                                                 newJsonObj.put("UPC_MACHEMA", 1);
                                             }
-                                            if(String.valueOf(jsonObj.get("blood")).equals("2")){
+                                            if (String.valueOf(jsonObj.get("blood")).equals("2")) {
                                                 newJsonObj.put("UPC_MACHEMA", 0);
                                             }
-                                            if(String.valueOf(jsonObj.get("blood")).equals("3")){
+                                            if (String.valueOf(jsonObj.get("blood")).equals("3")) {
                                                 newJsonObj.put("UPC_MACHEMA", 9);
                                             }
                                         }
@@ -459,13 +459,99 @@ public class igAData {
                         }
 
 
-
-
                     }
 
 
                     jsonObject.put("zhyl008", basicLabMap); //实验室检查
 //--------------------------------------------------
+                    String newBingLiSql = bingliSql.replace("?", s);
+                    Map<String, Object> bingliMap = commonExecute1(connection, newBingLiSql, statement, resultSet);
+                    JSONObject bingLiJsonObject = new JSONObject();
+
+                    if (bingliMap != null && bingliMap.size() > 0) {
+
+                        for (String key : bingliMap.keySet()) {
+
+                            if (bingliMap.keySet().contains("def_data") && key.equals("def_data")) {   //解析def_data中的数据
+                                if (bingliMap.get(key) != null) {
+                                    JSONArray bingliList = JSONArray.parseArray(String.valueOf(bingliMap.get(key)));
+                                    for (Object o : bingliList) {
+                                        o = String.valueOf(o).replace("time", "BIOPSY_TIME").replace("select", "BIOPSY_SITE")
+                                                .replace("name", "BIOPSY_HOSP");
+                                        bingLiJsonObject = JSONObject.parseObject((String) o);
+                                    }
+                                }
+                                if(bingLiJsonObject!=null){
+                                    if (bingLiJsonObject.keySet().contains("BIOPSY_SITE") && bingLiJsonObject.get("BIOPSY_SITE") != null) {
+                                        Object o = bingLiJsonObject.get("BIOPSY_SITE");
+                                        if (String.valueOf(o).equals("1")) {
+                                            bingLiJsonObject.put("BIOPSY_SITE", "2");
+                                        }
+                                        if (String.valueOf(o).equals("2")) {
+                                            bingLiJsonObject.put("BIOPSY_SITE", "1");
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+
+                        bingliMap.remove("def_data");
+                        bingliMap.put("zhyl00009", bingLiJsonObject);
+                    }
+
+                    jsonObject.put("zhyl009", bingliMap); //病理检查
+                    //--------------------------------------------------
+
+                    String newJiYinSql=jiYinSql.replace("?", s);
+
+                    Map<String, Object> jiyinMap = commonExecute1(connection, newJiYinSql, statement, resultSet);
+                    JSONArray jiYinArray=new JSONArray();
+
+                    if (jiyinMap != null && jiyinMap.size() > 0) {
+
+                        for (String key : jiyinMap.keySet()) {
+
+                            if (jiyinMap.keySet().contains("datas") && key.equals("datas")) {   //解析datas中的数据
+                                if (jiyinMap.get(key) != null) {
+                                    JSONArray jiYinList = JSONArray.parseArray(String.valueOf(jiyinMap.get(key)));
+                                    for (Object o : jiYinList) {
+                                        JSONObject jsonObj = JSONObject.parseObject(String.valueOf(o));
+                                        JSONObject newJsonObj = new JSONObject();
+                                        if (jsonObj.keySet().contains("type")) {
+                                            newJsonObj.put("GENE_NUCLEO", jsonObj.get("type"));
+                                        }
+                                        if (jsonObj.keySet().contains("no")) {
+                                            newJsonObj.put("GENE_ID", jsonObj.get("no"));
+                                        }
+                                        if (jsonObj.keySet().contains("source")) {
+                                            newJsonObj.put("GENE_BIOSPE", jsonObj.get("source"));
+                                        }
+                                        if (jsonObj.keySet().contains("check_time")) {
+                                            newJsonObj.put("GENE_TIME", jsonObj.get("check_time"));
+                                        }
+                                        if (jsonObj.keySet().contains("result")) {
+                                            newJsonObj.put("GENE_TEXT", jsonObj.get("result"));
+                                        }
+
+                                        jiYinArray.add(newJsonObj);
+                                    }
+                                }
+
+
+                            }
+                        }
+
+                        jiyinMap.remove("datas");
+                        jiyinMap.put("zhyl00010", jiYinArray);
+                    }
+
+                    jsonObject.put("zhyl010", jiyinMap); //基因
+
+//---------------------------------------------------------------
+
+
+
 
 
                     System.out.println(jsonObject);
