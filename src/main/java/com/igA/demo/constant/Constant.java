@@ -499,21 +499,21 @@ public class Constant {
 
 
 
-    public final static String jiYinSql ="  select a.id as id ,c.hospitalcode  as center,\n" +
-            " a.agreetime as time_enroll, b.intime as visit_time,\n" +
-            " case  when b.reporttype='首诊报告' then 'V0'\n" +
-            "when b.waketime='30' then 'V1'\n" +
-            "when b.waketime='90' then 'V3' when b.waketime='180' then 'V6' when b.waketime='360' then 'V12'\n" +
-            "when b.waketime='540' then 'V18' when b.waketime='720' then 'V24' when b.waketime='10000' then 'VN'end as visit_point,\n" +
-            "case when d.status='1' then 1 when d.status='2' then 0 end as GENE_ALY,\n" +
-            "d.datas\n" +
+    public final static String jiYinBiaoBenSql ="  select case when d.status='1' then 1 when d.status='2' then 0 end as zhyl210500001,\n" +
+            "d.datas,\n" +
+            "d.bf_data,\n" +
+            "d.xz_data,\n" +
+            "d.dna_data,\n" +
+            "d.xq_data,\n" +
+            "d.yy_data\n" +
             " \n" +
             " from hospital.hs_patient a \n" +
             "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
             "left join hospital.hs_hospital c on a.hospitalid=c.id  \n" +
             "left join hospital.hs_casefive d on b.id=d.id\n" +
             "\n" +
-            " where  b.reporttype='首诊报告'  and b.historyflag=0 and   a.id='?' ";
+            " where  b.reporttype='首诊报告'  and b.historyflag=0 and   a.id='?' \n" +
+            "  ";
 
 
 

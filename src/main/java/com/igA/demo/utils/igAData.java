@@ -503,7 +503,7 @@ public class igAData {
                     jsonObject.put("zhyl009", bingliMap); //病理检查
                     //--------------------------------------------------
 
-                    String newJiYinSql=jiYinSql.replace("?", s);
+                    String newJiYinSql=jiYinBiaoBenSql.replace("?", s);
 
                     Map<String, Object> jiyinMap = commonExecute1(connection, newJiYinSql, statement, resultSet);
                     JSONArray jiYinArray=new JSONArray();
