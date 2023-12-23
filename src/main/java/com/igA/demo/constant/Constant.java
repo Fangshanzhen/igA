@@ -516,5 +516,116 @@ public class Constant {
             "  ";
 
 
+    public final static String chaoShenSql =" select \n" +
+            "  (EXTRACT(EPOCH FROM d.check_time ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as  zhyl210601001,\n" +
+            "  d.zs_chang as zhyl210602001,\n" +
+            "  d.zs_kuan as zhyl210602002,\n" +
+            "  d.zs_hou as zhyl210602003,\n" +
+            "  d.zs_sshd as zhyl210602004,\n" +
+            "  d.zs_daxiao as zhyl210602005,\n" +
+            "  d.zs_sszhs as zhyl210602006,\n" +
+            "  d.ys_chang as zhyl210603001,\n" +
+            "  d.ys_kuan as zhyl210603002,\n" +
+            "  d.ys_hou as zhyl210603003,\n" +
+            "  d.ys_sshd as zhyl210603004,\n" +
+            "  d.ys_daxiao as zhyl210603005,\n" +
+            "  d.ys_sszhs as zhyl210603006,\n" +
+            "  d.cssj as zhyl210604001\n" +
+            " \n" +
+            "  from hospital.hs_patient a \n" +
+            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
+            "left join hospital.hs_hospital c on a.hospitalid=c.id  \n" +
+            "left join hospital.hs_casesix d on b.id=d.id\n" +
+            "\n" +
+            " where  b.reporttype='首诊报告'  and b.historyflag=0 and   a.id='?' ";
+
+
+
+    public final static String yaoWuSql =" \n" +
+            " select \n" +
+            " case when e.pid='2' then '糖皮质激素' \n" +
+            " when e.pid='3' then '免疫抑制剂' \n" +
+            "  when e.pid='4' then '血管紧张素转换酶抑制剂' \n" +
+            "     when e.pid='5' then '血管紧张素II受体拮抗剂' \n" +
+            "      when e.pid='30' then '其他' \n" +
+            " \n" +
+            " end as zhyl210701001,\n" +
+            " e.drugname  as zhyl210701002,\n" +
+            " d.id as zhyl210701013,\n" +
+            " d.drug_type as zhyl210701003,\n" +
+            " d.place as zhyl210701004,\n" +
+            " d.dose as zhyl210701005,\n" +
+            " 1 as zhyl210701006,\n" +
+            " d.frequency as zhyl210701007,\n" +
+            "  (EXTRACT(EPOCH FROM d.start_time ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as zhyl210701008,\n" +
+            "  (EXTRACT(EPOCH FROM d.end_time ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as zhyl210701009,\n" +
+            "  d.is_lock as zhyl210701010,\n" +
+            "  case when d.is_end is not null then(case when d.is_end=0 then 0 else 1 end) end as zhyl210701011,\n" +
+            "  null as zhyl210701012\n" +
+            "  \n" +
+            "   from hospital.hs_patient a \n" +
+            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
+            "left join hospital.hs_hospital c on a.hospitalid=c.id  \n" +
+            "left join hospital.hs_caseseven d on b.id=d.case_id \n" +
+            "left join (select * from hospital.hs_drugdcit  ) e on d.drugdcit_id=e.id \n" +
+            "\n" +
+            " where  b.reporttype='首诊报告'  and b.historyflag=0 \n" +
+            " and e.drugname !='甲泼尼龙冲击' and  e.drugname !='环磷酰胺冲击' \n" +
+            " and   a.id='?' ";
+
+
+    public final static String chongJi1Sql ="  select \n" +
+            " case when e.pid='2' then '10' \n" +
+            " when e.pid='3' then '20' \n" +
+            "\n" +
+            " end as zhyl210702001,\n" +
+            " case when e.drugname ='甲泼尼龙冲击' then '11' \n" +
+            " when  e.drugname ='环磷酰胺冲击' then '21' end \n" +
+            " as zhyl210702002,\n" +
+            "d.times as zhyl210702004,\n" +
+            "d.dose as zhyl210702005,\n" +
+            "1 as zhyl210702006,\n" +
+            "  (EXTRACT(EPOCH FROM d.start_time ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as zhyl210702007,\n" +
+            "   d.is_lock as zhyl210702008\n" +
+            "  \n" +
+            "\n" +
+            "   from hospital.hs_patient a \n" +
+            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
+            "left join hospital.hs_hospital c on a.hospitalid=c.id  \n" +
+            "left join hospital.hs_caseseven d on b.id=d.case_id \n" +
+            "left join (select * from hospital.hs_drugdcit  ) e on d.drugdcit_id=e.id \n" +
+            "\n" +
+            " where  b.reporttype='首诊报告'  and b.historyflag=0 \n" +
+            " and ( e.drugname ='甲泼尼龙冲击'  )\n" +
+            " and   a.id='?' \n" +
+            " ";
+
+    public final static String chongJi2Sql ="  select \n" +
+            " case when e.pid='2' then '10' \n" +
+            " when e.pid='3' then '20' \n" +
+            "\n" +
+            " end as zhyl210702001,\n" +
+            " case when e.drugname ='甲泼尼龙冲击' then '11' \n" +
+            " when  e.drugname ='环磷酰胺冲击' then '21' end \n" +
+            " as zhyl210702002,\n" +
+            "d.times as zhyl210702004,\n" +
+            "d.dose as zhyl210702005,\n" +
+            "1 as zhyl210702006,\n" +
+            "  (EXTRACT(EPOCH FROM d.start_time ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as zhyl210702007,\n" +
+            "   d.is_lock as zhyl210702008\n" +
+            "  \n" +
+            "\n" +
+            "   from hospital.hs_patient a \n" +
+            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
+            "left join hospital.hs_hospital c on a.hospitalid=c.id  \n" +
+            "left join hospital.hs_caseseven d on b.id=d.case_id \n" +
+            "left join (select * from hospital.hs_drugdcit  ) e on d.drugdcit_id=e.id \n" +
+            "\n" +
+            " where  b.reporttype='首诊报告'  and b.historyflag=0 \n" +
+            " and ( e.drugname ='环磷酰胺冲击' )\n" +
+            " and   a.id='?' \n" +
+            " ";
+
+
 
 }
