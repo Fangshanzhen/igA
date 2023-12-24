@@ -1,7 +1,5 @@
 package com.igA.demo.constant;
 
-import com.alibaba.fastjson.JSONObject;
-
 public class Constant {
 
 
@@ -611,7 +609,19 @@ public class Constant {
             "d.times as zhyl210702004,\n" +
             "d.dose as zhyl210702005,\n" +
             "1 as zhyl210702006,\n" +
-            "  (EXTRACT(EPOCH FROM d.start_time ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as zhyl210702007,\n" +
+            "  case when d.start_time='2016.11.30-' then \n" +
+            " (EXTRACT(EPOCH FROM '2016-11-30' ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR\n" +
+            " when d.start_time='2016.12.25-' then \n" +
+            " (EXTRACT(EPOCH FROM '2016-12-25' ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR\n" +
+            " when d.start_time='2017.1.24-1' then \n" +
+            " (EXTRACT(EPOCH FROM '2017-1-24' ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR\n" +
+            "  when d.start_time='2017.2.22-2' then \n" +
+            " (EXTRACT(EPOCH FROM '2017-2-22' ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR\n" +
+            "  when d.start_time='2017.1.23-3' then \n" +
+            " (EXTRACT(EPOCH FROM '2017-1-23' ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR\n" +
+            "  when d.start_time='2017.8.28-8' then \n" +
+            " (EXTRACT(EPOCH FROM '2017-8-28' ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR\n" +
+            "  else (EXTRACT(EPOCH FROM d.start_time ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR end as zhyl210702007," +
             "   d.is_lock as zhyl210702008\n" +
             "  \n" +
             "\n" +
@@ -625,6 +635,167 @@ public class Constant {
             " and ( e.drugname ='环磷酰胺冲击' )\n" +
             " and   a.id='?' \n" +
             " ";
+
+
+    public final static String shenZangTiDaiSql ="select \n" +
+            "\n" +
+            " case \n" +
+            " when d.seetype=1 then 10 \n" +
+            " when d.seetype=2 then 20 \n" +
+            " when d.seetype=3 then 31 \n" +
+            " when d.seetype=7 then 32 \n" +
+            " when d.seetype=4 then 11 \n" +
+            " when d.seetype=5 then 12 \n" +
+            " when d.seetype=6 then 60\n" +
+            "\n" +
+            " end as zhyl210800001,\n" +
+            "   (EXTRACT(EPOCH FROM d.startdat ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as zhyl210800002,\n" +
+            "   (EXTRACT(EPOCH FROM d.enddat ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as zhyl210800003, \n" +
+            "   d.num as zhyl210800004,\n" +
+            "   d.source as zhyl210800005,\n" +
+            "   d.explain as zhyl210800006\n" +
+            " \n" +
+            "   from hospital.hs_patient a \n" +
+            "inner join \n" +
+            "(\n" +
+            "select  id,patientid,\n" +
+            "case when historyflag=0 and parentid is null then id\n" +
+            "when historyflag=0 and parentid is not  null then (\n" +
+            "case when parentid like'%,%' then ( TO_NUMBER((string_to_array(parentid, ','))[array_length(string_to_array(parentid, ','), 1)], '999999999D99') )\n" +
+            " when parentid not like'%,%' then TO_NUMBER(parentid, '999999999D99') end)\n" +
+            "end as a\n" +
+            "from hospital.hs_patientinfo   where reporttype='首诊报告'   and historyflag=0\n" +
+            ")\n" +
+            "\n" +
+            "b on a.id=b.patientid  \n" +
+            "left join hospital.hs_caseeightup d on b.a=d.case_id \n" +
+            "\n" +
+            " where   a.id='?' \n" +
+            " ";
+
+
+    //---------------------------------------随访
+    public final static String suiFangIdSql = " select \n" +
+            "\n" +
+            "b.id\n" +
+            "\n" +
+            "from hospital.hs_patient a \n" +
+            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
+            "where  b.reporttype='随访报告' and b.historyflag=0  and a.id='?'";
+
+
+
+    public final static String suiFangPatientInfoSql =" \n" +
+            "select \n" +
+            "\n" +
+            "(EXTRACT(EPOCH FROM b.intime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as  zhyl300000001,\n" +
+            "\n" +
+            "case " +
+            "when b.waketime='30' then 1\n" +
+            "when b.waketime='90' then 2 when b.waketime='180' then 3 when b.waketime='360' then 4\n" +
+            "when b.waketime='540' then 5 when b.waketime='720' then 6 when b.waketime='10000' then 7 end as zhyl310000001,\n" +
+            "\n" +
+            "case when b.examinetype='17' then 1 when b.examinetype='16' then 2 when b.examinetype='131' then 3 end as zhyl310000002,\n" +
+            "(EXTRACT(EPOCH FROM b.intime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as  zhyl310000003,\n" +
+            "(EXTRACT(EPOCH FROM b.intime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as  zhyl310000004,\n" +
+            "(EXTRACT(EPOCH FROM b.outtime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as  zhyl310000005\n" +
+            "\n" +
+            "\n" +
+            "from hospital.hs_patient a \n" +
+            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
+            "left join hospital.hs_hospital c on a.hospitalid=c.id \n" +
+            "where  b.reporttype='随访报告' and b.historyflag=0  and b.id='?'"
+            ;
+
+    public final static String suiFangHisSql ="\n" +
+            " select \n" +
+            " case when d.xn='1'then 1 when d.xn='2'then 0 when d.xn='3'then 9 end as zhyl310100001,\n" +
+            " case when d.ryxn='1'then 1 when d.ryxn='2'then 0 when d.ryxn='3'then 9 end as zhyl310100003,\n" +
+            " case when d.ryxn_attr='1'then 1 when d.ryxn_attr='2'then 2 when d.ryxn_attr='3'then 9 end as zhyl310100004,\n" +
+            "  case when d.gxy='1'then 1 when d.gxy='2'then 0 when d.gxy='3'then 9 end as zhyl310100011,\n" +
+            "   case when d.pz='1'then 1 when d.pz='2'then 0 when d.pz='3'then 9 end as   zhyl310100014,\n" +
+            "   d.gjttxm as zhyl310100015,\n" +
+            " case when d.shjyy='1'then 1 when d.shjyy='2'then 0 when d.shjyy='3'then 9 end as zhyl310100020,\n" +
+            "case when d.acei='1'then 1 when d.acei='2'then 0 when d.acei='3'then 9 end as zhyl310100021,\n" +
+            " case when d.arb='1'then 1 when d.arb='2'then 0 when d.arb='3'then 9 end as zhyl310100022,\n" +
+            "case when d.ccb='1'then 1 when d.ccb='2'then 0 when d.ccb='3'then 9 end as zhyl310100023,\n" +
+            " case when d.bxtzcj='1'then 1 when d.bxtzcj='2'then 0 when d.bxtzcj='3'then 9 end as zhyl310100029,\n" +
+            " case when d.qtjyyw='1'then 1 when d.qtjyyw='2'then 0 when d.qtjyyw='3'then 9 end as zhyl310100024,\n" +
+            "d.qtjyjwmt as zhyl310100025,\n" +
+            "case when d.bttzcs='1'then 1 when d.bttzcs='2'then 0 when d.bttzcs='3'then 9 end as zhyl310100026,\n" +
+            "(EXTRACT(EPOCH FROM d.bttzcs_time ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as  zhyl310100027,\n" +
+            "d.\"explain\" as zhyl210100028\n" +
+            " \n" +
+            "\n" +
+            "from hospital.hs_patient a \n" +
+            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
+            "left join hospital.hs_caseone d on b.id=d.id\n" +
+            " where  b.reporttype='随访报告' and b.historyflag=0 and b.id='?'";
+
+    public final static String suiFangPESql ="  select \n" +
+            "  (EXTRACT(EPOCH FROM d.check_time::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as zhyl310200001,\n" +
+            "  d.shengao as zhyl310200002,\n" +
+            "  d.tizhong as zhyl310200003,\n" +
+            "  d.shousuoya as  zhyl310200006,\n" +
+            "  d.shuzhangya as zhyl310200007,\n" +
+            "  case when d.fuzhong='1' then 1  when d.fuzhong='2' then 0 \n" +
+            "  when d.fuzhong='3' then 9 end as zhyl310200008,\n" +
+            "  d.fuzhong_qt as zhyl310200009,\n" +
+            "   case when d.fuzhongadd='1' then 1  when d.fuzhongadd='2' then 0 \n" +
+            "  when d.fuzhongadd='3' then 9 end as zhyl310200010,\n" +
+            "    d.fuzhongadd_qt as zhyl310200011,\n" +
+            "      d.remark as zhyl310200012\n" +
+            " \n" +
+            " \n" +
+            "  from hospital.hs_patient a \n" +
+            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
+            "left join hospital.hs_casetwo d on b.id=d.id\n" +
+            "\n" +
+            " where  b.reporttype='随访报告'  and b.historyflag=0 and  b.id='?' ";
+
+
+    public final static String suiFangLabSql =" select  (EXTRACT(EPOCH FROM d.ncg_check_time::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as zhyl310301001,\n" +
+            " case when d.ncg_pro='1' then 0 when d.ncg_pro='2' then 0.5  when d.ncg_pro='3' then 1 when d.ncg_pro='4' then 2 when d.ncg_pro='5' then 3 \n" +
+            "when d.ncg_pro='6' then 4 end as zhyl310301002,\n" +
+            "case when d.ncg_bld='1' then 0 when d.ncg_bld='2' then 1 end as zhyl310301003,\n" +
+            "d.ncg_count as zhyl310301004,\n" +
+            "d.ncg_hpf as  zhyl310301005,\n" +
+            "d.ndbdl_data,\n" +
+            "d.ndbjg_data,\n" +
+            "d.szzq_data,\n" +
+            "d.xcg_data,\n" +
+            "(EXTRACT(EPOCH FROM d.shjc_time ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as zhyl310305001,\n" +
+            "d.shjc_alt as zhyl310305002,\n" +
+            "d.shjc_ast as zhyl310305003,\n" +
+            "d.shjc_ua as zhyl310305004,\n" +
+            "d.shjc_ca as zhyl310305005,\n" +
+            "d.shjc_p as zhyl310305006,\n" +
+            "d.shjc_k as zhyl310305007,\n" +
+            "d.shjc_co2 as zhyl310305008,\n" +
+            "d.shjc_tg as zhyl310305009,\n" +
+            "d.shjc_data,\n" +
+            "d.ccr_data,\n" +
+            "\n" +
+            "(EXTRACT(EPOCH FROM d.myqdb_time ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as zhyl310308001,\n" +
+            "d.myqdb_igg as zhyl310308002,\n" +
+            "d.myqdb_iga as zhyl310308003,\n" +
+            "d.myqdb_igm as zhyl310308004,\n" +
+            "d.myqdb_c3 as zhyl310308005,\n" +
+            "d.myqdb_c4 as zhyl310308006,\n" +
+            "\n" +
+            " d.ngjc_data, \n" +
+            " d.ngdl_data,\n" +
+            " \n" +
+            " (EXTRACT(EPOCH FROM d.ipth_time ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as zhyl310312001,\n" +
+            "d.ipth_val as zhyl310312002,\n" +
+            "d.iga_tjh as zhyl310313001\n" +
+            "\n" +
+            "\n" +
+            "   from hospital.hs_patient a \n" +
+            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
+            "left join hospital.hs_casethree d on b.id=d.id\n" +
+            "\n" +
+            " where  b.reporttype='随访报告'  and b.historyflag=0 and  b.id ='?'";
 
 
 

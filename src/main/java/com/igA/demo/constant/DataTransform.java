@@ -283,15 +283,27 @@ public class DataTransform {
     public static String transformTime1(Object o) throws ParseException {
         // 定义字符串对应的日期格式
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy.MM.dd");
         String s = null;
 
         // 将日期字符串转换为Date对象
-        if (o != null && !String.valueOf(o).equals("")) {
+        if (o != null && !String.valueOf(o).equals("")&& String.valueOf(o).contains("-")) {
             Date date = sdf.parse(String.valueOf(o));
             // 获取13位时间戳（毫秒级）
             long timestamp = date.getTime();
             if (timestamp > 0) {
                 s = String.valueOf(timestamp);
+            }
+
+        }
+
+        // 将日期字符串转换为Date对象
+        if (o != null && String.valueOf(o).contains(".") && !String.valueOf(o).equals("")) {
+            Date date1 = sdf1.parse(String.valueOf(o));
+            // 获取13位时间戳（毫秒级）
+            long timestamp1 = date1.getTime();
+            if (timestamp1 > 0) {
+                s = String.valueOf(timestamp1);
             }
 
         }

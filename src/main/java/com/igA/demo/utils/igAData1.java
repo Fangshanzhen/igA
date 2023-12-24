@@ -38,9 +38,9 @@ public class igAData1 {
         if (connection != null) {
             List<String> idList = new ArrayList<>();
 
-            idList = commonExecute(connection, statement, resultSet);
+            idList = commonExecute(connection, statement, resultSet, idSql);
 
-            idList = Collections.singletonList("49");
+            idList = Collections.singletonList("195");
 
 
             if (idList != null && idList.size() > 0) {
@@ -109,7 +109,7 @@ public class igAData1 {
                     jsonObject.put("zhyl100000000", zhyl110000000);   //基本信息zhyl100000000
 
 
-                    //-----------------------------------------------------------
+                    //***************************************************************************
 
 
                     JSONObject zhyl200000000Json = new JSONObject();
@@ -239,12 +239,12 @@ public class igAData1 {
                     }
 
                     zhyl200000000Json.put("zhyl210100000", baseLineHisMap);
-                    //-----------------------------------------------------------zhyl210100000 病史
+                    //-----------------------------------------------------------zhyl210100000 1病史
 
                     String newBasicPESql = basicPESql.replace("?", s);
                     Map<String, Object> basicPESqlMap = commonExecute1(connection, newBasicPESql, statement, resultSet);
                     zhyl200000000Json.put("zhyl210200000", basicPESqlMap);
-                    //-----------------------------------------------------------zhyl210200000 体格检查
+                    //-----------------------------------------------------------zhyl210200000 2体格检查
                     String newBasicLabSql = basicLabSql.replace("?", s);
 
                     Map<String, Object> basicLabMap = commonExecute1(connection, newBasicLabSql, statement, resultSet);
@@ -611,7 +611,7 @@ public class igAData1 {
                     }
 
                     zhyl200000000Json.put("zhyl210300000", basicLabMap);
-//--------------------------------------------------------------------------------------实验室检验
+//--------------------------------------------------------------------------------------3实验室检验
 
                     String newBingLiSql = bingliSql.replace("?", s);
                     Map<String, Object> bingliMap = commonExecute1(connection, newBingLiSql, statement, resultSet);
@@ -790,7 +790,7 @@ public class igAData1 {
                     }
 
 
-                    zhyl200000000Json.put("zhyl210400000", bingliMap); //病理检查
+                    zhyl200000000Json.put("zhyl210400000", bingliMap); //4病理检查
                     //------------------------------------------------------------------------------------------
 
 
@@ -1005,7 +1005,7 @@ public class igAData1 {
                         jiYinMap.put("zhyl210502000", zhyl210502000Json);
                     }
 
-                    zhyl200000000Json.put("zhyl210500000", jiYinMap); //基因标本库
+                    zhyl200000000Json.put("zhyl210500000", jiYinMap); //5基因标本库
 //---------------------------------------------------------------------------------------
 
                     String newchaoShenSql = chaoShenSql.replace("?", s);
@@ -1053,7 +1053,7 @@ public class igAData1 {
                         chaoShenMap.put("zhyl210604000", zhyl210604000Json);
 
                     }
-                    zhyl200000000Json.put("zhyl210600000", chaoShenMap);//超声
+                    zhyl200000000Json.put("zhyl210600000", chaoShenMap);//6超声
                     //----------------------------------------------------------------------
                     String newyaoWuSql = yaoWuSql.replace("?", s);
                     List<Map<String, Object>> newyaoWuSqlList = commonExecute2(connection, newyaoWuSql, statement, resultSet);//药物有多条
@@ -1088,7 +1088,7 @@ public class igAData1 {
                             JSONObject newJsonObj = new JSONObject();
                             for (String key : chongji1Map.keySet()) {
                                 if (chongji1Map.keySet().contains("zhyl210702001") && key.equals("zhyl210702001")) {
-                                    newChongji1Map.put("zhyl210702001", chongji1Map.get(key));
+                                    newChongji1Map.put("zhyl210702001", chongji1Map.get(key));//固定
                                 }
                                 if (chongji1Map.keySet().contains("zhyl210702002") && key.equals("zhyl210702002")) {
                                     newChongji1Map.put("zhyl210702002", chongji1Map.get(key)); //固定
@@ -1114,7 +1114,7 @@ public class igAData1 {
                             }
                         }
 
-                        newChongji1Map.put("zhyl210702003", zhyl210702003Json1);//集合
+                        newChongji1Map.put("zhyl210702003", zhyl210702003Json1);//甲泼尼龙冲击集合
                         zhyl210702000Json.add(newChongji1Map);
                     }
 
@@ -1126,7 +1126,7 @@ public class igAData1 {
                             JSONObject newJsonObj1 = new JSONObject();
                             for (String key : chongji2Map.keySet()) {
                                 if (chongji2Map.keySet().contains("zhyl210702001") && key.equals("zhyl210702001")) {
-                                    newChongji2Map.put("zhyl210702001", chongji2Map.get(key));
+                                    newChongji2Map.put("zhyl210702001", chongji2Map.get(key));//固定
                                 }
                                 if (chongji2Map.keySet().contains("zhyl210702002") && key.equals("zhyl210702002")) {
                                     newChongji2Map.put("zhyl210702002", chongji2Map.get(key)); //固定
@@ -1153,20 +1153,235 @@ public class igAData1 {
                             }
 
                         }
-                        newChongji2Map.put("zhyl210702003", zhyl210702003Json2);//集合
+                        newChongji2Map.put("zhyl210702003", zhyl210702003Json2);//环磷酰胺冲击集合
                         zhyl210702000Json.add(newChongji2Map);
+                    }
+                    zhyl210700000Json.put("zhyl210702000", zhyl210702000Json);//----冲击
+
+
+                    zhyl200000000Json.put("zhyl210700000", zhyl210700000Json);//7药物和冲击
+
+                    //---------------------------------------------------------------------------------
+
+                    String newShenZangTiDaiSql = shenZangTiDaiSql.replace("?", s);
+                    Map<String, Object> newShenZangTiDailMap = commonExecute1(connection, newShenZangTiDaiSql, statement, resultSet);
+                    zhyl200000000Json.put("zhyl210800000", newShenZangTiDailMap);
+                    //------------------------------------------------------------------8肾脏替代
+
+                    //   jsonObject.put("zhyl200000000", zhyl200000000Json);
+                    //-----------------------------------------------------------zhyl200000000
+                    //***************************************************************************
+
+                    JSONArray zhyl300000000JSONArray = new JSONArray();
+
+
+                    String newSuiFangIdSql = suiFangIdSql.replace("?", s);//一个病人id对应多个随访id
+                    List<String> suiFangIdList = commonExecute(connection, statement, resultSet, newSuiFangIdSql);
+                    if (suiFangIdList != null && suiFangIdList.size() > 0) {
+                        for (String suifang : suiFangIdList) { //每一个随访id
+
+                            JSONObject zhyl300000000Json = new JSONObject(); //每一次随访记录都是一个json
+
+                            String newsuiFangPatientInfoSqlSql = suiFangPatientInfoSql.replace("?", suifang);
+                            Map<String, Object> map2 = commonExecute1(connection, newsuiFangPatientInfoSqlSql, statement, resultSet);
+                            JSONObject zhyl310000000Json = new JSONObject();
+                            if (map2 != null && map2.size() > 0) {
+                                for (String key : map2.keySet()) {
+                                    if (map2.keySet().contains("zhyl310000001") && key.equals("zhyl310000001")) {
+                                        zhyl310000000Json.put("zhyl310000001", map2.get(key));
+                                    }
+                                    if (map2.keySet().contains("zhyl310000002") && key.equals("zhyl310000002")) {
+                                        zhyl310000000Json.put("zhyl310000002", map2.get(key));
+                                    }
+                                    if (map2.keySet().contains("zhyl310000003") && key.equals("zhyl310000003")) {
+                                        zhyl310000000Json.put("zhyl310000003", map2.get(key));
+                                    }
+                                    if (map2.keySet().contains("zhyl310000004") && key.equals("zhyl310000004")) {
+                                        zhyl310000000Json.put("zhyl310000004", map2.get(key));
+                                    }
+                                    if (map2.keySet().contains("zhyl310000005") && key.equals("zhyl310000005")) {
+                                        zhyl310000000Json.put("zhyl310000005", map2.get(key));
+                                    }
+                                    if (map2.keySet().contains("zhyl300000001") && key.equals("zhyl300000001")) {
+                                        zhyl300000000Json.put("zhyl300000001", map2.get(key)); //zhyl300000001 单独的时间
+                                    }
+
+                                }
+                            }
+                            zhyl300000000Json.put("zhyl310000000", zhyl310000000Json);
+                            //-----------------------------------------------------------zhyl310000000
+                            String newSuiFangHisSql = suiFangHisSql.replace("?", suifang);
+                            Map<String, Object> suifangHisMap = commonExecute1(connection, newSuiFangHisSql, statement, resultSet);
+                            zhyl300000000Json.put("zhyl310100000", suifangHisMap);
+                            //-----------------------------------------------------------zhyl310100000 1病史
+                            String newSuiFangPESql = suiFangPESql.replace("?", suifang);
+                            Map<String, Object> suiFangPEMap = commonExecute1(connection, newSuiFangPESql, statement, resultSet);
+                            zhyl300000000Json.put("zhyl310200000", suiFangPEMap);
+                            //-----------------------------------------------------------zhyl310200000 2体格检查
+                            String newSuiFangLabSql = suiFangLabSql.replace("?", suifang);
+
+                            Map<String, Object> newSuiFangLabMap = commonExecute1(connection, newSuiFangLabSql, statement, resultSet);
+                            JSONObject zhyl310301000Json = new JSONObject(); //尿常规
+                            JSONObject zhyl310302000Json = new JSONObject(); //尿蛋白定量检查
+                            JSONArray zhyl310302100Json = new JSONArray(); //24小时尿蛋白定量
+                            JSONArray zhyl310302200Json = new JSONArray(); //尿蛋白/肌酐
+                            JSONArray zhyl310303000Json = new JSONArray(); //肾脏早期损伤指标 
+                            JSONArray zhyl310304000Json = new JSONArray(); //血常规 
+                            JSONObject zhyl310305000Json = new JSONObject(); //生化检查
+                            JSONArray zhyl310305100Json = new JSONArray(); //其他生化检查
+                            JSONArray zhyl310306000Json = new JSONArray(); //24小时肌酐清除率(Ccr)
+
+                            JSONObject zhyl310308000Json = new JSONObject(); //免疫球蛋白和补体检查
+
+                            JSONObject zhyl310311000Json = new JSONObject(); //尿钙检查
+                            JSONObject zhyl310312000Json = new JSONObject(); //全段甲状旁腺素检查
+                            JSONObject zhyl310313000Json = new JSONObject(); //IgA1分子异常糖基化
+
+
+                            if (newSuiFangLabMap != null && newSuiFangLabMap.size() > 0) {
+                                for (String key : newSuiFangLabMap.keySet()) {
+                                    if (newSuiFangLabMap.keySet().contains("zhyl310301001") && key.equals("zhyl310301001")) {
+                                        zhyl310301000Json.put("zhyl310301001", newSuiFangLabMap.get(key));
+                                    }
+                                    if (newSuiFangLabMap.keySet().contains("zhyl310301002") && key.equals("zhyl310301002")) {
+                                        zhyl310301000Json.put("zhyl310301002", newSuiFangLabMap.get(key));
+                                    }
+                                    if (newSuiFangLabMap.keySet().contains("zhyl310301003") && key.equals("zhyl310301003")) {
+                                        zhyl310301000Json.put("zhyl310301003", newSuiFangLabMap.get(key));
+                                    }
+                                    if (newSuiFangLabMap.keySet().contains("zhyl310301004") && key.equals("zhyl310301004")) {
+                                        zhyl310301000Json.put("zhyl310301004", newSuiFangLabMap.get(key));
+                                    }
+                                    if (newSuiFangLabMap.keySet().contains("zhyl310301005") && key.equals("zhyl310301005")) {
+                                        zhyl310301000Json.put("zhyl310301005", newSuiFangLabMap.get(key));
+                                    }
+
+                                    if (newSuiFangLabMap.keySet().contains("ndbdl_data") && key.equals("ndbdl_data")) {   //解析ndbdl_data中的数据
+                                        if (newSuiFangLabMap.get(key) != null) {
+                                            JSONArray basicLabList = JSONArray.parseArray(String.valueOf(newSuiFangLabMap.get(key)));
+                                            for (Object o : basicLabList) {
+                                                JSONObject jsonObj = JSONObject.parseObject(String.valueOf(o));
+                                                JSONObject newJsonObj = new JSONObject();
+                                                if (jsonObj.keySet().contains("time")) {
+                                                    newJsonObj.put("zhyl310302001", transformTime1(jsonObj.get("time")));
+                                                }
+                                                if (jsonObj.keySet().contains("val")) {
+                                                    newJsonObj.put("zhyl310302002", jsonObj.get("val"));
+                                                }
+                                                if (jsonObj.keySet().contains("blood")) {
+                                                    if (String.valueOf(jsonObj.get("blood")).equals("1")) {
+                                                        newJsonObj.put("zhyl310302003", 1);
+                                                    }
+                                                    if (String.valueOf(jsonObj.get("blood")).equals("2")) {
+                                                        newJsonObj.put("zhyl310302003", 0);
+                                                    }
+                                                    if (String.valueOf(jsonObj.get("blood")).equals("3")) {
+                                                        newJsonObj.put("zhyl310302003", 9);
+                                                    }
+                                                }
+                                                if (jsonObj.keySet().contains("tizhong")) {
+                                                    newJsonObj.put("zhyl310302004", jsonObj.get("tizhong"));
+                                                }
+                                                zhyl310302100Json.add(newJsonObj);
+                                            }
+                                        }
+                                    }
+
+                                    if (newSuiFangLabMap.keySet().contains("ndbjg_data") && key.equals("ndbjg_data")) {   //解析ndbjg_data中的数据
+                                        if (newSuiFangLabMap.get(key) != null) {
+                                            JSONArray basicLabList = JSONArray.parseArray(String.valueOf(newSuiFangLabMap.get(key)));
+                                            for (Object o : basicLabList) {
+                                                JSONObject jsonObj = JSONObject.parseObject(String.valueOf(o));
+                                                JSONObject newJsonObj = new JSONObject();
+                                                if (jsonObj.keySet().contains("time")) {
+                                                    newJsonObj.put("zhyl310302005", transformTime1(jsonObj.get("time")));
+                                                }
+                                                if (jsonObj.keySet().contains("val")) {
+                                                    newJsonObj.put("zhyl310302006", jsonObj.get("val"));
+                                                }
+                                                if (jsonObj.keySet().contains("blood")) {
+                                                    if (String.valueOf(jsonObj.get("blood")).equals("1")) {
+                                                        newJsonObj.put("zhyl310302007", 1);
+                                                    }
+                                                    if (String.valueOf(jsonObj.get("blood")).equals("2")) {
+                                                        newJsonObj.put("zhyl310302007", 0);
+                                                    }
+                                                    if (String.valueOf(jsonObj.get("blood")).equals("3")) {
+                                                        newJsonObj.put("zhyl310302007", 9);
+                                                    }
+                                                }
+                                                zhyl310302200Json.add(newJsonObj);
+                                            }
+                                        }
+                                    }
+
+
+                                    if (newSuiFangLabMap.keySet().contains("szzq_data") && key.equals("szzq_data")) {   //解析szzq_data中的数据
+                                        if (newSuiFangLabMap.get(key) != null) {
+                                            JSONArray basicLabList = JSONArray.parseArray(String.valueOf(newSuiFangLabMap.get(key)));
+                                            for (Object o : basicLabList) {
+                                                JSONObject jsonObj = JSONObject.parseObject(String.valueOf(o));
+                                                JSONObject newJsonObj = new JSONObject();
+                                                if (jsonObj.keySet().contains("time")) {
+                                                    newJsonObj.put("zhyl310303001", transformTime1(jsonObj.get("time")));
+                                                }
+                                                if (jsonObj.keySet().contains("ma")) {
+                                                    newJsonObj.put("zhyl310303002", jsonObj.get("ma"));
+                                                }
+                                                if (jsonObj.keySet().contains("tru")) {
+                                                    newJsonObj.put("zhyl310303003", jsonObj.get("tru"));
+                                                }
+                                                if (jsonObj.keySet().contains("nag")) {
+                                                    newJsonObj.put("zhyl310303004", jsonObj.get("nag"));
+                                                }
+                                                if (jsonObj.keySet().contains("aim")) {
+                                                    newJsonObj.put("zhyl310303005", jsonObj.get("aim"));
+                                                }
+                                                if (jsonObj.keySet().contains("ucea")) {
+                                                    newJsonObj.put("zhyl310303006", jsonObj.get("ucea"));
+                                                }
+                                                if (jsonObj.keySet().contains("acr")) {
+                                                    newJsonObj.put("zhyl310303007", jsonObj.get("acr"));
+                                                }
+                                                zhyl310303000Json.add(newJsonObj);
+                                            }
+                                        }
+                                    }
+
+
+
+
+                                } //key
+
+                                newSuiFangLabMap.remove("zhyl310301001");
+                                newSuiFangLabMap.remove("zhyl310301002");
+                                newSuiFangLabMap.remove("zhyl310301003");
+                                newSuiFangLabMap.remove("zhyl310301004");
+                                newSuiFangLabMap.remove("zhyl310301005");
+                                newSuiFangLabMap.put("zhyl310301000", zhyl310301000Json);
+
+                                newSuiFangLabMap.remove("ndbdl_data");
+                                zhyl310302000Json.put("zhyl310302100", zhyl310302100Json);
+                                newSuiFangLabMap.remove("ndbjg_data");
+                                zhyl310302000Json.put("zhyl310302200", zhyl310302200Json);
+                                newSuiFangLabMap.put("zhyl310302000", zhyl310302000Json);
+
+                                newSuiFangLabMap.remove("szzq_data");
+                                newSuiFangLabMap.put("zhyl310303000", zhyl310303000Json);
+
+                            }
+
+                            zhyl300000000Json.put("zhyl310300000", newSuiFangLabMap);
+//--------------------------------------------------------------------------------------3实验室检验
+
+                            zhyl300000000JSONArray.add(zhyl300000000Json);
+                        }
+
+
                     }
 
 
-                    zhyl210700000Json.put("zhyl210702000", zhyl210702000Json);//----冲击
-
-                    zhyl200000000Json.put("zhyl210700000", zhyl210700000Json);//药物和冲击
-
-
-                    jsonObject.put("zhyl200000000", zhyl200000000Json);
-                    //-----------------------------------------------------------zhyl200000000
-
-
+                    jsonObject.put("zhyl300000000", zhyl300000000JSONArray);
                     System.out.println(jsonObject);
 
 
@@ -1232,11 +1447,11 @@ public class igAData1 {
         return map;
     }
 
-    private static List<String> commonExecute(Connection connection, Statement statementTable, ResultSet resultSetTable) throws Exception {
+    private static List<String> commonExecute(Connection connection, Statement statementTable, ResultSet resultSetTable, String sql) throws Exception {
         List<String> list = new ArrayList<>();
         try {
-            statementTable = executeSql(idSql, connection);
-            resultSetTable = statementTable.executeQuery(idSql);
+            statementTable = executeSql(sql, connection);
+            resultSetTable = statementTable.executeQuery(sql);
 
             if (resultSetTable != null) {
                 list = ResultSetUtils.allResultSet(resultSetTable);
