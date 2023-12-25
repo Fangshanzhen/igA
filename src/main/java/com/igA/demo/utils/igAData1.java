@@ -40,7 +40,7 @@ public class igAData1 {
 
             idList = commonExecute(connection, statement, resultSet, idSql);
 
-            idList = Collections.singletonList("195");
+            idList = Collections.singletonList("1143");
 
 
             if (idList != null && idList.size() > 0) {
@@ -108,7 +108,8 @@ public class igAData1 {
                     zhyl110000000.put("zhyl110000000", map);
                     jsonObject.put("zhyl100000000", zhyl110000000);   //基本信息zhyl100000000
 
-
+                    //***************************************************************************
+                    //***************************************************************************
                     //***************************************************************************
 
 
@@ -137,9 +138,7 @@ public class igAData1 {
                             if (map1.keySet().contains("zhyl200000001") && key.equals("zhyl200000001")) {
                                 zhyl200000000Json.put("zhyl200000001", map1.get(key)); //zhyl200000001 单独的时间
                             }
-
                         }
-
                     }
                     zhyl200000000Json.put("zhyl210000000", zhyl210000000Json);
                     //-----------------------------------------------------------zhyl210000000
@@ -234,8 +233,6 @@ public class igAData1 {
                         } else {
                             baseLineHisMap.put("zhyl210102000", null);
                         }
-
-
                     }
 
                     zhyl200000000Json.put("zhyl210100000", baseLineHisMap);
@@ -757,19 +754,20 @@ public class igAData1 {
                             transJson(bingliMap, key, "zhyl210403042", zhyl210403500Json, null);
                             transJson(bingliMap, key, "zhyl210403043", zhyl210403500Json, null);
                             transJson(bingliMap, key, "zhyl210403044", zhyl210403500Json, null);
-                            transJson(bingliMap, key, "zhyl210403045", zhyl210403500Json, null);
-                            transJson(bingliMap, key, "zhyl210403046", zhyl210403500Json, null);
-                            transJson(bingliMap, key, "zhyl210403047", zhyl210403500Json, null);
-                            transJson(bingliMap, key, "zhyl210403048", zhyl210403500Json, null);
-                            transJson(bingliMap, key, "zhyl210403049", zhyl210403500Json, null);
-                            transJson(bingliMap, key, "zhyl210403050", zhyl210403500Json, null);
-                            transJson(bingliMap, key, "zhyl210403051", zhyl210403500Json, null);
-                            transJson(bingliMap, key, "zhyl210403052", zhyl210403500Json, null);
-                            transJson(bingliMap, key, "zhyl210403053", zhyl210403500Json, null);
-                            transJson(bingliMap, key, "zhyl210403054", zhyl210403500Json, null);
-                            transJson(bingliMap, key, "zhyl210403055", zhyl210403500Json, null);
-                            transJson(bingliMap, key, "zhyl210403056", zhyl210403500Json, null);
-                            transJson(bingliMap, key, "zhyl210403057", zhyl210403500Json, null);
+
+                            transJson(bingliMap, key, "zhyl210403045", zhyl210403000Json, null);
+                            transJson(bingliMap, key, "zhyl210403046", zhyl210403000Json, null);
+                            transJson(bingliMap, key, "zhyl210403047", zhyl210403000Json, null);
+                            transJson(bingliMap, key, "zhyl210403048", zhyl210403000Json, null);
+                            transJson(bingliMap, key, "zhyl210403049", zhyl210403000Json, null);
+                            transJson(bingliMap, key, "zhyl210403050", zhyl210403000Json, null);
+                            transJson(bingliMap, key, "zhyl210403051", zhyl210403000Json, null);
+                            transJson(bingliMap, key, "zhyl210403052", zhyl210403000Json, null);
+                            transJson(bingliMap, key, "zhyl210403053", zhyl210403000Json, null);
+                            transJson(bingliMap, key, "zhyl210403054", zhyl210403000Json, null);
+                            transJson(bingliMap, key, "zhyl210403055", zhyl210403000Json, null);
+                            transJson(bingliMap, key, "zhyl210403056", zhyl210403000Json, null);
+                            transJson(bingliMap, key, "zhyl210403057", zhyl210403000Json, null);
                             zhyl210403000Json.put("zhyl210403500", zhyl210403500Json); //毛细血管外病变-纤维性新月体
 
 
@@ -814,7 +812,7 @@ public class igAData1 {
                                         JSONObject jsonObj = JSONObject.parseObject(String.valueOf(o));
                                         JSONObject newJsonObj = new JSONObject();
                                         if (jsonObj.keySet().contains("type")) {
-                                            newJsonObj.put("zhyl210501001", jsonObj.get("zhyl210501001"));
+                                            newJsonObj.put("zhyl210501001", jsonObj.get("type"));
                                         }
                                         if (jsonObj.keySet().contains("no")) {
                                             newJsonObj.put("zhyl210501002", jsonObj.get("no"));
@@ -1063,9 +1061,17 @@ public class igAData1 {
                     if (newyaoWuSqlList != null && newyaoWuSqlList.size() > 0) {
                         for (Map<String, Object> yaoWuMap : newyaoWuSqlList) {
                             if (yaoWuMap != null && yaoWuMap.size() > 0) {
-                                JSONObject zhyl210701100Json = new JSONObject();//药品名称
-                                zhyl210701100Json.put("zhyl210701100", yaoWuMap);
-                                zhyl210701000Json.add(zhyl210701100Json);
+                                JSONObject zhyl210701100Json = new JSONObject();//药品名称,每一个map都是一条数据
+                                for (String key : yaoWuMap.keySet()) {
+                                    transJson(yaoWuMap, key, "zhyl210701001", zhyl210701100Json, null);
+                                    transJson(yaoWuMap, key, "zhyl210701002", zhyl210701100Json, null);
+                                    transJson(yaoWuMap, key, "zhyl210701013", zhyl210701100Json, null);
+                                }
+                                yaoWuMap.remove("zhyl210701001");
+                                yaoWuMap.remove("zhyl210701002");
+                                yaoWuMap.remove("zhyl210701013");
+                                yaoWuMap.put("zhyl210701100", zhyl210701100Json);
+                                zhyl210701000Json.add(yaoWuMap);
                             }
                         }
 
@@ -1084,7 +1090,7 @@ public class igAData1 {
 
                     Map<String, Object> newChongji1Map = new HashMap<>();
                     if (newchongJi1List != null && newchongJi1List.size() > 0) {
-                        for (Map<String, Object> chongji1Map : newchongJi1List) {
+                        for (Map<String, Object> chongji1Map : newchongJi1List) {  //每一个map都是一条数据
                             JSONObject newJsonObj = new JSONObject();
                             for (String key : chongji1Map.keySet()) {
                                 if (chongji1Map.keySet().contains("zhyl210702001") && key.equals("zhyl210702001")) {
@@ -1120,7 +1126,6 @@ public class igAData1 {
 
 
                     Map<String, Object> newChongji2Map = new HashMap<>();
-
                     if (newchongJi2List != null && newchongJi2List.size() > 0) {
                         for (Map<String, Object> chongji2Map : newchongJi2List) {
                             JSONObject newJsonObj1 = new JSONObject();
@@ -1131,7 +1136,6 @@ public class igAData1 {
                                 if (chongji2Map.keySet().contains("zhyl210702002") && key.equals("zhyl210702002")) {
                                     newChongji2Map.put("zhyl210702002", chongji2Map.get(key)); //固定
                                 }
-
                                 if (chongji2Map.keySet().contains("zhyl210702004") && key.equals("zhyl210702004")) {
                                     newJsonObj1.put("zhyl210702004", chongji2Map.get(key));
                                 }
@@ -1151,7 +1155,6 @@ public class igAData1 {
                             if (newJsonObj1.keySet().size() > 0) {
                                 zhyl210702003Json2.add(newJsonObj1);
                             }
-
                         }
                         newChongji2Map.put("zhyl210702003", zhyl210702003Json2);//环磷酰胺冲击集合
                         zhyl210702000Json.add(newChongji2Map);
@@ -1164,12 +1167,15 @@ public class igAData1 {
                     //---------------------------------------------------------------------------------
 
                     String newShenZangTiDaiSql = shenZangTiDaiSql.replace("?", s);
-                    Map<String, Object> newShenZangTiDailMap = commonExecute1(connection, newShenZangTiDaiSql, statement, resultSet);
-                    zhyl200000000Json.put("zhyl210800000", newShenZangTiDailMap);
+                    List<Map<String, Object>> newShenZangTiDailList = commonExecute2(connection, newShenZangTiDaiSql, statement, resultSet);
+                    zhyl200000000Json.put("zhyl210800000", newShenZangTiDailList);
                     //------------------------------------------------------------------8肾脏替代
 
-                    //   jsonObject.put("zhyl200000000", zhyl200000000Json);
+                    jsonObject.put("zhyl200000000", zhyl200000000Json);
                     //-----------------------------------------------------------zhyl200000000
+
+                    //***************************************************************************
+                    //***************************************************************************
                     //***************************************************************************
 
                     JSONArray zhyl300000000JSONArray = new JSONArray();
@@ -1348,7 +1354,136 @@ public class igAData1 {
                                         }
                                     }
 
+                                    if (newSuiFangLabMap.keySet().contains("xcg_data") && key.equals("xcg_data")) {   //解析xcg_data中的数据
+                                        if (newSuiFangLabMap.get(key) != null) {
+                                            JSONArray basicLabList = JSONArray.parseArray(String.valueOf(newSuiFangLabMap.get(key)));
+                                            for (Object o : basicLabList) {
+                                                JSONObject jsonObj = JSONObject.parseObject(String.valueOf(o));
+                                                JSONObject newJsonObj = new JSONObject();
+                                                if (jsonObj.keySet().contains("time")) {
+                                                    newJsonObj.put("zhyl310304001", transformTime1(jsonObj.get("time")));
+                                                }
+                                                if (jsonObj.keySet().contains("wbc")) {
+                                                    newJsonObj.put("zhyl310304002", jsonObj.get("wbc"));
+                                                }
+                                                if (jsonObj.keySet().contains("hgb")) {
+                                                    newJsonObj.put("zhyl310304003", jsonObj.get("hgb"));
+                                                }
+                                                if (jsonObj.keySet().contains("hct")) {
+                                                    newJsonObj.put("zhyl310304004", jsonObj.get("hct"));
+                                                }
+                                                if (jsonObj.keySet().contains("plt")) {
+                                                    newJsonObj.put("zhyl310304005", jsonObj.get("plt"));
+                                                }
 
+                                                zhyl310304000Json.add(newJsonObj);
+                                            }
+                                        }
+                                    }
+
+
+                                    transJson(newSuiFangLabMap, key, "zhyl310305001", zhyl310305000Json, null);
+                                    transJson(newSuiFangLabMap, key, "zhyl310305002", zhyl310305000Json, null);
+                                    transJson(newSuiFangLabMap, key, "zhyl310305003", zhyl310305000Json, null);
+                                    transJson(newSuiFangLabMap, key, "zhyl310305004", zhyl310305000Json, null);
+                                    transJson(newSuiFangLabMap, key, "zhyl310305005", zhyl310305000Json, null);
+                                    transJson(newSuiFangLabMap, key, "zhyl310305006", zhyl310305000Json, null);
+                                    transJson(newSuiFangLabMap, key, "zhyl310305007", zhyl310305000Json, null);
+                                    transJson(newSuiFangLabMap, key, "zhyl310305008", zhyl310305000Json, null);
+                                    transJson(newSuiFangLabMap, key, "zhyl310305009", zhyl310305000Json, null);
+
+                                    if (newSuiFangLabMap.keySet().contains("shjc_data") && key.equals("shjc_data")) {   //解析shjc_data中的数据
+                                        if (newSuiFangLabMap.get(key) != null) {
+                                            JSONArray basicLabList = JSONArray.parseArray(String.valueOf(newSuiFangLabMap.get(key)));
+                                            for (Object o : basicLabList) {
+                                                JSONObject jsonObj = JSONObject.parseObject(String.valueOf(o));
+                                                JSONObject newJsonObj = new JSONObject();
+                                                if (jsonObj.keySet().contains("time")) {
+                                                    newJsonObj.put("zhyl310305010", transformTime1(jsonObj.get("time")));
+                                                }
+                                                if (jsonObj.keySet().contains("alb")) {
+                                                    newJsonObj.put("zhyl310305011", jsonObj.get("alb"));
+                                                }
+                                                if (jsonObj.keySet().contains("crea")) {
+                                                    newJsonObj.put("zhyl310305012", jsonObj.get("crea"));
+                                                }
+                                                if (jsonObj.keySet().contains("urea")) {
+                                                    newJsonObj.put("zhyl310305013", jsonObj.get("urea"));
+                                                }
+                                                if (jsonObj.keySet().contains("c")) {
+                                                    newJsonObj.put("zhyl310305014", jsonObj.get("c"));
+                                                }
+                                                if (jsonObj.keySet().contains("tcho")) {
+                                                    newJsonObj.put("zhyl310305015", jsonObj.get("tcho"));
+                                                }
+                                                zhyl310305100Json.add(newJsonObj);
+                                            }
+                                        }
+                                    }
+
+                                    if (newSuiFangLabMap.keySet().contains("ccr_data") && key.equals("ccr_data")) {   //解析ccr_data中的数据
+                                        if (newSuiFangLabMap.get(key) != null) {
+                                            JSONArray basicLabList = JSONArray.parseArray(String.valueOf(newSuiFangLabMap.get(key)));
+                                            for (Object o : basicLabList) {
+                                                JSONObject jsonObj = JSONObject.parseObject(String.valueOf(o));
+                                                JSONObject newJsonObj = new JSONObject();
+                                                if (jsonObj.keySet().contains("time")) {
+                                                    newJsonObj.put("zhyl310306001", transformTime1(jsonObj.get("time")));
+                                                }
+                                                if (jsonObj.keySet().contains("val")) {
+                                                    newJsonObj.put("zhyl310306002", jsonObj.get("val"));
+                                                }
+                                                if (jsonObj.keySet().contains("score")) {
+                                                    newJsonObj.put("zhyl310306003", jsonObj.get("score"));
+                                                }
+                                                zhyl310306000Json.add(newJsonObj);
+                                            }
+                                        }
+                                    }
+
+                                    transJson(newSuiFangLabMap, key, "zhyl310308001", zhyl310308000Json, null);
+                                    transJson(newSuiFangLabMap, key, "zhyl310308002", zhyl310308000Json, null);
+                                    transJson(newSuiFangLabMap, key, "zhyl310308003", zhyl310308000Json, null);
+                                    transJson(newSuiFangLabMap, key, "zhyl310308004", zhyl310308000Json, null);
+                                    transJson(newSuiFangLabMap, key, "zhyl310308005", zhyl310308000Json, null);
+                                    transJson(newSuiFangLabMap, key, "zhyl310308006", zhyl310308000Json, null);
+
+                                    if (newSuiFangLabMap.keySet().contains("ngjc_data") && key.equals("ngjc_data")) {   //解析ngjc_data中的数据
+                                        if (newSuiFangLabMap.get(key) != null) {
+                                            JSONArray basicLabList = JSONArray.parseArray(String.valueOf(newSuiFangLabMap.get(key)));
+                                            for (Object o : basicLabList) {
+                                                JSONObject jsonObj = JSONObject.parseObject(String.valueOf(o));
+
+                                                if (jsonObj.keySet().contains("time")) {
+                                                    zhyl310311000Json.put("zhyl310311001", transformTime1(jsonObj.get("time")));
+                                                }
+                                                if (jsonObj.keySet().contains("ucr")) {
+                                                    zhyl310311000Json.put("zhyl310311002", jsonObj.get("ucr"));
+                                                }
+
+                                            }
+                                        }
+                                    }
+
+                                    if (newSuiFangLabMap.keySet().contains("ngdl_data") && key.equals("ngdl_data")) {   //解析ngdl_data中的数据
+                                        if (newSuiFangLabMap.get(key) != null) {
+                                            JSONArray basicLabList = JSONArray.parseArray(String.valueOf(newSuiFangLabMap.get(key)));
+                                            for (Object o : basicLabList) {
+                                                JSONObject jsonObj = JSONObject.parseObject(String.valueOf(o));
+                                                if (jsonObj.keySet().contains("time")) {
+                                                    zhyl310311000Json.put("zhyl310311003", transformTime1(jsonObj.get("time")));
+                                                }
+                                                if (jsonObj.keySet().contains("val")) {
+                                                    zhyl310311000Json.put("zhyl310311004", jsonObj.get("val"));
+                                                }
+
+                                            }
+                                        }
+                                    }
+
+                                    transJson(newSuiFangLabMap, key, "zhyl310312001", zhyl310312000Json, null);
+                                    transJson(newSuiFangLabMap, key, "zhyl310312002", zhyl310312000Json, null);
+                                    transJson(newSuiFangLabMap, key, "zhyl310313001", zhyl310313000Json, null);
 
 
                                 } //key
@@ -1369,10 +1504,604 @@ public class igAData1 {
                                 newSuiFangLabMap.remove("szzq_data");
                                 newSuiFangLabMap.put("zhyl310303000", zhyl310303000Json);
 
+                                newSuiFangLabMap.remove("xcg_data");
+                                newSuiFangLabMap.put("zhyl310304000", zhyl310304000Json);
+
+                                newSuiFangLabMap.remove("zhyl310305001");
+                                newSuiFangLabMap.remove("zhyl310305002");
+                                newSuiFangLabMap.remove("zhyl310305003");
+                                newSuiFangLabMap.remove("zhyl310305004");
+                                newSuiFangLabMap.remove("zhyl310305005");
+                                newSuiFangLabMap.remove("zhyl310305006");
+                                newSuiFangLabMap.remove("zhyl310305007");
+                                newSuiFangLabMap.remove("zhyl310305008");
+                                newSuiFangLabMap.remove("zhyl310305009");
+                                newSuiFangLabMap.remove("shjc_data");
+                                zhyl310305000Json.put("zhyl310305100", zhyl310305100Json);
+                                newSuiFangLabMap.put("zhyl310305000", zhyl310305000Json);
+
+                                newSuiFangLabMap.remove("ccr_data");
+                                newSuiFangLabMap.put("zhyl310306000", zhyl310306000Json);
+
+                                newSuiFangLabMap.remove("zhyl310308001");
+                                newSuiFangLabMap.remove("zhyl310308002");
+                                newSuiFangLabMap.remove("zhyl310308003");
+                                newSuiFangLabMap.remove("zhyl310308004");
+                                newSuiFangLabMap.remove("zhyl310308005");
+                                newSuiFangLabMap.remove("zhyl310308006");
+                                newSuiFangLabMap.put("zhyl310308000", zhyl310308000Json);
+
+                                newSuiFangLabMap.remove("ngdl_data");
+                                newSuiFangLabMap.remove("ngjc_data");
+                                newSuiFangLabMap.put("zhyl310311000", zhyl310311000Json);
+
+                                newSuiFangLabMap.remove("zhyl310312001");
+                                newSuiFangLabMap.remove("zhyl310312002");
+                                newSuiFangLabMap.put("zhyl310312000", zhyl310312000Json);
+
+                                newSuiFangLabMap.remove("zhyl310313001");
+                                newSuiFangLabMap.put("zhyl310313000", zhyl310313000Json);
                             }
 
                             zhyl300000000Json.put("zhyl310300000", newSuiFangLabMap);
 //--------------------------------------------------------------------------------------3实验室检验
+
+                            String newSuiFangBingLiSql = suiFangBingLiSql.replace("?", suifang);
+                            Map<String, Object> suiFangBingliMap = commonExecute1(connection, newSuiFangBingLiSql, statement, resultSet);
+                            JSONObject zhyl310401000Json = new JSONObject(); //病理检查
+
+                            JSONObject zhyl310402000Json = new JSONObject(); //免疫荧光
+                            JSONObject zhyl310402100Json = new JSONObject(); //IgA
+                            JSONObject zhyl310402200Json = new JSONObject(); //IgG
+                            JSONObject zhyl310402300Json = new JSONObject(); //IgM
+                            JSONObject zhyl310402400Json = new JSONObject(); //C3
+                            JSONObject zhyl310402500Json = new JSONObject(); //C1q
+                            JSONObject zhyl310402600Json = new JSONObject(); //C4
+                            JSONObject zhyl310402700Json = new JSONObject(); //fra
+
+                            JSONObject zhyl310403000Json = new JSONObject(); //光镜
+                            JSONObject zhyl310403100Json = new JSONObject(); //肾小球
+                            JSONObject zhyl310403200Json = new JSONObject(); //毛内细胞增生病变
+                            JSONObject zhyl310403300Json = new JSONObject(); //毛细血管外病变-细胞性新月体
+                            JSONObject zhyl310403400Json = new JSONObject(); //毛细血管外病变-细胞纤维性新月体
+                            JSONObject zhyl310403500Json = new JSONObject(); //毛细血管外病变-纤维性新月体
+
+                            JSONObject zhyl310404000Json = new JSONObject(); //电镜检查
+
+                            if (suiFangBingliMap != null && suiFangBingliMap.size() > 0) {
+
+                                for (String key : suiFangBingliMap.keySet()) {
+
+                                    if (suiFangBingliMap.keySet().contains("def_data") && key.equals("def_data")) {   //解析def_data中的数据
+                                        if (suiFangBingliMap.get(key) != null) {
+                                            JSONArray bingliList = JSONArray.parseArray(String.valueOf(suiFangBingliMap.get(key)));
+                                            for (Object o : bingliList) {
+                                                JSONObject jsonObj = JSONObject.parseObject(String.valueOf(o));
+                                                if (jsonObj.keySet().contains("time")) {
+                                                    zhyl310401000Json.put("zhyl310401001", transformTime1(jsonObj.get("time")));
+                                                }
+                                                if (jsonObj.keySet().contains("select")) {
+                                                    if (String.valueOf(jsonObj.get("select")).equals("1")) {
+                                                        zhyl310401000Json.put("zhyl310401002", 2);
+                                                    }
+                                                    if (String.valueOf(jsonObj.get("select")).equals("2")) {
+                                                        zhyl310401000Json.put("zhyl310401002", 1);
+                                                    }
+                                                }
+                                                if (jsonObj.keySet().contains("name")) {
+                                                    zhyl310401000Json.put("zhyl310401003", jsonObj.get("name"));
+                                                }
+                                            }
+                                        }
+                                    }
+                                    transJson(suiFangBingliMap, key, "zhyl310401004", zhyl310401000Json, null); //病理号
+
+                                    transJson(suiFangBingliMap, key, "zhyl310402001", zhyl310402000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310402002", zhyl310402000Json, null);
+
+                                    transJson(suiFangBingliMap, key, "zhyl310402003", zhyl310402100Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310402004", zhyl310402100Json, "list");
+                                    transJson(suiFangBingliMap, key, "zhyl310402005", zhyl310402100Json, "list");
+                                    zhyl310402000Json.put("zhyl310402100", zhyl310402100Json);//iga属于免疫荧光
+
+                                    transJson(suiFangBingliMap, key, "zhyl310402006", zhyl310402200Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310402007", zhyl310402200Json, "list");
+                                    transJson(suiFangBingliMap, key, "zhyl310402008", zhyl310402200Json, "list");
+                                    zhyl310402000Json.put("zhyl310402200", zhyl310402200Json);//igg属于免疫荧光
+
+                                    transJson(suiFangBingliMap, key, "zhyl310402009", zhyl310402300Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310402010", zhyl310402300Json, "list");
+                                    transJson(suiFangBingliMap, key, "zhyl310402011", zhyl310402300Json, "list");
+                                    zhyl310402000Json.put("zhyl310402300", zhyl310402300Json);//igm属于免疫荧光
+
+                                    transJson(suiFangBingliMap, key, "zhyl310402012", zhyl310402400Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310402013", zhyl310402400Json, "list");
+                                    transJson(suiFangBingliMap, key, "zhyl310402014", zhyl310402400Json, "list");
+                                    zhyl310402000Json.put("zhyl310402400", zhyl310402400Json);//c3属于免疫荧光
+
+                                    transJson(suiFangBingliMap, key, "zhyl310402015", zhyl310402500Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310402016", zhyl310402500Json, "list");
+                                    transJson(suiFangBingliMap, key, "zhyl310402017", zhyl310402500Json, "list");
+                                    zhyl310402000Json.put("zhyl310402500", zhyl310402500Json);//c1q属于免疫荧光
+
+                                    transJson(suiFangBingliMap, key, "zhyl310402018", zhyl310402600Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310402019", zhyl310402600Json, "list");
+                                    transJson(suiFangBingliMap, key, "zhyl310402020", zhyl310402600Json, "list");
+                                    zhyl310402000Json.put("zhyl310402600", zhyl310402600Json);//c4属于免疫荧光
+
+                                    transJson(suiFangBingliMap, key, "zhyl310402021", zhyl310402700Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310402022", zhyl310402700Json, "list");
+                                    transJson(suiFangBingliMap, key, "zhyl310402023", zhyl310402700Json, "list");
+                                    zhyl310402000Json.put("zhyl310402700", zhyl310402700Json);//c4属于免疫荧光
+
+                                    transJson(suiFangBingliMap, key, "zhyl310403001", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403002", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403003", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403004", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403005", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403006", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403007", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403008", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403009", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403010", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403011", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403012", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403013", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403014", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403015", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403016", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403058", zhyl310403000Json, "list");
+                                    transJson(suiFangBingliMap, key, "zhyl310403017", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403018", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403019", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403020", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403021", zhyl310403000Json, null);
+
+                                    transJson(suiFangBingliMap, key, "zhyl310403022", zhyl310403100Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403023", zhyl310403100Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403024", zhyl310403100Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403025", zhyl310403100Json, null);
+                                    zhyl310403000Json.put("zhyl310403100", zhyl310403100Json); //肾小球属于光镜
+
+                                    transJson(suiFangBingliMap, key, "zhyl310403026", zhyl310403200Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403027", zhyl310403200Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403028", zhyl310403200Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403029", zhyl310403200Json, null);
+                                    zhyl310403000Json.put("zhyl310403200", zhyl310403200Json); //毛内细胞增生病变属于光镜
+
+
+                                    transJson(suiFangBingliMap, key, "zhyl310403030", zhyl310403300Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403031", zhyl310403300Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403032", zhyl310403300Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403033", zhyl310403300Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403034", zhyl310403300Json, null);
+                                    zhyl310403000Json.put("zhyl310403300", zhyl310403300Json); //毛细血管外病变-细胞性新月体变属于光镜
+
+                                    transJson(suiFangBingliMap, key, "zhyl310403035", zhyl310403400Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403036", zhyl310403400Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403037", zhyl310403400Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403038", zhyl310403400Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403039", zhyl310403400Json, null);
+                                    zhyl310403000Json.put("zhyl310403400", zhyl310403400Json); //毛细血管外病变-细胞纤维性新月体
+
+                                    transJson(suiFangBingliMap, key, "zhyl310403040", zhyl310403500Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403041", zhyl310403500Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403042", zhyl310403500Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403043", zhyl310403500Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403044", zhyl310403500Json, null);
+
+                                    transJson(suiFangBingliMap, key, "zhyl310403045", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403046", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403047", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403048", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403049", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403050", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403051", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403052", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403053", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403054", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403055", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403056", zhyl310403000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310403057", zhyl310403000Json, null);
+                                    zhyl310403000Json.put("zhyl310403500", zhyl310403500Json); //毛细血管外病变-纤维性新月体
+
+
+                                    transJson(suiFangBingliMap, key, "zhyl310404001", zhyl310404000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310404002", zhyl310404000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310404003", zhyl310404000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310404004", zhyl310404000Json, null);
+                                    transJson(suiFangBingliMap, key, "zhyl310404005", zhyl310404000Json, null);
+                                }
+
+
+                                suiFangBingliMap.clear();//清空suiFangBingliMap
+
+                                suiFangBingliMap.put("zhyl310401000", zhyl310401000Json);
+                                suiFangBingliMap.put("zhyl310402000", zhyl310402000Json);
+                                suiFangBingliMap.put("zhyl310403000", zhyl310403000Json);
+                                suiFangBingliMap.put("zhyl310404000", zhyl310404000Json);
+                            }
+
+                            zhyl300000000Json.put("zhyl310400000", suiFangBingliMap); //4病理检查
+                            //------------------------------------------------
+
+                            String newSuiFangJiYinSql = suiFangJiYinSql.replace("?", suifang);
+
+                            Map<String, Object> suiFangJiYinMap = commonExecute1(connection, newSuiFangJiYinSql, statement, resultSet);
+                            JSONArray zhyl310501000Json = new JSONArray(); //基因检测
+                            JSONObject zhyl310502000Json = new JSONObject(); //标本库
+                            JSONArray zhyl310502010Json = new JSONArray(); //皮肤
+                            JSONArray zhyl310502020Json = new JSONArray(); //肾脏
+                            JSONArray zhyl310502030Json = new JSONArray(); //DNA
+                            JSONArray zhyl310502040Json = new JSONArray(); //血清
+                            JSONArray zhyl310502050Json = new JSONArray(); //尿液
+
+                            if (suiFangJiYinMap != null && suiFangJiYinMap.size() > 0) {
+                                for (String key : suiFangJiYinMap.keySet()) {
+                                    if (suiFangJiYinMap.keySet().contains("datas") && key.equals("datas")) {   //解析datas中的数据
+                                        if (suiFangJiYinMap.get(key) != null) {
+                                            JSONArray jiYinList = JSONArray.parseArray(String.valueOf(suiFangJiYinMap.get(key)));
+                                            for (Object o : jiYinList) {
+                                                JSONObject jsonObj = JSONObject.parseObject(String.valueOf(o));
+                                                JSONObject newJsonObj = new JSONObject();
+                                                if (jsonObj.keySet().contains("type")) {
+                                                    newJsonObj.put("zhyl310501001", jsonObj.get("type"));
+                                                }
+                                                if (jsonObj.keySet().contains("no")) {
+                                                    newJsonObj.put("zhyl310501002", jsonObj.get("no"));
+                                                }
+                                                if (jsonObj.keySet().contains("source")) {
+                                                    newJsonObj.put("zhyl310501003", jsonObj.get("source"));
+                                                }
+                                                if (jsonObj.keySet().contains("check_time")) {
+                                                    newJsonObj.put("zhyl310501004", transformTime1(jsonObj.get("check_time")));
+                                                }
+                                                if (jsonObj.keySet().contains("result")) {
+                                                    newJsonObj.put("zhyl310501005", jsonObj.get("result"));
+                                                }
+                                                zhyl310501000Json.add(newJsonObj);
+                                            }
+                                        }
+                                    }
+
+                                    if (suiFangJiYinMap.keySet().contains("bf_data") && key.equals("bf_data")) {   //解析bf_data中的数据
+                                        if (suiFangJiYinMap.get(key) != null) {
+                                            JSONArray jiYinList = JSONArray.parseArray(String.valueOf(suiFangJiYinMap.get(key)));
+                                            for (Object o : jiYinList) {
+                                                JSONObject jsonObj = JSONObject.parseObject(String.valueOf(o));
+                                                JSONObject newJsonObj = new JSONObject();
+                                                if (jsonObj.keySet().contains("bfnum")) {
+                                                    newJsonObj.put("zhyl310502011", jsonObj.get("bfnum"));
+                                                }
+                                                if (jsonObj.keySet().contains("bflqcj")) {
+                                                    newJsonObj.put("zhyl310502012", transformTime1(jsonObj.get("bflqcj")));
+                                                }
+                                                if (jsonObj.keySet().contains("bftj")) {
+                                                    newJsonObj.put("zhyl310502013", jsonObj.get("bftj"));
+                                                }
+                                                if (jsonObj.keySet().contains("bfqfwq")) {
+                                                    newJsonObj.put("zhyl310502014", jsonObj.get("bfqfwq"));
+                                                }
+                                                if (jsonObj.keySet().contains("bfsycj")) {
+                                                    newJsonObj.put("zhyl310502015", transformTime1(jsonObj.get("bfsycj")));
+                                                }
+                                                if (jsonObj.keySet().contains("bfsyl")) {
+                                                    newJsonObj.put("zhyl310502016", jsonObj.get("bfsyl"));
+                                                }
+                                                zhyl310502010Json.add(newJsonObj);
+                                            }
+                                        }
+                                    }
+                                    zhyl310502000Json.put("zhyl310502010", zhyl310502010Json); //皮肤属于标本库
+
+
+                                    if (suiFangJiYinMap.keySet().contains("xz_data") && key.equals("xz_data")) {   //解析xz_data中的数据
+                                        if (suiFangJiYinMap.get(key) != null) {
+                                            JSONArray jiYinList = JSONArray.parseArray(String.valueOf(suiFangJiYinMap.get(key)));
+                                            for (Object o : jiYinList) {
+                                                JSONObject jsonObj = JSONObject.parseObject(String.valueOf(o));
+                                                JSONObject newJsonObj = new JSONObject();
+                                                if (jsonObj.keySet().contains("xznum")) {
+                                                    newJsonObj.put("zhyl310502021", jsonObj.get("xznum"));
+                                                }
+                                                if (jsonObj.keySet().contains("xzlqcj")) {
+                                                    newJsonObj.put("zhyl310502022", transformTime1(jsonObj.get("xzlqcj")));
+                                                }
+                                                if (jsonObj.keySet().contains("xztj")) {
+                                                    newJsonObj.put("zhyl310502023", jsonObj.get("xztj"));
+                                                }
+                                                if (jsonObj.keySet().contains("xzqfwq")) {
+                                                    newJsonObj.put("zhyl310502024", jsonObj.get("xzqfwq"));
+                                                }
+                                                if (jsonObj.keySet().contains("xzsycj")) {
+                                                    newJsonObj.put("zhyl310502025", transformTime1(jsonObj.get("xzsycj")));
+                                                }
+                                                if (jsonObj.keySet().contains("xzsyl")) {
+                                                    newJsonObj.put("zhyl310502026", jsonObj.get("xzsyl"));
+                                                }
+                                                zhyl310502020Json.add(newJsonObj);
+                                            }
+                                        }
+                                    }
+                                    zhyl310502000Json.put("zhyl310502020", zhyl310502020Json); //肾脏属于标本库
+
+
+                                    if (suiFangJiYinMap.keySet().contains("dna_data") && key.equals("dna_data")) {   //解析dna_data中的数据
+                                        if (suiFangJiYinMap.get(key) != null) {
+                                            JSONArray jiYinList = JSONArray.parseArray(String.valueOf(suiFangJiYinMap.get(key)));
+                                            for (Object o : jiYinList) {
+                                                JSONObject jsonObj = JSONObject.parseObject(String.valueOf(o));
+                                                JSONObject newJsonObj = new JSONObject();
+                                                if (jsonObj.keySet().contains("dnanum")) {
+                                                    newJsonObj.put("zhyl310502031", jsonObj.get("dnanum"));
+                                                }
+                                                if (jsonObj.keySet().contains("dnalqcj")) {
+                                                    newJsonObj.put("zhyl310502032", transformTime1(jsonObj.get("dnalqcj")));
+                                                }
+                                                if (jsonObj.keySet().contains("dnatj")) {
+                                                    newJsonObj.put("zhyl310502033", jsonObj.get("dnatj"));
+                                                }
+                                                if (jsonObj.keySet().contains("dnaod")) {
+                                                    newJsonObj.put("zhyl310502034", jsonObj.get("dnaod"));
+                                                }
+                                                if (jsonObj.keySet().contains("dnald")) {
+                                                    newJsonObj.put("zhyl310502035", jsonObj.get("dnald"));
+                                                }
+                                                if (jsonObj.keySet().contains("dnaqfwq")) {
+                                                    newJsonObj.put("zhyl310502036", jsonObj.get("dnaqfwq"));
+                                                }
+                                                if (jsonObj.keySet().contains("dnasycj")) {
+                                                    newJsonObj.put("zhyl310502037", transformTime1(jsonObj.get("dnasycj")));
+                                                }
+                                                if (jsonObj.keySet().contains("dnasyl")) {
+                                                    newJsonObj.put("zhyl310502038", jsonObj.get("dnasyl"));
+                                                }
+                                                zhyl310502030Json.add(newJsonObj);
+                                            }
+                                        }
+                                    }
+                                    zhyl310502000Json.put("zhyl310502030", zhyl310502030Json); //dna属于标本库
+
+
+                                    if (suiFangJiYinMap.keySet().contains("xq_data") && key.equals("xq_data")) {   //解析xq_data中的数据
+                                        if (suiFangJiYinMap.get(key) != null) {
+                                            JSONArray jiYinList = JSONArray.parseArray(String.valueOf(suiFangJiYinMap.get(key)));
+                                            for (Object o : jiYinList) {
+                                                JSONObject jsonObj = JSONObject.parseObject(String.valueOf(o));
+                                                JSONObject newJsonObj = new JSONObject();
+                                                if (jsonObj.keySet().contains("xqnum")) {
+                                                    newJsonObj.put("zhyl310502041", jsonObj.get("xqnum"));
+                                                }
+                                                if (jsonObj.keySet().contains("xqlqcj")) {
+                                                    newJsonObj.put("zhyl310502042", transformTime1(jsonObj.get("xqlqcj")));
+                                                }
+                                                if (jsonObj.keySet().contains("xqtj")) {
+                                                    newJsonObj.put("zhyl310502043", jsonObj.get("xqtj"));
+                                                }
+                                                if (jsonObj.keySet().contains("xqqfwq")) {
+                                                    newJsonObj.put("zhyl310502044", jsonObj.get("xqqfwq"));
+                                                }
+                                                if (jsonObj.keySet().contains("xqsycj")) {
+                                                    newJsonObj.put("zhyl310502045", transformTime1(jsonObj.get("xqsycj")));
+                                                }
+                                                if (jsonObj.keySet().contains("xqsyl")) {
+                                                    newJsonObj.put("zhyl310502046", jsonObj.get("xqsyl"));
+                                                }
+
+                                                zhyl310502040Json.add(newJsonObj);
+                                            }
+                                        }
+                                    }
+                                    zhyl310502000Json.put("zhyl310502040", zhyl310502040Json); //血清属于标本库
+
+                                    if (suiFangJiYinMap.keySet().contains("yy_data") && key.equals("yy_data")) {   //解析yy_data中的数据
+                                        if (suiFangJiYinMap.get(key) != null) {
+                                            JSONArray jiYinList = JSONArray.parseArray(String.valueOf(suiFangJiYinMap.get(key)));
+                                            for (Object o : jiYinList) {
+                                                JSONObject jsonObj = JSONObject.parseObject(String.valueOf(o));
+                                                JSONObject newJsonObj = new JSONObject();
+                                                if (jsonObj.keySet().contains("yynum")) {
+                                                    newJsonObj.put("zhyl310502051", jsonObj.get("yynum"));
+                                                }
+                                                if (jsonObj.keySet().contains("yylqcj")) {
+                                                    newJsonObj.put("zhyl310502052", transformTime1(jsonObj.get("yylqcj")));
+                                                }
+                                                if (jsonObj.keySet().contains("yytj")) {
+                                                    newJsonObj.put("zhyl310502053", jsonObj.get("yytj"));
+                                                }
+                                                if (jsonObj.keySet().contains("yyqfwq")) {
+                                                    newJsonObj.put("zhyl310502054", jsonObj.get("yyqfwq"));
+                                                }
+                                                if (jsonObj.keySet().contains("yysycj")) {
+                                                    newJsonObj.put("zhyl310502055", transformTime1(jsonObj.get("yysycj")));
+                                                }
+                                                if (jsonObj.keySet().contains("yysyl")) {
+                                                    newJsonObj.put("zhyl310502056", jsonObj.get("yysyl"));
+                                                }
+                                                zhyl310502050Json.add(newJsonObj);
+                                            }
+                                        }
+                                    }
+                                    zhyl310502000Json.put("zhyl310502050", zhyl310502050Json); //尿液属于标本库
+
+                                }
+
+                                suiFangJiYinMap.remove("datas");
+                                suiFangJiYinMap.remove("bf_data");
+                                suiFangJiYinMap.remove("xz_data");
+                                suiFangJiYinMap.remove("dna_data");
+                                suiFangJiYinMap.remove("xq_data");
+                                suiFangJiYinMap.remove("yy_data");
+                                suiFangJiYinMap.put("zhyl310501000", zhyl310501000Json);
+                                suiFangJiYinMap.put("zhyl310502000", zhyl310502000Json);
+                            }
+
+                            zhyl300000000Json.put("zhyl310500000", suiFangJiYinMap); //5基因标本库
+//--------------------------------------------------------------------
+
+
+                            String newsuiFangChaoShenSql = suiFangChaoShenSql.replace("?", suifang);
+                            Map<String, Object> suiFangChaoShenMap = commonExecute1(connection, newsuiFangChaoShenSql, statement, resultSet);
+                            JSONObject zhyl310602000Json = new JSONObject();//左肾
+                            JSONObject zhyl310603000Json = new JSONObject();//右肾
+                            JSONObject zhyl310604000Json = new JSONObject();//超声所见
+
+                            if (suiFangChaoShenMap != null && suiFangChaoShenMap.size() > 0) {
+                                for (String key : suiFangChaoShenMap.keySet()) {
+                                    transJson(suiFangChaoShenMap, key, "zhyl310602001", zhyl310602000Json, null);
+                                    transJson(suiFangChaoShenMap, key, "zhyl310602002", zhyl310602000Json, null);
+                                    transJson(suiFangChaoShenMap, key, "zhyl310602003", zhyl310602000Json, null);
+                                    transJson(suiFangChaoShenMap, key, "zhyl310602004", zhyl310602000Json, null);
+                                    transJson(suiFangChaoShenMap, key, "zhyl310602005", zhyl310602000Json, null);
+                                    transJson(suiFangChaoShenMap, key, "zhyl310602006", zhyl310602000Json, null);
+
+                                    transJson(suiFangChaoShenMap, key, "zhyl310603001", zhyl310603000Json, null);
+                                    transJson(suiFangChaoShenMap, key, "zhyl310603002", zhyl310603000Json, null);
+                                    transJson(suiFangChaoShenMap, key, "zhyl310603003", zhyl310603000Json, null);
+                                    transJson(suiFangChaoShenMap, key, "zhyl310603004", zhyl310603000Json, null);
+                                    transJson(suiFangChaoShenMap, key, "zhyl310603005", zhyl310603000Json, null);
+                                    transJson(suiFangChaoShenMap, key, "zhyl310603006", zhyl310603000Json, null);
+
+                                    transJson(suiFangChaoShenMap, key, "zhyl310604001", zhyl310604000Json, null);
+
+                                }
+                                suiFangChaoShenMap.remove("zhyl310602001");
+                                suiFangChaoShenMap.remove("zhyl310602002");
+                                suiFangChaoShenMap.remove("zhyl310602003");
+                                suiFangChaoShenMap.remove("zhyl310602004");
+                                suiFangChaoShenMap.remove("zhyl310602005");
+                                suiFangChaoShenMap.remove("zhyl310602006");
+                                suiFangChaoShenMap.put("zhyl310602000", zhyl310602000Json);
+
+                                suiFangChaoShenMap.remove("zhyl310603001");
+                                suiFangChaoShenMap.remove("zhyl310603002");
+                                suiFangChaoShenMap.remove("zhyl310603003");
+                                suiFangChaoShenMap.remove("zhyl310603004");
+                                suiFangChaoShenMap.remove("zhyl310603005");
+                                suiFangChaoShenMap.remove("zhyl310603006");
+                                suiFangChaoShenMap.put("zhyl310603000", zhyl310603000Json);
+
+                                suiFangChaoShenMap.remove("zhyl310604001");
+                                suiFangChaoShenMap.put("zhyl310604000", zhyl310604000Json);
+
+                            }
+                            zhyl300000000Json.put("zhyl310600000", suiFangChaoShenMap);//6超声
+//--------------------------------------------------------------------------------
+
+                            String newsuiFangYaoWuSql = suiFangYaoWuSql.replace("?", suifang);
+                            List<Map<String, Object>> newSuiFangYaoWuSqlList = commonExecute2(connection, newsuiFangYaoWuSql, statement, resultSet);//药物有多条
+                            JSONObject zhyl310700000Json = new JSONObject();//药物治疗 包括药物和冲击
+                            JSONArray zhyl310701000Json = new JSONArray(); //药物应该是个list
+
+                            if (newSuiFangYaoWuSqlList != null && newSuiFangYaoWuSqlList.size() > 0) {
+                                for (Map<String, Object> yaoWuMap : newSuiFangYaoWuSqlList) {
+                                    if (yaoWuMap != null && yaoWuMap.size() > 0) {
+                                        JSONObject zhyl310701100Json = new JSONObject();//药品名称
+                                        for (String key : yaoWuMap.keySet()) {
+                                            transJson(yaoWuMap, key, "zhyl310701001", zhyl310701100Json, null);
+                                            transJson(yaoWuMap, key, "zhyl310701002", zhyl310701100Json, null);
+                                            transJson(yaoWuMap, key, "zhyl310701013", zhyl310701100Json, null);
+                                        }
+                                        yaoWuMap.remove("zhyl310701001");
+                                        yaoWuMap.remove("zhyl310701002");
+                                        yaoWuMap.remove("zhyl310701013");
+                                        yaoWuMap.put("zhyl310701100", zhyl310701100Json);
+                                        zhyl310701000Json.add(yaoWuMap);
+                                    }
+                                }
+                            }
+                            zhyl310700000Json.put("zhyl310701000", zhyl310701000Json); //----药物
+                            //----------------------------------------------
+
+                            JSONArray zhyl310702000Json = new JSONArray(); //冲击应该是个list
+                            JSONArray zhyl310702003Json1 = new JSONArray(); //甲泼尼龙冲击治疗疗程
+                            JSONArray zhyl310702003Json2 = new JSONArray(); //环磷酰胺冲击治疗疗程
+
+                            String newSuiFangChongJi1Sql = suiFangChonfJi1Sql.replace("?", suifang);
+                            String newSuiFangChongJi2Sql = suiFangChonfJi2Sql.replace("?", suifang);
+                            List<Map<String, Object>> newSuiFangChong1List = commonExecute2(connection, newSuiFangChongJi1Sql, statement, resultSet);//甲泼尼龙冲击
+                            List<Map<String, Object>> newSuiFangChong2List = commonExecute2(connection, newSuiFangChongJi2Sql, statement, resultSet);//环磷酰胺冲击
+
+                            Map<String, Object> newSuiFangChong1Map = new HashMap<>();
+                            if (newSuiFangChong1List != null && newSuiFangChong1List.size() > 0) {
+                                for (Map<String, Object> chongji1Map : newSuiFangChong1List) {//每一个map都是一条数据
+                                    JSONObject newJsonObj = new JSONObject();
+                                    for (String key : chongji1Map.keySet()) {
+                                        if (chongji1Map.keySet().contains("zhyl310702001") && key.equals("zhyl310702001")) {
+                                            newSuiFangChong1Map.put("zhyl310702001", chongji1Map.get(key));//固定
+                                        }
+                                        if (chongji1Map.keySet().contains("zhyl310702002") && key.equals("zhyl310702002")) {
+                                            newSuiFangChong1Map.put("zhyl310702002", chongji1Map.get(key)); //固定
+                                        }
+                                        if (chongji1Map.keySet().contains("zhyl310702004") && key.equals("zhyl310702004")) {
+                                            newJsonObj.put("zhyl310702004", chongji1Map.get(key));
+                                        }
+                                        if (chongji1Map.keySet().contains("zhyl310702005") && key.equals("zhyl310702005")) {
+                                            newJsonObj.put("zhyl310702005", chongji1Map.get(key));
+                                        }
+                                        if (chongji1Map.keySet().contains("zhyl310702006") && key.equals("zhyl310702006")) {
+                                            newJsonObj.put("zhyl310702006", chongji1Map.get(key));
+                                        }
+                                        if (chongji1Map.keySet().contains("zhyl310702007") && key.equals("zhyl310702007")) {
+                                            newJsonObj.put("zhyl310702007", chongji1Map.get(key));
+                                        }
+                                        if (chongji1Map.keySet().contains("zhyl310702008") && key.equals("zhyl310702008")) {
+                                            newJsonObj.put("zhyl310702008", chongji1Map.get(key));
+                                        }
+                                    }
+                                    if (newJsonObj.keySet().size() > 0) {
+                                        zhyl310702003Json1.add(newJsonObj);
+                                    }
+                                }
+
+                                newSuiFangChong1Map.put("zhyl310702003", zhyl310702003Json1);//甲泼尼龙冲击集合
+                                zhyl310702000Json.add(newSuiFangChong1Map);
+                            }
+
+
+                            Map<String, Object> newSuiFangChong2Map = new HashMap<>();
+                            if (newSuiFangChong2List != null && newSuiFangChong2List.size() > 0) {
+                                for (Map<String, Object> chongji2Map : newSuiFangChong2List) {
+                                    JSONObject newJsonObj1 = new JSONObject();
+                                    for (String key : chongji2Map.keySet()) {
+                                        if (chongji2Map.keySet().contains("zhyl310702001") && key.equals("zhyl310702001")) {
+                                            newSuiFangChong2Map.put("zhyl310702001", chongji2Map.get(key));//固定
+                                        }
+                                        if (chongji2Map.keySet().contains("zhyl310702002") && key.equals("zhyl310702002")) {
+                                            newSuiFangChong2Map.put("zhyl310702002", chongji2Map.get(key)); //固定
+                                        }
+                                        if (chongji2Map.keySet().contains("zhyl310702004") && key.equals("zhyl310702004")) {
+                                            newJsonObj1.put("zhyl310702004", chongji2Map.get(key));
+                                        }
+                                        if (chongji2Map.keySet().contains("zhyl310702005") && key.equals("zhyl310702005")) {
+                                            newJsonObj1.put("zhyl310702005", chongji2Map.get(key));
+                                        }
+                                        if (chongji2Map.keySet().contains("zhyl310702006") && key.equals("zhyl310702006")) {
+                                            newJsonObj1.put("zhyl310702006", chongji2Map.get(key));
+                                        }
+                                        if (chongji2Map.keySet().contains("zhyl310702007") && key.equals("zhyl310702007")) {
+                                            newJsonObj1.put("zhyl310702007", chongji2Map.get(key));
+                                        }
+                                        if (chongji2Map.keySet().contains("zhyl310702008") && key.equals("zhyl310702008")) {
+                                            newJsonObj1.put("zhyl310702008", chongji2Map.get(key));
+                                        }
+                                    }
+                                    if (newJsonObj1.keySet().size() > 0) {
+                                        zhyl310702003Json2.add(newJsonObj1);
+                                    }
+                                }
+                                newSuiFangChong2Map.put("zhyl310702003", zhyl310702003Json2);//环磷酰胺冲击集合
+                                zhyl310702000Json.add(newSuiFangChong2Map);
+                            }
+                            zhyl310700000Json.put("zhyl310702000", zhyl310702000Json);//----冲击
+
+                            zhyl300000000Json.put("zhyl310700000", zhyl310700000Json);//7药物和冲击
+                            //---------------------------------------------------------------------------------
+                            String newsSuiFangShenZangTiDaiSql = suiFangShenZangTiDaiSql.replace("?", suifang);
+                            List<Map<String, Object>> newSuiFangShenZangTiDaiSqlList = commonExecute2(connection, newsSuiFangShenZangTiDaiSql, statement, resultSet);
+                            zhyl300000000Json.put("zhyl310800000", newSuiFangShenZangTiDaiSqlList);
+                            //------------------------------------------------------------------8肾脏替代
+
 
                             zhyl300000000JSONArray.add(zhyl300000000Json);
                         }
@@ -1388,9 +2117,9 @@ public class igAData1 {
                 }
 
             }
-
-
         }
+        close(statement,resultSet);
+        connection.close();
 
 
     }
@@ -1405,7 +2134,11 @@ public class igAData1 {
                 JSONArray jsonArray = new JSONArray();
                 String s = String.valueOf(basicLabMap.get(key));
                 if (s != null && s.contains(",")) {
-                    jsonArray.addAll(Arrays.asList(s.split(",")));
+                    String[] a = s.split(",");
+                    for (String s1 : a) {
+                        jsonArray.add(Integer.valueOf(s1));
+                    }
+
                 }
                 if (s != null && !s.contains(",") && !s.equals("null")) {
                     jsonArray.add(Integer.valueOf(s));

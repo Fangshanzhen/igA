@@ -1164,8 +1164,8 @@ public class igAData {
                     //---------------------------------------------------------------------------------
 
                     String newShenZangTiDaiSql = shenZangTiDaiSql.replace("?", s);
-                    Map<String, Object> newShenZangTiDailMap = commonExecute1(connection, newShenZangTiDaiSql, statement, resultSet);
-                    zhyl200000000Json.put("zhyl210800000", newShenZangTiDailMap);
+                    List<Map<String, Object>> newShenZangTiDailList = commonExecute2(connection, newShenZangTiDaiSql, statement, resultSet);
+                    zhyl200000000Json.put("zhyl210800000", newShenZangTiDailList);
                     //------------------------------------------------------------------8肾脏替代
 
                     jsonObject.put("zhyl200000000", zhyl200000000Json);
