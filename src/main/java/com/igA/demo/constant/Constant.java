@@ -6,13 +6,14 @@ public class Constant {
     public final static String idSql = "select a.id  from hospital.hs_patient a ";
 
 
-    public final static String patientSql = "   select a.id as zhyl110000001,\n" +
+    public final static String patientSql = "    select a.id as zhyl110000001,\n" +
             "b.id  as zhyl110000002, --产品配置\n" +
             "a.caseno as zhyl110000003,\n" +
             "a.patientname as zhyl110000004,\n" +
             "case when a.sex=0 then 1 when a.sex=1 then 2 end as zhyl110000005,\n" +
             "(EXTRACT(EPOCH FROM a.birthday::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as zhyl110000006,\n" +
-            "d.dictname as zhyl110000007, --需要转换\n" +
+            "--d.dictname as zhyl110000007, --需要转换\n" +
+            "j.id  as zhyl110000007,\n" +
             "(EXTRACT(EPOCH FROM a.agreetime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as  zhyl110000008,\n" +
             "(EXTRACT(EPOCH FROM a.knowtime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as  zhyl110000009,\n" +
             "case when a.certype='3' then 1\n" +
@@ -23,7 +24,8 @@ public class Constant {
             "when a.certype='6' then 6 end as zhyl110000010, \n" +
             "a.cernum as zhyl110000011,\n" +
             "\n" +
-            "f.\"name\"||g.\"name\"||h.\"name\" as zhyl110100001,--需要转换\n" +
+            "--f.\"name\"||g.\"name\"||h.\"name\" as zhyl110100001,--需要转换\n" +
+            "i.d as zhyl110100001,\n" +
             "a.address as zhyl110100002,\n" +
             "a.code as zhyl110100003,\n" +
             "\n" +
@@ -37,7 +39,8 @@ public class Constant {
             "left join hospital.hs_region f on cast(a.province as integer) =f.id\n" +
             "left join hospital.hs_region g on cast(a.city as integer) =g.id\n" +
             "left join hospital.hs_region h on cast(a.area as integer) =h.id\n" +
-            "\n" +
+            "left join public.dict1 i on a.id=i.a\n" +
+            "left join public.nation j on d.dictname=j.\"name\" \n" +
             "where a.id='?'";
 
 
@@ -462,7 +465,7 @@ public class Constant {
             "d.mxsgpb_szyw as zhyl210403038,\n" +
             "d.mxsgpb_ylzws as zhyl210403039,\n" +
             "d.mxsgpbcwh_dyws as zhyl210403040,\n" +
-            "d.mxsgzs_cwsnum as zhyl210403041,\n" +
+            "d.mxsgzs_cwhnum as zhyl210403041,\n" +
             "d.mxsgpbcwh_xys as zhyl210403042,\n" +
             "d.mxsgpbcwh_szyw as zhyl210403043,\n" +
             "d.mxsgpbcwh_ylzws as zhyl210403044,\n" +
@@ -541,14 +544,14 @@ public class Constant {
 
     public final static String yaoWuSql =" \n" +
             " select \n" +
-            " case when e.pid='2' then '糖皮质激素' \n" +
-            " when e.pid='3' then '免疫抑制剂' \n" +
-            "  when e.pid='4' then '血管紧张素转换酶抑制剂' \n" +
-            "     when e.pid='5' then '血管紧张素II受体拮抗剂' \n" +
-            "      when e.pid='30' then '其他' \n" +
+            " case when e.pid='2' then 2 \n" +
+            " when e.pid='3' then 3 \n" +
+            "  when e.pid='4' then 4 \n" +
+            "     when e.pid='5' then 5 \n" +
+            "      when e.pid='30' then 30 \n" +
             " \n" +
             " end as zhyl210701001,\n" +
-            " e.drugname  as zhyl210701002,\n" +
+            " e.starddict  as zhyl210701002,\n" +
             " d.id as zhyl210701013,\n" +
             " d.drug_type as zhyl210701003,\n" +
             " case when d.place='0' then null else d.place end as zhyl210701004,\n" +
@@ -1041,7 +1044,7 @@ public class Constant {
             "d.mxsgpb_szyw as zhyl310403038,\n" +
             "d.mxsgpb_ylzws as zhyl310403039,\n" +
             "d.mxsgpbcwh_dyws as zhyl310403040,\n" +
-            "d.mxsgzs_cwsnum as zhyl310403041,\n" +
+            "d.mxsgzs_cwhnum as zhyl310403041,\n" +
             "d.mxsgpbcwh_xys as zhyl310403042,\n" +
             "d.mxsgpbcwh_szyw as zhyl310403043,\n" +
             "d.mxsgpbcwh_ylzws as zhyl310403044,\n" +
@@ -1118,14 +1121,14 @@ public class Constant {
 
 
     public final static String suiFangYaoWuSql =" select \n" +
-            " case when e.pid='2' then '糖皮质激素' \n" +
-            " when e.pid='3' then '免疫抑制剂' \n" +
-            "  when e.pid='4' then '血管紧张素转换酶抑制剂' \n" +
-            "     when e.pid='5' then '血管紧张素II受体拮抗剂' \n" +
-            "      when e.pid='30' then '其他' \n" +
+            " case when e.pid='2' then 2 \n" +
+            " when e.pid='3' then 3 \n" +
+            "  when e.pid='4' then 4 \n" +
+            "     when e.pid='5' then 5 \n" +
+            "      when e.pid='30' then 30 \n" +
             " \n" +
             " end as zhyl310701001,\n" +
-            " e.drugname  as zhyl310701002,\n" +
+            " e.starddict  as zhyl310701002,\n" +
             " d.id as zhyl310701013,\n" +
             " d.drug_type as zhyl310701003,\n" +
             " case when d.place='0' then null else d.place end  as zhyl310701004,\n" +

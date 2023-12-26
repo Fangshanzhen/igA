@@ -1,12 +1,21 @@
 package com.igA.demo.constant;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.igA.demo.utils.HttpClientUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.pentaho.di.core.logging.LogChannel;
+import org.pentaho.di.core.logging.LogChannelFactory;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
+@Slf4j
 public class DataTransform {
 
 
@@ -263,7 +272,7 @@ public class DataTransform {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         // 将日期字符串转换为Date对象
-        if (o != null && !String.valueOf(o).equals("") ) {
+        if (o != null && !String.valueOf(o).equals("")) {
             Date date = null;
             try {
                 date = sdf.parse(String.valueOf(o));
@@ -287,14 +296,13 @@ public class DataTransform {
         String s = null;
 
         // 将日期字符串转换为Date对象
-        if (o != null && !String.valueOf(o).equals("")&& String.valueOf(o).contains("-")) {
+        if (o != null && !String.valueOf(o).equals("") && String.valueOf(o).contains("-")) {
             Date date = sdf.parse(String.valueOf(o));
             // 获取13位时间戳（毫秒级）
             long timestamp = date.getTime();
             if (timestamp > 0) {
                 s = String.valueOf(timestamp);
             }
-
         }
 
         // 将日期字符串转换为Date对象
@@ -307,9 +315,49 @@ public class DataTransform {
             }
 
         }
-
         return s;
 
     }
+
+
+    public static String getToken(String baseUrl, String secret, String clientId) throws Exception {
+
+
+        String TokenUrl = baseUrl + "/auth/auth/token?secret=" + secret + "&clientId=" + clientId;
+        kettleResponse kettleResponse = null;  //获取token接口
+        try {
+            kettleResponse = HttpClientUtils.doPost(TokenUrl, null, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        if (kettleResponse.getCode() == 200) {
+            JSONObject jsonObject = JSON.parseObject(kettleResponse.getData());
+            JSONObject jsonObject1 = (JSONObject) jsonObject.get("data");
+            String accessToken = String.valueOf(jsonObject1.get("accessToken"));
+            String expiresIn = String.valueOf(jsonObject1.get("expiresIn"));
+
+            return accessToken;
+        }
+        return null;
+
+    }
+
+    public static void transform(String baseUrl, String accessToken, String jsonObject,
+                                  String id) throws Exception {
+
+        String DataUrl = baseUrl + "/etl/etl/import_data";
+        kettleResponse kettleResponse = null;  //
+        try {
+            kettleResponse = HttpClientUtils.doPost(DataUrl, accessToken, jsonObject);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (kettleResponse != null && kettleResponse.getCode() == 200) {
+            log.info(id + " 数据传输成功");
+        }
+
+    }
+
 
 }
