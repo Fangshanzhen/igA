@@ -84,7 +84,6 @@ public class Constant {
             "  case when d.sgnyc_attr='1'then 1 when d.sgnyc_attr='2'then 2 when d.sgnyc_attr='3'then 9 end as zhyl210100010,\n" +
             "  case when d.gxy='1'then 1 when d.gxy='2'then 0 when d.gxy='3'then 9 end as zhyl210100011,\n" +
             "    (EXTRACT(EPOCH FROM d.gxy_time ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as  zhyl210100012,\n" +
-            "    null as zhyl210100013,\n" +
             "  case when d.pz='1'then 1 when d.pz='2'then 0 when d.pz='3'then 9 end as   zhyl210100014,\n" +
             "  d.gmxztxm as zhyl210100015,\n" +
             "case when d.gjtt='1'then 1 when d.gjtt='2'then 0 when d.gjtt='3'then 9 end as zhyl210100016,\n" +
@@ -730,7 +729,7 @@ public class Constant {
             "d.qtjyjwmt as zhyl310100025,\n" +
             "case when d.bttzcs='1'then 1 when d.bttzcs='2'then 0 when d.bttzcs='3'then 9 end as zhyl310100026,\n" +
             "(EXTRACT(EPOCH FROM d.bttzcs_time ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as  zhyl310100027,\n" +
-            "d.\"explain\" as zhyl210100028\n" +
+            "d.\"explain\" as zhyl310100028\n" +
             " \n" +
             "\n" +
             "from hospital.hs_patient a \n" +

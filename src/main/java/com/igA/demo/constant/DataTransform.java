@@ -4,10 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+//import com.igA.demo.utils.FileTransformUtils;
 import com.igA.demo.utils.HttpClientUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.pentaho.di.core.logging.LogChannel;
 import org.pentaho.di.core.logging.LogChannelFactory;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -205,13 +207,13 @@ public class DataTransform {
 
     public static JSONObject transformIsOrNot(JSONObject jsonObj, Object o, String key) {
         if (String.valueOf(o).equals("1")) {
-            jsonObj.put(key, "1");
+            jsonObj.put(key, 1);
         }
         if (String.valueOf(o).equals("2")) {
-            jsonObj.put(key, "0");
+            jsonObj.put(key, 0);
         }
         if (String.valueOf(o).equals("3")) {
-            jsonObj.put(key, "9");
+            jsonObj.put(key, 9);
         }
 
         return jsonObj;
@@ -349,6 +351,7 @@ public class DataTransform {
         String DataUrl = baseUrl + "/etl/etl/import_data";
         kettleResponse kettleResponse = null;  //
         try {
+//            MultipartFile multipartFile = FileTransformUtils.transform(jsonObject);
             kettleResponse = HttpClientUtils.doPost(DataUrl, accessToken, jsonObject);
         } catch (IOException e) {
             e.printStackTrace();
