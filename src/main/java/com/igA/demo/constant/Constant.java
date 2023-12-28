@@ -688,6 +688,16 @@ public class Constant {
             "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
             "where  b.reporttype='随访报告' and b.historyflag=0  and a.id='?'";
 
+    public final static String suiFangLastYaoWuSql ="select \n" +
+            "  case when historyflag=0 and parentid is not  null then (\n" +
+            "case when parentid like'%,%' then ( TO_NUMBER((string_to_array(parentid, ','))[array_length(string_to_array(parentid, ','), 1)], '999999999D99') )\n" +
+            " when parentid not like'%,%' then TO_NUMBER(parentid, '999999999D99') end)\n" +
+            "end as  newid\n" +
+            "\n" +
+            "\n" +
+            "from  hospital.hs_patientinfo where id='?' ";
+
+
 
 
     public final static String suiFangPatientInfoSql =" \n" +
@@ -1146,7 +1156,7 @@ public class Constant {
             "left join hospital.hs_caseseven d on b.id=d.case_id \n" +
             "left join (select * from hospital.hs_drugdcit  ) e on d.drugdcit_id=e.id \n" +
             "\n" +
-            " where  b.reporttype='随访报告'  and b.historyflag=0 \n" +
+            " where  b.reporttype='随访报告'   \n" +
             " and e.drugname !='甲泼尼龙冲击' and  e.drugname !='环磷酰胺冲击' \n" +
             " and b.id ='?'";
 
@@ -1186,7 +1196,7 @@ public class Constant {
             "left join hospital.hs_caseseven d on b.id=d.case_id \n" +
             "left join (select * from hospital.hs_drugdcit  ) e on d.drugdcit_id=e.id \n" +
             "\n" +
-            " where  b.reporttype='随访报告'  and b.historyflag=0 \n" +
+            " where  b.reporttype='随访报告'   \n" +
             " and ( e.drugname ='甲泼尼龙冲击'  )\n" +
             " and   b.id ='?'";
 
@@ -1226,7 +1236,7 @@ public class Constant {
             "left join hospital.hs_caseseven d on b.id=d.case_id \n" +
             "left join (select * from hospital.hs_drugdcit  ) e on d.drugdcit_id=e.id \n" +
             "\n" +
-            " where  b.reporttype='随访报告'  and b.historyflag=0 \n" +
+            " where  b.reporttype='随访报告'   \n" +
             " and ( e.drugname ='环磷酰胺冲击'  )\n" +
             " and   b.id ='?'";
 

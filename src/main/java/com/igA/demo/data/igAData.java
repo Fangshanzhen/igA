@@ -19,6 +19,7 @@ import org.json.JSONException;
 
 import static com.igA.demo.constant.Constant.*;
 import static com.igA.demo.constant.DataTransform.*;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -43,7 +44,7 @@ public class igAData {
 
             idList = commonExecute(connection, statement, resultSet, idSql);
 
-            idList = Collections.singletonList("1143");
+            idList = Collections.singletonList("1136");
 
 
             if (idList != null && idList.size() > 0) {
@@ -1990,113 +1991,24 @@ public class igAData {
                             zhyl300000000Json.put("zhyl310600000", suiFangChaoShenMap);//6超声
 //--------------------------------------------------------------------------------
 
-                            String newsuiFangYaoWuSql = suiFangYaoWuSql.replace("?", suifang);
-                            List<Map<String, Object>> newSuiFangYaoWuSqlList = commonExecute2(connection, newsuiFangYaoWuSql, statement, resultSet);//药物有多条
+                            String newsuiFangYaoWuIdSql = suiFangLastYaoWuSql.replace("?", suifang);//上一次的随访id，存在的话把药物也加上
+                            List<String> suiFangYaoWuIdList = commonExecute(connection, statement, resultSet, newsuiFangYaoWuIdSql);
+
                             JSONObject zhyl310700000Json = new JSONObject();//药物治疗 包括药物和冲击
                             JSONArray zhyl310701000Json = new JSONArray(); //药物应该是个list
-
-                            if (newSuiFangYaoWuSqlList != null && newSuiFangYaoWuSqlList.size() > 0) {
-                                for (Map<String, Object> yaoWuMap : newSuiFangYaoWuSqlList) {
-                                    if (yaoWuMap != null && yaoWuMap.size() > 0) {
-                                        JSONObject zhyl310701100Json = new JSONObject();//药品名称
-                                        for (String key : yaoWuMap.keySet()) {
-                                            transJson(yaoWuMap, key, "zhyl310701001", zhyl310701100Json, null);
-                                            transJson(yaoWuMap, key, "zhyl310701002", zhyl310701100Json, null);
-                                            transJson(yaoWuMap, key, "zhyl310701013", zhyl310701100Json, null);
-                                        }
-                                        yaoWuMap.remove("zhyl310701001");
-                                        yaoWuMap.remove("zhyl310701002");
-                                        yaoWuMap.remove("zhyl310701013");
-                                        yaoWuMap.put("zhyl310701100", zhyl310701100Json);
-                                        zhyl310701000Json.add(yaoWuMap);
-                                    }
-                                }
-                            }
-                            zhyl310700000Json.put("zhyl310701000", zhyl310701000Json); //----药物
-                            //----------------------------------------------
-
                             JSONArray zhyl310702000Json = new JSONArray(); //冲击应该是个list
-                            JSONArray zhyl310702003Json1 = new JSONArray(); //甲泼尼龙冲击治疗疗程
-                            JSONArray zhyl310702003Json2 = new JSONArray(); //环磷酰胺冲击治疗疗程
 
-                            String newSuiFangChongJi1Sql = suiFangChonfJi1Sql.replace("?", suifang);
-                            String newSuiFangChongJi2Sql = suiFangChonfJi2Sql.replace("?", suifang);
-                            List<Map<String, Object>> newSuiFangChong1List = commonExecute2(connection, newSuiFangChongJi1Sql, statement, resultSet);//甲泼尼龙冲击
-                            List<Map<String, Object>> newSuiFangChong2List = commonExecute2(connection, newSuiFangChongJi2Sql, statement, resultSet);//环磷酰胺冲击
-
-                            Map<String, Object> newSuiFangChong1Map = new HashMap<>();
-                            if (newSuiFangChong1List != null && newSuiFangChong1List.size() > 0) {
-                                for (Map<String, Object> chongji1Map : newSuiFangChong1List) {//每一个map都是一条数据
-                                    JSONObject newJsonObj = new JSONObject();
-                                    for (String key : chongji1Map.keySet()) {
-                                        if (chongji1Map.keySet().contains("zhyl310702001") && key.equals("zhyl310702001")) {
-                                            newSuiFangChong1Map.put("zhyl310702001", chongji1Map.get(key));//固定
-                                        }
-                                        if (chongji1Map.keySet().contains("zhyl310702002") && key.equals("zhyl310702002")) {
-                                            newSuiFangChong1Map.put("zhyl310702002", chongji1Map.get(key)); //固定
-                                        }
-                                        if (chongji1Map.keySet().contains("zhyl310702004") && key.equals("zhyl310702004")) {
-                                            newJsonObj.put("zhyl310702004", chongji1Map.get(key));
-                                        }
-                                        if (chongji1Map.keySet().contains("zhyl310702005") && key.equals("zhyl310702005")) {
-                                            newJsonObj.put("zhyl310702005", chongji1Map.get(key));
-                                        }
-                                        if (chongji1Map.keySet().contains("zhyl310702006") && key.equals("zhyl310702006")) {
-                                            newJsonObj.put("zhyl310702006", chongji1Map.get(key));
-                                        }
-                                        if (chongji1Map.keySet().contains("zhyl310702007") && key.equals("zhyl310702007")) {
-                                            newJsonObj.put("zhyl310702007", chongji1Map.get(key));
-                                        }
-                                        if (chongji1Map.keySet().contains("zhyl310702008") && key.equals("zhyl310702008")) {
-                                            newJsonObj.put("zhyl310702008", chongji1Map.get(key));
-                                        }
-                                    }
-                                    if (newJsonObj.keySet().size() > 0) {
-                                        zhyl310702003Json1.add(newJsonObj);
-                                    }
+                            if (suiFangYaoWuIdList != null && suiFangYaoWuIdList.size() > 0) {
+                                for (String lastId : suiFangYaoWuIdList) {
+                                    yaowu(zhyl310701000Json,zhyl310702000Json,lastId,statement,resultSet,connection);
                                 }
-
-                                newSuiFangChong1Map.put("zhyl310702003", zhyl310702003Json1);//甲泼尼龙冲击集合
-                                zhyl310702000Json.add(newSuiFangChong1Map);
                             }
 
+                            //原有的id
+                            yaowu(zhyl310701000Json,zhyl310702000Json,suifang,statement,resultSet,connection);
 
-                            Map<String, Object> newSuiFangChong2Map = new HashMap<>();
-                            if (newSuiFangChong2List != null && newSuiFangChong2List.size() > 0) {
-                                for (Map<String, Object> chongji2Map : newSuiFangChong2List) {
-                                    JSONObject newJsonObj1 = new JSONObject();
-                                    for (String key : chongji2Map.keySet()) {
-                                        if (chongji2Map.keySet().contains("zhyl310702001") && key.equals("zhyl310702001")) {
-                                            newSuiFangChong2Map.put("zhyl310702001", chongji2Map.get(key));//固定
-                                        }
-                                        if (chongji2Map.keySet().contains("zhyl310702002") && key.equals("zhyl310702002")) {
-                                            newSuiFangChong2Map.put("zhyl310702002", chongji2Map.get(key)); //固定
-                                        }
-                                        if (chongji2Map.keySet().contains("zhyl310702004") && key.equals("zhyl310702004")) {
-                                            newJsonObj1.put("zhyl310702004", chongji2Map.get(key));
-                                        }
-                                        if (chongji2Map.keySet().contains("zhyl310702005") && key.equals("zhyl310702005")) {
-                                            newJsonObj1.put("zhyl310702005", chongji2Map.get(key));
-                                        }
-                                        if (chongji2Map.keySet().contains("zhyl310702006") && key.equals("zhyl310702006")) {
-                                            newJsonObj1.put("zhyl310702006", chongji2Map.get(key));
-                                        }
-                                        if (chongji2Map.keySet().contains("zhyl310702007") && key.equals("zhyl310702007")) {
-                                            newJsonObj1.put("zhyl310702007", chongji2Map.get(key));
-                                        }
-                                        if (chongji2Map.keySet().contains("zhyl310702008") && key.equals("zhyl310702008")) {
-                                            newJsonObj1.put("zhyl310702008", chongji2Map.get(key));
-                                        }
-                                    }
-                                    if (newJsonObj1.keySet().size() > 0) {
-                                        zhyl310702003Json2.add(newJsonObj1);
-                                    }
-                                }
-                                newSuiFangChong2Map.put("zhyl310702003", zhyl310702003Json2);//环磷酰胺冲击集合
-                                zhyl310702000Json.add(newSuiFangChong2Map);
-                            }
                             zhyl310700000Json.put("zhyl310702000", zhyl310702000Json);//----冲击
-
+                            zhyl310700000Json.put("zhyl310701000", zhyl310701000Json); //----药物
                             zhyl300000000Json.put("zhyl310700000", zhyl310700000Json);//7药物和冲击
                             //---------------------------------------------------------------------------------
                             String newsSuiFangShenZangTiDaiSql = suiFangShenZangTiDaiSql.replace("?", suifang);
@@ -2116,7 +2028,7 @@ public class igAData {
                     mapper.enable(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS);
                     String jsonStr = mapper.writeValueAsString(jsonObject);
                     System.out.println(jsonStr);
-               //------------------------------传输数据-----------------------------
+                    //------------------------------传输数据-----------------------------
                     //todo
 //                    transform("","",jsonStr,s);
 
@@ -2124,10 +2036,113 @@ public class igAData {
 
             }
         }
-        close(statement,resultSet);
+        close(statement, resultSet);
         connection.close();
 
 
+    }
+
+    private static void yaowu(JSONArray zhyl310701000Json, JSONArray zhyl310702000Json, String id, Statement statement, ResultSet resultSet,Connection connection) throws Exception {
+        String newsuiFangYaoWuSql = suiFangYaoWuSql.replace("?", id);
+        List<Map<String, Object>> newSuiFangYaoWuSqlList = commonExecute2(connection, newsuiFangYaoWuSql, statement, resultSet);//药物有多条
+        if (newSuiFangYaoWuSqlList != null && newSuiFangYaoWuSqlList.size() > 0) {
+            for (Map<String, Object> yaoWuMap : newSuiFangYaoWuSqlList) {
+                if (yaoWuMap != null && yaoWuMap.size() > 0) {
+                    JSONObject zhyl310701100Json = new JSONObject();//药品名称
+                    for (String key : yaoWuMap.keySet()) {
+                        transJson(yaoWuMap, key, "zhyl310701001", zhyl310701100Json, null);
+                        transJson(yaoWuMap, key, "zhyl310701002", zhyl310701100Json, null);
+                        transJson(yaoWuMap, key, "zhyl310701013", zhyl310701100Json, null);
+                    }
+                    yaoWuMap.remove("zhyl310701001");
+                    yaoWuMap.remove("zhyl310701002");
+                    yaoWuMap.remove("zhyl310701013");
+                    yaoWuMap.put("zhyl310701100", zhyl310701100Json);
+                    zhyl310701000Json.add(yaoWuMap);
+                }
+            }
+        }
+
+
+        JSONArray zhyl310702003Json1 = new JSONArray(); //甲泼尼龙冲击治疗疗程
+        JSONArray zhyl310702003Json2 = new JSONArray(); //环磷酰胺冲击治疗疗程
+
+        String newSuiFangChongJi1Sql = suiFangChonfJi1Sql.replace("?", id);
+        String newSuiFangChongJi2Sql = suiFangChonfJi2Sql.replace("?", id);
+        List<Map<String, Object>> newSuiFangChong1List = commonExecute2(connection, newSuiFangChongJi1Sql, statement, resultSet);//甲泼尼龙冲击
+        List<Map<String, Object>> newSuiFangChong2List = commonExecute2(connection, newSuiFangChongJi2Sql, statement, resultSet);//环磷酰胺冲击
+
+        Map<String, Object> newSuiFangChong1Map = new HashMap<>();
+        if (newSuiFangChong1List != null && newSuiFangChong1List.size() > 0) {
+            for (Map<String, Object> chongji1Map : newSuiFangChong1List) {//每一个map都是一条数据
+                JSONObject newJsonObj = new JSONObject();
+                for (String key : chongji1Map.keySet()) {
+                    if (chongji1Map.keySet().contains("zhyl310702001") && key.equals("zhyl310702001")) {
+                        newSuiFangChong1Map.put("zhyl310702001", chongji1Map.get(key));//固定
+                    }
+                    if (chongji1Map.keySet().contains("zhyl310702002") && key.equals("zhyl310702002")) {
+                        newSuiFangChong1Map.put("zhyl310702002", chongji1Map.get(key)); //固定
+                    }
+                    if (chongji1Map.keySet().contains("zhyl310702004") && key.equals("zhyl310702004")) {
+                        newJsonObj.put("zhyl310702004", chongji1Map.get(key));
+                    }
+                    if (chongji1Map.keySet().contains("zhyl310702005") && key.equals("zhyl310702005")) {
+                        newJsonObj.put("zhyl310702005", chongji1Map.get(key));
+                    }
+                    if (chongji1Map.keySet().contains("zhyl310702006") && key.equals("zhyl310702006")) {
+                        newJsonObj.put("zhyl310702006", chongji1Map.get(key));
+                    }
+                    if (chongji1Map.keySet().contains("zhyl310702007") && key.equals("zhyl310702007")) {
+                        newJsonObj.put("zhyl310702007", chongji1Map.get(key));
+                    }
+                    if (chongji1Map.keySet().contains("zhyl310702008") && key.equals("zhyl310702008")) {
+                        newJsonObj.put("zhyl310702008", chongji1Map.get(key));
+                    }
+                }
+                if (newJsonObj.keySet().size() > 0) {
+                    zhyl310702003Json1.add(newJsonObj);
+                }
+            }
+
+            newSuiFangChong1Map.put("zhyl310702003", zhyl310702003Json1);//甲泼尼龙冲击集合
+            zhyl310702000Json.add(newSuiFangChong1Map);
+        }
+
+
+        Map<String, Object> newSuiFangChong2Map = new HashMap<>();
+        if (newSuiFangChong2List != null && newSuiFangChong2List.size() > 0) {
+            for (Map<String, Object> chongji2Map : newSuiFangChong2List) {
+                JSONObject newJsonObj1 = new JSONObject();
+                for (String key : chongji2Map.keySet()) {
+                    if (chongji2Map.keySet().contains("zhyl310702001") && key.equals("zhyl310702001")) {
+                        newSuiFangChong2Map.put("zhyl310702001", chongji2Map.get(key));//固定
+                    }
+                    if (chongji2Map.keySet().contains("zhyl310702002") && key.equals("zhyl310702002")) {
+                        newSuiFangChong2Map.put("zhyl310702002", chongji2Map.get(key)); //固定
+                    }
+                    if (chongji2Map.keySet().contains("zhyl310702004") && key.equals("zhyl310702004")) {
+                        newJsonObj1.put("zhyl310702004", chongji2Map.get(key));
+                    }
+                    if (chongji2Map.keySet().contains("zhyl310702005") && key.equals("zhyl310702005")) {
+                        newJsonObj1.put("zhyl310702005", chongji2Map.get(key));
+                    }
+                    if (chongji2Map.keySet().contains("zhyl310702006") && key.equals("zhyl310702006")) {
+                        newJsonObj1.put("zhyl310702006", chongji2Map.get(key));
+                    }
+                    if (chongji2Map.keySet().contains("zhyl310702007") && key.equals("zhyl310702007")) {
+                        newJsonObj1.put("zhyl310702007", chongji2Map.get(key));
+                    }
+                    if (chongji2Map.keySet().contains("zhyl310702008") && key.equals("zhyl310702008")) {
+                        newJsonObj1.put("zhyl310702008", chongji2Map.get(key));
+                    }
+                }
+                if (newJsonObj1.keySet().size() > 0) {
+                    zhyl310702003Json2.add(newJsonObj1);
+                }
+            }
+            newSuiFangChong2Map.put("zhyl310702003", zhyl310702003Json2);//环磷酰胺冲击集合
+            zhyl310702000Json.add(newSuiFangChong2Map);
+        }
     }
 
 
