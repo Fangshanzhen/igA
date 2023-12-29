@@ -44,7 +44,7 @@ public class igAData {
 
             idList = commonExecute(connection, statement, resultSet, idSql);
 
-            idList = Collections.singletonList("1136");
+            idList = Collections.singletonList("491");
 
 
             if (idList != null && idList.size() > 0) {

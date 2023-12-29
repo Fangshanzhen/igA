@@ -561,7 +561,7 @@ public class Constant {
             "  (EXTRACT(EPOCH FROM d.end_time ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as zhyl210701009,\n" +
             "  d.is_lock as zhyl210701010,\n" +
             "  case when d.is_end is not null then(case when d.is_end=0 then 0 else 1 end) end as zhyl210701011,\n" +
-            "  null as zhyl210701012\n" +
+            "  case when d.is_end=0 then null when d.is_end=117 then 1  when d.is_end=118 then 2 when d.is_end=119 then 3 when d.is_end=120 then 4 end as zhyl210701012\n" +
             "  \n" +
             "   from hospital.hs_patient a \n" +
             "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
@@ -1149,7 +1149,7 @@ public class Constant {
             "   case when d.end_time!='20-02-26' then (EXTRACT(EPOCH FROM d.end_time ::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR end as zhyl310701009,\n" +
             "  d.is_lock as zhyl310701010,\n" +
             "  case when d.is_end is not null then(case when d.is_end=0 then 0 else 1 end) end as zhyl310701011,\n" +
-            "  null as zhyl310701012\n" +
+            "  case when d.is_end=0 then null when d.is_end=117 then 1  when d.is_end=118 then 2 when d.is_end=119 then 3 when d.is_end=120 then 4 end  as zhyl310701012\n" +
             "  \n" +
             "   from hospital.hs_patient a \n" +
             "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
