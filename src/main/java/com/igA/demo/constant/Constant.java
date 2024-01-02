@@ -162,8 +162,8 @@ public class Constant {
             " where  b.reporttype='首诊报告'  and b.historyflag=0 and   a.id='?'  ";
 
     public final static String basicLabSql =" select  (EXTRACT(EPOCH FROM d.ncg_check_time::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as zhyl210301001,\n" +
-            " case when d.ncg_pro='1' then 0 when d.ncg_pro='2' then 0.5  when d.ncg_pro='3' then 1 when d.ncg_pro='4' then 2 when d.ncg_pro='5' then 3 \n" +
-            "when d.ncg_pro='6' then 4 end as zhyl210301002,\n" +
+            " case when d.ncg_pro='1' then 0 when d.ncg_pro='2' then 1  when d.ncg_pro='3' then 2 when d.ncg_pro='4' then 3 when d.ncg_pro='5' then 4 \n" +
+            "when d.ncg_pro='6' then 5 end as zhyl210301002,\n" +
             "case when d.ncg_bld='1' then 0 when d.ncg_bld='2' then 1 end as zhyl210301003,\n" +
             "d.ncg_count as zhyl210301004,\n" +
             "d.ncg_hpf as  zhyl210301005,\n" +
@@ -770,8 +770,8 @@ public class Constant {
 
 
     public final static String suiFangLabSql =" select  (EXTRACT(EPOCH FROM d.ncg_check_time::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as zhyl310301001,\n" +
-            " case when d.ncg_pro='1' then 0 when d.ncg_pro='2' then 0.5  when d.ncg_pro='3' then 1 when d.ncg_pro='4' then 2 when d.ncg_pro='5' then 3 \n" +
-            "when d.ncg_pro='6' then 4 end as zhyl310301002,\n" +
+            " case when d.ncg_pro='1' then 0 when d.ncg_pro='2' then 1  when d.ncg_pro='3' then 2 when d.ncg_pro='4' then 3 when d.ncg_pro='5' then 4 \n" +
+            "when d.ncg_pro='6' then 5 end as zhyl310301002,\n" +
             "case when d.ncg_bld='1' then 0 when d.ncg_bld='2' then 1 end as zhyl310301003,\n" +
             "d.ncg_count as zhyl310301004,\n" +
             "d.ncg_hpf as  zhyl310301005,\n" +
