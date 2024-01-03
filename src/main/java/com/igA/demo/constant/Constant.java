@@ -2,6 +2,9 @@ package com.igA.demo.constant;
 
 public class Constant {
 
+    public final static String baseUrl ="http://10.0.108.41/api-gate";
+    public final static String admin ="admin";
+    public final static String password ="72d0645981154de34f35e03d06c626cc";
 
     public final static String idSql = "select a.id  from hospital.hs_patient a ";
 

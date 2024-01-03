@@ -2029,8 +2029,9 @@ public class igAData {
                     String jsonStr = mapper.writeValueAsString(jsonObject);
                     System.out.println(jsonStr);
                     //------------------------------传输数据-----------------------------
-                    //todo
-//                    transform("","",jsonStr,s);
+                    transform(baseUrl,jsonStr,s,connection);
+
+
 
                 }
 

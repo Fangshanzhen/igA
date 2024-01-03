@@ -5,17 +5,22 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 //import com.igA.demo.utils.FileTransformUtils;
+import com.igA.demo.utils.FileTransformUtils;
 import com.igA.demo.utils.HttpClientUtils;
+import com.igA.demo.utils.ResultSetUtils1;
 import lombok.extern.slf4j.Slf4j;
 import org.pentaho.di.core.logging.LogChannel;
 import org.pentaho.di.core.logging.LogChannelFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 public class DataTransform {
@@ -322,45 +327,123 @@ public class DataTransform {
     }
 
 
-    public static String getToken(String baseUrl, String secret, String clientId) throws Exception {
+    public static void transform(String baseUrl, String jsonStr, String id,Connection connection) throws Exception {
 
 
-        String TokenUrl = baseUrl + "/auth/auth/token?secret=" + secret + "&clientId=" + clientId;
-        kettleResponse kettleResponse = null;  //获取token接口
+        String dataUrl = baseUrl + "/iga-export/imexport/importData";
+//        dataUrl = "http://10.0.108.41/api-gate/iga-export/imexport/importData";
+
+
+        //   ----------------每隔30分钟获取一次token，避免多次调用---------------------------
+        String accessToken = null;
+        Statement tokenTime = null;
+        ResultSet resultSetToken = null;
+        String tokenSql = "SELECT token  FROM  "  + "public.token_time  ";
+        List<String> tokenList = null;
+        tokenTime = executeSql(tokenSql, connection);
+        resultSetToken = tokenTime.executeQuery(tokenSql);
         try {
-            kettleResponse = HttpClientUtils.doPost(TokenUrl, null, null);
+            if (resultSetToken != null) {
+                tokenList = ResultSetUtils1.allResultSet(resultSetToken);
+            }
+            if (tokenList == null || (tokenList.size() == 0) || (tokenList.size() > 0 && tokenList.get(0) == null)
+                    || (tokenList.size() > 0 && tokenList.get(0).equals("")) || (tokenList.size() > 0 && tokenList.get(0).equals("null"))) {
+                accessToken = getToken(baseUrl);
+                Date date = new Date();
+                long a = date.getTime() + 30 * 60 * 1000;  //30分钟
+                String sql = "UPDATE "  + "public.token_time " + " SET token= " + "'" + accessToken + "'" + "  ,  token_time= " + a;
+                tokenTime = executeSql(sql, connection);
+                tokenTime.execute(sql);
+            } else if (tokenList.size() > 0 && tokenList.get(0) != null && !tokenList.get(0).equals("null")) { //有token
+                tokenSql = "SELECT token_time  FROM  " +  "public.token_time  ";
+                List<String> timeList = new ArrayList<>();
+                tokenTime = executeSql(tokenSql, connection);
+                resultSetToken = tokenTime.executeQuery(tokenSql);
+                if (resultSetToken != null) {
+                    timeList = ResultSetUtils1.allResultSet(resultSetToken);
+                }
+                if (timeList != null && timeList.size() > 0 && timeList.get(0) != null) { //判断时间是否有效
+                    Date date = new Date();
+                    long a = date.getTime();
+                    if (Long.valueOf(timeList.get(0)) > a) {
+                        accessToken = tokenList.get(0);
+                    } else {
+                        accessToken = getToken(baseUrl);
+                        Date date1 = new Date();
+                        long a1 = date1.getTime() + 30 * 60 * 1000;
+                        String sql1 = "UPDATE " + "public.token_time  " + " SET token = " + "'" + accessToken + "'" + "  ,  token_time= " + a1;
+
+                        tokenTime = executeSql(sql1, connection);
+                        tokenTime.execute(sql1);
+                    }
+                }
+            }
+        } finally {
+            close(tokenTime, resultSetToken);
+        }
+
+
+        if (accessToken != null) {
+            MultipartFile multipartFile = FileTransformUtils.transform(jsonStr);
+            kettleResponse dataResponse = HttpClientUtils.uploadFile(dataUrl, multipartFile, accessToken);
+            if (dataResponse.getCode() == 200) {
+                log.info("病人id: " + id + "  transform data success");
+            }
+            if (dataResponse.getCode() != 200) {
+                throw new Exception(dataResponse.getData());
+            }
+        }
+
+    }
+
+
+    private static Statement executeSql(String sql, Connection connection) throws Exception {
+        Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY,
+                ResultSet.CLOSE_CURSORS_AT_COMMIT);
+        statement.setQueryTimeout(6000);
+        statement.setFetchSize(100000);
+        statement.setEscapeProcessing(false);
+        return statement;
+    }
+
+    private static String getToken(String baseUrl) throws Exception {
+
+        String tokenUrl = baseUrl + "/auth/user/login";
+//        tokenUrl = "http://10.0.108.41/api-gate/auth/user/login";
+
+        kettleResponse tokenResponse = null;  //
+        Map<String, Object> tokenMap = new HashMap<String, Object>();
+        tokenMap.put("uid", Constant.admin);
+        tokenMap.put("password", Constant.password);
+        tokenMap.put("loginType", 1);
+        String accessToken = null;
+
+        try {
+            tokenResponse = HttpClientUtils.doPost(tokenUrl, null, JSON.toJSONString(tokenMap, SerializerFeature.WriteMapNullValue), "1");
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
         }
-        if (kettleResponse.getCode() == 200) {
-            JSONObject jsonObject = JSON.parseObject(kettleResponse.getData());
+
+
+        if (tokenResponse != null && tokenResponse.getCode() == 200) {
+            JSONObject jsonObject = JSON.parseObject(tokenResponse.getData());
             JSONObject jsonObject1 = (JSONObject) jsonObject.get("data");
-            String accessToken = String.valueOf(jsonObject1.get("accessToken"));
-            String expiresIn = String.valueOf(jsonObject1.get("expiresIn"));
-
-            return accessToken;
+            accessToken = String.valueOf(jsonObject1.get("accessToken"));
         }
-        return null;
+        if (tokenResponse != null && tokenResponse.getCode() != 200) {
+            throw new Exception(tokenResponse.getData());
+        }
+        return accessToken;
 
     }
-
-    public static void transform(String baseUrl, String accessToken, String jsonObject,
-                                  String id) throws Exception {
-
-        String DataUrl = baseUrl + "/etl/etl/import_data";
-        kettleResponse kettleResponse = null;  //
-        try {
-//            MultipartFile multipartFile = FileTransformUtils.transform(jsonObject);
-            kettleResponse = HttpClientUtils.doPost(DataUrl, accessToken, jsonObject);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (kettleResponse != null && kettleResponse.getCode() == 200) {
-            log.info(id + " 数据传输成功");
+    private static void close(Statement statement, ResultSet resultSet) throws SQLException {
+        if (resultSet != null) {
+            resultSet.close();
         }
 
+        if (statement != null) {
+            statement.close();
+        }
     }
-
 
 }
