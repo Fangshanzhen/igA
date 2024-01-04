@@ -94,10 +94,10 @@ public class HttpClientUtils {
         }
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         builder.addBinaryBody(
-                "Hospital-1_0.json",
+                "file",
                 multipartFile.getInputStream(),
                 org.apache.http.entity.ContentType.MULTIPART_FORM_DATA,
-                multipartFile.getOriginalFilename()
+               "Hospital-1_0.json"
         );
 
         HttpEntity multipart = builder.build();
