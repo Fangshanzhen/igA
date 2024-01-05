@@ -1,6 +1,5 @@
 package com.igA.demo.data;
 
-import com.igA.demo.constant.Constant;
 import com.igA.demo.utils.JDBCUtils;
 import com.igA.demo.utils.ResultSetUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -22,11 +21,14 @@ import static com.igA.demo.constant.DataTransform.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.pentaho.di.core.logging.LogChannel;
+import org.pentaho.di.core.logging.LogChannelFactory;
 
 @Slf4j
 public class igAData {
 
-    public static void transformData() throws Exception {
+    public static void transformData(String baseUrl, String admin, String password, String id) throws Exception {
+
 
         Connection connection = null; //默认postgresql
         Statement statement = null;
@@ -43,8 +45,9 @@ public class igAData {
             List<String> idList = new ArrayList<>();
 
             idList = commonExecute(connection, statement, resultSet, idSql);
-
-            idList = Collections.singletonList("491");
+            if (id != null) {
+                idList = Collections.singletonList("1142");
+            }
 
 
             if (idList != null && idList.size() > 0) {
@@ -2000,12 +2003,12 @@ public class igAData {
 
                             if (suiFangYaoWuIdList != null && suiFangYaoWuIdList.size() > 0) {
                                 for (String lastId : suiFangYaoWuIdList) {
-                                    yaowu(zhyl310701000Json,zhyl310702000Json,lastId,statement,resultSet,connection);
+                                    yaowu(zhyl310701000Json, zhyl310702000Json, lastId, statement, resultSet, connection);
                                 }
                             }
 
                             //原有的id
-                            yaowu(zhyl310701000Json,zhyl310702000Json,suifang,statement,resultSet,connection);
+                            yaowu(zhyl310701000Json, zhyl310702000Json, suifang, statement, resultSet, connection);
 
                             zhyl310700000Json.put("zhyl310702000", zhyl310702000Json);//----冲击
                             zhyl310700000Json.put("zhyl310701000", zhyl310701000Json); //----药物
@@ -2029,7 +2032,7 @@ public class igAData {
                     String jsonStr = mapper.writeValueAsString(jsonObject);
                     System.out.println(jsonStr);
                     //------------------------------传输数据-----------------------------
-                    transform(baseUrl,jsonStr,s,connection);
+                    transform(baseUrl, jsonStr, s, connection, admin, password);
 
 
 
@@ -2043,7 +2046,7 @@ public class igAData {
 
     }
 
-    private static void yaowu(JSONArray zhyl310701000Json, JSONArray zhyl310702000Json, String id, Statement statement, ResultSet resultSet,Connection connection) throws Exception {
+    private static void yaowu(JSONArray zhyl310701000Json, JSONArray zhyl310702000Json, String id, Statement statement, ResultSet resultSet, Connection connection) throws Exception {
         String newsuiFangYaoWuSql = suiFangYaoWuSql.replace("?", id);
         List<Map<String, Object>> newSuiFangYaoWuSqlList = commonExecute2(connection, newsuiFangYaoWuSql, statement, resultSet);//药物有多条
         if (newSuiFangYaoWuSqlList != null && newSuiFangYaoWuSqlList.size() > 0) {

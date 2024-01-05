@@ -327,7 +327,9 @@ public class DataTransform {
     }
 
 
-    public static void transform(String baseUrl, String jsonStr, String id,Connection connection) throws Exception {
+    public static void transform(String baseUrl, String jsonStr, String id,Connection connection,String admin,String password) throws Exception {
+        LogChannelFactory logChannelFactory = new org.pentaho.di.core.logging.LogChannelFactory();
+        LogChannel kettleLog = logChannelFactory.create("IgA传输数据");
 
 
         String dataUrl = baseUrl + "/iga-export/imexport/importData";
@@ -348,7 +350,7 @@ public class DataTransform {
             }
             if (tokenList == null || (tokenList.size() == 0) || (tokenList.size() > 0 && tokenList.get(0) == null)
                     || (tokenList.size() > 0 && tokenList.get(0).equals("")) || (tokenList.size() > 0 && tokenList.get(0).equals("null"))) {
-                accessToken = getToken(baseUrl);
+                accessToken = getToken(baseUrl,admin,password);
                 Date date = new Date();
                 long a = date.getTime() + 30 * 60 * 1000;  //30分钟
                 String sql = "UPDATE "  + "public.token_time " + " SET token= " + "'" + accessToken + "'" + "  ,  token_time= " + a;
@@ -368,7 +370,7 @@ public class DataTransform {
                     if (Long.valueOf(timeList.get(0)) > a) {
                         accessToken = tokenList.get(0);
                     } else {
-                        accessToken = getToken(baseUrl);
+                        accessToken = getToken(baseUrl,admin,password);
                         Date date1 = new Date();
                         long a1 = date1.getTime() + 30 * 60 * 1000;
                         String sql1 = "UPDATE " + "public.token_time  " + " SET token = " + "'" + accessToken + "'" + "  ,  token_time= " + a1;
@@ -385,9 +387,11 @@ public class DataTransform {
 
         if (accessToken != null) {
             MultipartFile multipartFile = FileTransformUtils.transform(jsonStr);
+            //                    kettleLog.logBasic(jsonStr);
             kettleResponse dataResponse = HttpClientUtils.uploadFile(dataUrl, multipartFile, accessToken);
             if (dataResponse.getCode() == 200) {
-                log.info("病人id: " + id + "  transform data success");
+//                log.info("病人id: " + id + "  传输数据成功!");
+                kettleLog.logBasic("病人id: " + id + "  transform data success");
             }
             if (dataResponse.getCode() != 200) {
                 throw new Exception(dataResponse.getData());
@@ -406,15 +410,15 @@ public class DataTransform {
         return statement;
     }
 
-    private static String getToken(String baseUrl) throws Exception {
+    private static String getToken(String baseUrl,String admin,String password) throws Exception {
 
         String tokenUrl = baseUrl + "/auth/user/login";
 //        tokenUrl = "http://10.0.108.41/api-gate/auth/user/login";
 
         kettleResponse tokenResponse = null;  //
         Map<String, Object> tokenMap = new HashMap<String, Object>();
-        tokenMap.put("uid", Constant.admin);
-        tokenMap.put("password", Constant.password);
+        tokenMap.put("uid", admin);
+        tokenMap.put("password", password);
         tokenMap.put("loginType", 1);
         String accessToken = null;
 

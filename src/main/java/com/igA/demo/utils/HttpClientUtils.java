@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.*;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
@@ -96,7 +97,7 @@ public class HttpClientUtils {
         builder.addBinaryBody(
                 "file",
                 multipartFile.getInputStream(),
-                org.apache.http.entity.ContentType.MULTIPART_FORM_DATA,
+                ContentType.create("multipart/form-data", StandardCharsets.UTF_8),
                "Hospital-1_0.json"
         );
 
