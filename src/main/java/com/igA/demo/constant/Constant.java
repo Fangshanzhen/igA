@@ -51,9 +51,9 @@ public class Constant {
             "(EXTRACT(EPOCH FROM b.intime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as  zhyl200000001,\n" +
             "(EXTRACT(EPOCH FROM b.intime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as  zhyl210000001,\n" +
             "case when b.examinetype='17' then 1 when b.examinetype='16' then 2 when b.examinetype='131' then 3 end as zhyl210000002,\n" +
-            "(EXTRACT(EPOCH FROM b.intime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as  zhyl210000003,\n" +
-            "(EXTRACT(EPOCH FROM b.intime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as  zhyl210000004,\n" +
-            "(EXTRACT(EPOCH FROM b.outtime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as  zhyl210000005\n" +
+            "case when b.examinetype='16' then (EXTRACT(EPOCH FROM b.intime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR else null end as  zhyl210000003,\n" +
+            "case when b.examinetype='17' then (EXTRACT(EPOCH FROM b.intime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR else null end as  zhyl210000004,\n" +
+            "case when b.examinetype='17' then (EXTRACT(EPOCH FROM b.outtime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR else null end as  zhyl210000005\n" +
             "\n" +
             "\n" +
             "from hospital.hs_patient a \n" +
@@ -714,9 +714,9 @@ public class Constant {
             "when b.waketime='540' then 5 when b.waketime='720' then 6 when b.waketime='10000' then 7 end as zhyl310000001,\n" +
             "\n" +
             "case when b.examinetype='17' then 1 when b.examinetype='16' then 2 when b.examinetype='131' then 3 end as zhyl310000002,\n" +
-            "(EXTRACT(EPOCH FROM b.intime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as  zhyl310000003,\n" +
-            "(EXTRACT(EPOCH FROM b.intime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as  zhyl310000004,\n" +
-            "(EXTRACT(EPOCH FROM b.outtime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as  zhyl310000005\n" +
+            "case when b.examinetype='16' then (EXTRACT(EPOCH FROM b.intime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR else null end as  zhyl310000003,\n" +
+            "case when b.examinetype='17' then (EXTRACT(EPOCH FROM b.intime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR else null end as  zhyl310000004,\n" +
+            "case when b.examinetype='17' then (EXTRACT(EPOCH FROM b.outtime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR else null end as  zhyl310000005\n" +
             "\n" +
             "\n" +
             "from hospital.hs_patient a \n" +

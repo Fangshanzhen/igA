@@ -46,7 +46,7 @@ public class igAData {
 
             idList = commonExecute(connection, statement, resultSet, idSql);
             if (id != null) {
-                idList = Collections.singletonList("1142");
+                idList = Collections.singletonList(id);
             }
 
 
@@ -1085,7 +1085,8 @@ public class igAData {
                     zhyl210700000Json.put("zhyl210701000", zhyl210701000Json); //----药物
                     //----------------------------------------------
 
-                    JSONArray zhyl210702000Json = new JSONArray(); //冲击应该是个list
+                    JSONObject zhyl210702000Json = new JSONObject();
+                    JSONArray zhyl210702100Json = new JSONArray(); //冲击应该是个list
                     JSONArray zhyl210702003Json1 = new JSONArray(); //冲击治疗疗程
                     JSONArray zhyl210702003Json2 = new JSONArray(); //冲击治疗疗程
 
@@ -1127,7 +1128,7 @@ public class igAData {
                         }
 
                         newChongji1Map.put("zhyl210702003", zhyl210702003Json1);//甲泼尼龙冲击集合
-                        zhyl210702000Json.add(newChongji1Map);
+                        zhyl210702100Json.add(newChongji1Map);
                     }
 
 
@@ -1163,8 +1164,10 @@ public class igAData {
                             }
                         }
                         newChongji2Map.put("zhyl210702003", zhyl210702003Json2);//环磷酰胺冲击集合
-                        zhyl210702000Json.add(newChongji2Map);
+                        zhyl210702100Json.add(newChongji2Map);
                     }
+
+                    zhyl210702000Json.put("zhyl210702100", zhyl210702100Json);
                     zhyl210700000Json.put("zhyl210702000", zhyl210702000Json);//----冲击
 
 
@@ -1174,7 +1177,9 @@ public class igAData {
 
                     String newShenZangTiDaiSql = shenZangTiDaiSql.replace("?", s);
                     List<Map<String, Object>> newShenZangTiDailList = commonExecute2(connection, newShenZangTiDaiSql, statement, resultSet);
-                    zhyl200000000Json.put("zhyl210800000", newShenZangTiDailList);
+                    JSONObject zhyl210800000json = new JSONObject();
+                    zhyl210800000json.put("zhyl210801000", newShenZangTiDailList);
+                    zhyl200000000Json.put("zhyl210800000", zhyl210800000json);
                     //------------------------------------------------------------------8肾脏替代
 
                     jsonObject.put("zhyl200000000", zhyl200000000Json);
@@ -1184,19 +1189,18 @@ public class igAData {
                     //***************************************************************************
                     //***************************************************************************
 
-                    JSONArray zhyl300000000JSONArray = new JSONArray();
-
+                    JSONObject zhyl300000000JSONObject = new JSONObject();
+                    JSONArray zhyl300000003JSONArray = new JSONArray();
 
                     String newSuiFangIdSql = suiFangIdSql.replace("?", s);//一个病人id对应多个随访id
                     List<String> suiFangIdList = commonExecute(connection, statement, resultSet, newSuiFangIdSql);
                     if (suiFangIdList != null && suiFangIdList.size() > 0) {
                         for (String suifang : suiFangIdList) { //每一个随访id
 
-                            JSONObject zhyl300000000Json = new JSONObject(); //每一次随访记录都是一个json
-
                             String newsuiFangPatientInfoSqlSql = suiFangPatientInfoSql.replace("?", suifang);
                             Map<String, Object> map2 = commonExecute1(connection, newsuiFangPatientInfoSqlSql, statement, resultSet);
                             JSONObject zhyl310000000Json = new JSONObject();
+//                            JSONObject zhyl300000003Json = new JSONObject();
                             if (map2 != null && map2.size() > 0) {
                                 for (String key : map2.keySet()) {
                                     if (map2.keySet().contains("zhyl310000001") && key.equals("zhyl310000001")) {
@@ -1214,21 +1218,21 @@ public class igAData {
                                     if (map2.keySet().contains("zhyl310000005") && key.equals("zhyl310000005")) {
                                         zhyl310000000Json.put("zhyl310000005", map2.get(key));
                                     }
-                                    if (map2.keySet().contains("zhyl300000001") && key.equals("zhyl300000001")) {
-                                        zhyl300000000Json.put("zhyl300000001", map2.get(key)); //zhyl300000001 单独的时间
-                                    }
+//                                    if (map2.keySet().contains("zhyl300000001") && key.equals("zhyl300000001")) {
+//                                        zhyl310000000Json.put("zhyl300000001", map2.get(key));
+//                                    }
 
                                 }
                             }
-                            zhyl300000000Json.put("zhyl310000000", zhyl310000000Json);
+
                             //-----------------------------------------------------------zhyl310000000
                             String newSuiFangHisSql = suiFangHisSql.replace("?", suifang);
                             Map<String, Object> suifangHisMap = commonExecute1(connection, newSuiFangHisSql, statement, resultSet);
-                            zhyl300000000Json.put("zhyl310100000", suifangHisMap);
+                            zhyl310000000Json.put("zhyl310100000", suifangHisMap);
                             //-----------------------------------------------------------zhyl310100000 1病史
                             String newSuiFangPESql = suiFangPESql.replace("?", suifang);
                             Map<String, Object> suiFangPEMap = commonExecute1(connection, newSuiFangPESql, statement, resultSet);
-                            zhyl300000000Json.put("zhyl310200000", suiFangPEMap);
+                            zhyl310000000Json.put("zhyl310200000", suiFangPEMap);
                             //-----------------------------------------------------------zhyl310200000 2体格检查
                             String newSuiFangLabSql = suiFangLabSql.replace("?", suifang);
 
@@ -1549,7 +1553,7 @@ public class igAData {
                                 newSuiFangLabMap.put("zhyl310313000", zhyl310313000Json);
                             }
 
-                            zhyl300000000Json.put("zhyl310300000", newSuiFangLabMap);
+                            zhyl310000000Json.put("zhyl310300000", newSuiFangLabMap);
 //--------------------------------------------------------------------------------------3实验室检验
 
                             String newSuiFangBingLiSql = suiFangBingLiSql.replace("?", suifang);
@@ -1728,7 +1732,7 @@ public class igAData {
                                 suiFangBingliMap.put("zhyl310404000", zhyl310404000Json);
                             }
 
-                            zhyl300000000Json.put("zhyl310400000", suiFangBingliMap); //4病理检查
+                            zhyl310000000Json.put("zhyl310400000", suiFangBingliMap); //4病理检查
                             //------------------------------------------------
 
                             String newSuiFangJiYinSql = suiFangJiYinSql.replace("?", suifang);
@@ -1942,7 +1946,7 @@ public class igAData {
                                 suiFangJiYinMap.put("zhyl310502000", zhyl310502000Json);
                             }
 
-                            zhyl300000000Json.put("zhyl310500000", suiFangJiYinMap); //5基因标本库
+                            zhyl310000000Json.put("zhyl310500000", suiFangJiYinMap); //5基因标本库
 //--------------------------------------------------------------------
 
 
@@ -1991,7 +1995,7 @@ public class igAData {
                                 suiFangChaoShenMap.put("zhyl310604000", zhyl310604000Json);
 
                             }
-                            zhyl300000000Json.put("zhyl310600000", suiFangChaoShenMap);//6超声
+                            zhyl310000000Json.put("zhyl310600000", suiFangChaoShenMap);//6超声
 //--------------------------------------------------------------------------------
 
                             String newsuiFangYaoWuIdSql = suiFangLastYaoWuSql.replace("?", suifang);//上一次的随访id，存在的话把药物也加上
@@ -1999,41 +2003,47 @@ public class igAData {
 
                             JSONObject zhyl310700000Json = new JSONObject();//药物治疗 包括药物和冲击
                             JSONArray zhyl310701000Json = new JSONArray(); //药物应该是个list
-                            JSONArray zhyl310702000Json = new JSONArray(); //冲击应该是个list
+                            JSONObject zhyl310702000Json = new JSONObject(); //冲击应该是个list
+                            JSONArray zhyl310702100Json = new JSONArray(); //冲击应该是个list
 
                             if (suiFangYaoWuIdList != null && suiFangYaoWuIdList.size() > 0) {
                                 for (String lastId : suiFangYaoWuIdList) {
-                                    yaowu(zhyl310701000Json, zhyl310702000Json, lastId, statement, resultSet, connection);
+                                    yaowu(zhyl310701000Json, zhyl310702000Json, zhyl310702100Json, lastId, statement, resultSet, connection);
                                 }
                             }
 
                             //原有的id
-                            yaowu(zhyl310701000Json, zhyl310702000Json, suifang, statement, resultSet, connection);
+                            yaowu(zhyl310701000Json, zhyl310702000Json, zhyl310702100Json, suifang, statement, resultSet, connection);
 
                             zhyl310700000Json.put("zhyl310702000", zhyl310702000Json);//----冲击
                             zhyl310700000Json.put("zhyl310701000", zhyl310701000Json); //----药物
-                            zhyl300000000Json.put("zhyl310700000", zhyl310700000Json);//7药物和冲击
+                            zhyl310000000Json.put("zhyl310700000", zhyl310700000Json);//7药物和冲击
                             //---------------------------------------------------------------------------------
                             String newsSuiFangShenZangTiDaiSql = suiFangShenZangTiDaiSql.replace("?", suifang);
                             List<Map<String, Object>> newSuiFangShenZangTiDaiSqlList = commonExecute2(connection, newsSuiFangShenZangTiDaiSql, statement, resultSet);
-                            zhyl300000000Json.put("zhyl310800000", newSuiFangShenZangTiDaiSqlList);
+                            JSONObject zhyl310800000json = new JSONObject();
+                            zhyl310800000json.put("zhyl310810000", newSuiFangShenZangTiDaiSqlList);
+                            zhyl310000000Json.put("zhyl310800000", zhyl310800000json);
                             //------------------------------------------------------------------8肾脏替代
 
-                            zhyl300000000JSONArray.add(zhyl300000000Json);
+                            //------------------------------------------------------------------一次随访结束
+                            JSONObject zhyl310000000JSONObject = new JSONObject();
+                            zhyl310000000JSONObject.put("zhyl310000000", zhyl310000000Json);
+                            zhyl300000003JSONArray.add(zhyl310000000JSONObject);
                         }
 
                     }
 
-
-                    jsonObject.put("zhyl300000000", zhyl300000000JSONArray);
+                    zhyl300000000JSONObject.put("zhyl300000003", zhyl300000003JSONArray);
+                    jsonObject.put("zhyl300000000", zhyl300000000JSONObject);
 
                     ObjectMapper mapper = new ObjectMapper();    //为了让json中的字段有序
                     mapper.enable(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS);
                     String jsonStr = mapper.writeValueAsString(jsonObject);
                     System.out.println(jsonStr);
                     //------------------------------传输数据-----------------------------
-                    transform(baseUrl, jsonStr, s, connection, admin, password);
-
+                    //------------------------------传输数据-----------------------------
+//                 transform(baseUrl, jsonStr, s, connection, admin, password);
 
 
                 }
@@ -2046,7 +2056,7 @@ public class igAData {
 
     }
 
-    private static void yaowu(JSONArray zhyl310701000Json, JSONArray zhyl310702000Json, String id, Statement statement, ResultSet resultSet, Connection connection) throws Exception {
+    private static void yaowu(JSONArray zhyl310701000Json, JSONObject zhyl310702000Json, JSONArray zhyl310702100Json, String id, Statement statement, ResultSet resultSet, Connection connection) throws Exception {
         String newsuiFangYaoWuSql = suiFangYaoWuSql.replace("?", id);
         List<Map<String, Object>> newSuiFangYaoWuSqlList = commonExecute2(connection, newsuiFangYaoWuSql, statement, resultSet);//药物有多条
         if (newSuiFangYaoWuSqlList != null && newSuiFangYaoWuSqlList.size() > 0) {
@@ -2109,7 +2119,7 @@ public class igAData {
             }
 
             newSuiFangChong1Map.put("zhyl310702003", zhyl310702003Json1);//甲泼尼龙冲击集合
-            zhyl310702000Json.add(newSuiFangChong1Map);
+            zhyl310702100Json.add(newSuiFangChong1Map);
         }
 
 
@@ -2145,8 +2155,9 @@ public class igAData {
                 }
             }
             newSuiFangChong2Map.put("zhyl310702003", zhyl310702003Json2);//环磷酰胺冲击集合
-            zhyl310702000Json.add(newSuiFangChong2Map);
+            zhyl310702100Json.add(newSuiFangChong2Map);
         }
+        zhyl310702000Json.put("zhyl310702100", zhyl310702100Json);
     }
 
 

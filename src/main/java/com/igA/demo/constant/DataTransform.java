@@ -390,8 +390,8 @@ public class DataTransform {
             //                    kettleLog.logBasic(jsonStr);
             kettleResponse dataResponse = HttpClientUtils.uploadFile(dataUrl, multipartFile, accessToken);
             if (dataResponse.getCode() == 200) {
-//                log.info("病人id: " + id + "  传输数据成功!");
-                kettleLog.logBasic("病人id: " + id + "  transform data success");
+                log.info("病人id: " + id + "  传输数据成功!");
+//                kettleLog.logBasic("病人id: " + id + "  transform data success");
             }
             if (dataResponse.getCode() != 200) {
                 throw new Exception(dataResponse.getData());
