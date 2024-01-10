@@ -7,7 +7,7 @@ public class Constant {
 //    public final static String password ="72d0645981154de34f35e03d06c626cc";
 
     public final static String idSql = "select a.id  from hospital.hs_patient a ";
-
+//
 
     public final static String patientSql = "    select a.id as zhyl110000001,\n" +
             "b.id  as zhyl110000002, --产品配置\n" +
@@ -1092,7 +1092,7 @@ public class Constant {
 
 
 
-    public final static String suiFangJiYinSql ="select case when d.status='1' then 1 when d.status='2' then 0 end as zhyl210500001,\n" +
+    public final static String suiFangJiYinSql ="select case when d.status='1' then 1 when d.status='2' then 0 end as zhyl310500001,\n" +
             "d.datas,\n" +
             "d.bf_data,\n" +
             "d.xz_data,\n" +

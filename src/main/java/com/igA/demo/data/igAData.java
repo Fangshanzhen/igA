@@ -2043,7 +2043,7 @@ public class igAData {
                     System.out.println(jsonStr);
                     //------------------------------传输数据-----------------------------
                     //------------------------------传输数据-----------------------------
-//                 transform(baseUrl, jsonStr, s, connection, admin, password);
+                 transform(baseUrl, jsonStr, s, connection, admin, password);
 
 
                 }
