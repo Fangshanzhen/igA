@@ -1218,6 +1218,12 @@ public class igAData {
                                     if (map2.keySet().contains("zhyl310000005") && key.equals("zhyl310000005")) {
                                         zhyl310000000Json.put("zhyl310000005", map2.get(key));
                                     }
+                                    if (map2.keySet().contains("zhyl310000006") && key.equals("zhyl310000006")) {
+                                        zhyl310000000Json.put("zhyl310000006", map2.get(key));
+                                    }
+                                    if (map2.keySet().contains("zhyl310000007") && key.equals("zhyl310000007")) {
+                                        zhyl310000000Json.put("zhyl310000007", map2.get(key));
+                                    }
 //                                    if (map2.keySet().contains("zhyl300000001") && key.equals("zhyl300000001")) {
 //                                        zhyl310000000Json.put("zhyl300000001", map2.get(key));
 //                                    }

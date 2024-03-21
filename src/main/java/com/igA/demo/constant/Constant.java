@@ -716,7 +716,8 @@ public class Constant {
             "case when b.examinetype='17' then 1 when b.examinetype='16' then 2 when b.examinetype='131' then 3 end as zhyl310000002,\n" +
             "case when b.examinetype='16' then (EXTRACT(EPOCH FROM b.intime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR else null end as  zhyl310000003,\n" +
             "case when b.examinetype='17' then (EXTRACT(EPOCH FROM b.intime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR else null end as  zhyl310000004,\n" +
-            "case when b.examinetype='17' then (EXTRACT(EPOCH FROM b.outtime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR else null end as  zhyl310000005\n" +
+            "case when b.examinetype='17' then (EXTRACT(EPOCH FROM b.outtime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR else null end as  zhyl310000005,\n" +
+            "a.hospitalid as zhyl310000006, a.caseno as zhyl310000007 "+
             "\n" +
             "\n" +
             "from hospital.hs_patient a \n" +
