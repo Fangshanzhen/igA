@@ -6,7 +6,7 @@ public class Constant {
 //    public final static String admin ="admin";
 //    public final static String password ="72d0645981154de34f35e03d06c626cc";
 
-    public final static String idSql = "select a.id  from hospital.hs_patient a ";
+    public final static String idSql = "select a.id  from hospital.hs_patient a where createtime < 1698768000 ";
 //
 
     public final static String patientSql = "    select a.id as zhyl110000001,\n" +

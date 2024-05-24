@@ -1,11 +1,15 @@
 package com.igA.demo.utils;
 
+import org.pentaho.di.core.KettleEnvironment;
+import org.pentaho.di.core.exception.KettleException;
 import org.pentaho.di.core.logging.LogChannel;
 import org.pentaho.di.core.logging.LogChannelFactory;
 
 import java.sql.*;
+import java.util.Properties;
 
 public class JDBCUtils {
+
 
 
     private static String MYSQLURL = "jdbc:mysql://ip:port/dbname?userSSL=true&useUnicode=true&characterEncoding=UTF8&serverTimezone=Asia/Shanghai";
@@ -18,10 +22,10 @@ public class JDBCUtils {
 
     private static String SQLSERVERURL = "jdbc:sqlserver://ip:port;databaseName=dbname";
 
-    public static Connection getConnection(String databaseType, String ip, String port, String dbname, String schema, String user, String password) throws SQLException {
-
+    public static Connection getConnection(String databaseType, String ip, String port, String dbname, String schema, String user, String password) throws SQLException, KettleException {
+        KettleEnvironment.init();
         LogChannelFactory logChannelFactory = new org.pentaho.di.core.logging.LogChannelFactory();
-        LogChannel kettleLog = logChannelFactory.create("igA数据采集");
+        LogChannel kettleLog = logChannelFactory.create("数据采集");
 
         if (databaseType.equals("mysql")) {
             MYSQLURL = MYSQLURL.replace("ip", ip).replace("port", port).replace("dbname", dbname);   //富平县数据库名ww_report
@@ -41,7 +45,11 @@ public class JDBCUtils {
         if (databaseType.equals("sqlserver")) {
             SQLSERVERURL = SQLSERVERURL.replace("dbname", dbname).replace("ip", ip).replace("port", port);
             kettleLog.logBasic("-----url----"+SQLSERVERURL);
-            return DriverManager.getConnection(SQLSERVERURL, user, password);
+            Properties properties = new Properties();
+            properties.put("user", user);
+            properties.put("password", password);
+            properties.put("sslProtocol", "TLSv1.2");
+            return DriverManager.getConnection(SQLSERVERURL,properties);
         }
         return null;
 

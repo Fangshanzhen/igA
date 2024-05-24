@@ -2222,7 +2222,7 @@ public class igAData {
         return map;
     }
 
-    private static List<String> commonExecute(Connection connection, Statement statementTable, ResultSet resultSetTable, String sql) throws Exception {
+    public static List<String> commonExecute(Connection connection, Statement statementTable, ResultSet resultSetTable, String sql) throws Exception {
         List<String> list = new ArrayList<>();
         try {
             statementTable = executeSql(sql, connection);
@@ -2239,8 +2239,9 @@ public class igAData {
 
 
     private static Statement executeSql(String sql, Connection connection) throws Exception {
-        Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY,
-                ResultSet.CLOSE_CURSORS_AT_COMMIT);
+        // 设置连接的持久性
+        connection.setHoldability(ResultSet.HOLD_CURSORS_OVER_COMMIT);
+        Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);//,ResultSet.CLOSE_CURSORS_AT_COMMIT
         statement.setQueryTimeout(6000);
         statement.setFetchSize(100000);
         statement.setEscapeProcessing(false);
