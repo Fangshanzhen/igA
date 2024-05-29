@@ -2167,7 +2167,7 @@ public class igAData {
     }
 
 
-    private static void transJson(Map<String, Object> basicLabMap, String key, String x, JSONObject json, String list) {
+    public static void transJson(Map<String, Object> basicLabMap, String key, String x, JSONObject json, String list) {
         if (basicLabMap.keySet().contains(x) && key.equals(x) && list == null) {
             json.put(x, basicLabMap.get(key));
         }
@@ -2207,7 +2207,7 @@ public class igAData {
         return list;
     }
 
-    private static Map<String, Object> commonExecute1(Connection connection, String sql, Statement statementTable, ResultSet resultSetTable) throws Exception {
+    public static Map<String, Object> commonExecute1(Connection connection, String sql, Statement statementTable, ResultSet resultSetTable) throws Exception {
         Map<String, Object> map = new HashMap<>();
         try {
             statementTable = executeSql(sql, connection);
