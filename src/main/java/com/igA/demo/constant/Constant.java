@@ -6,45 +6,45 @@ public class Constant {
 //    public final static String admin ="admin";
 //    public final static String password ="72d0645981154de34f35e03d06c626cc";
 
-    public final static String idSql = "select a.id  from hospital.hs_patient a where createtime < 1698768000 ";
+    public final static String idSql = "select cgkd.id  from hospital.hs_patient cgkd where createtime < 1698768000 ";
 //
 
-    public final static String patientSql = "    select a.id as zhyl110000001,\n" +
+    public final static String patientSql = "    select cgkd.id as zhyl110000001,\n" +
             "b.id  as zhyl110000002, --产品配置\n" +
-            "a.caseno as zhyl110000003,\n" +
-            "a.patientname as zhyl110000004,\n" +
-            "case when a.sex=0 then 1 when a.sex=1 then 2 end as zhyl110000005,\n" +
-            "(EXTRACT(EPOCH FROM a.birthday::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as zhyl110000006,\n" +
+            "cgkd.caseno as zhyl110000003,\n" +
+            "cgkd.patientname as zhyl110000004,\n" +
+            "case when cgkd.sex=0 then 1 when cgkd.sex=1 then 2 end as zhyl110000005,\n" +
+            "(EXTRACT(EPOCH FROM cgkd.birthday::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as zhyl110000006,\n" +
             "--d.dictname as zhyl110000007, --需要转换\n" +
             "j.id  as zhyl110000007,\n" +
-            "(EXTRACT(EPOCH FROM a.agreetime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as  zhyl110000008,\n" +
-            "(EXTRACT(EPOCH FROM a.knowtime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as  zhyl110000009,\n" +
-            "case when a.certype='3' then 1\n" +
-            "when a.certype='126' then 2\n" +
-            "when a.certype='127' then 3\n" +
-            "when a.certype='4' then 4\n" +
-            "when a.certype='5' then 5\n" +
-            "when a.certype='6' then 6 end as zhyl110000010, \n" +
-            "a.cernum as zhyl110000011,\n" +
+            "(EXTRACT(EPOCH FROM cgkd.agreetime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as  zhyl110000008,\n" +
+            "(EXTRACT(EPOCH FROM cgkd.knowtime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as  zhyl110000009,\n" +
+            "case when cgkd.certype='3' then 1\n" +
+            "when cgkd.certype='126' then 2\n" +
+            "when cgkd.certype='127' then 3\n" +
+            "when cgkd.certype='4' then 4\n" +
+            "when cgkd.certype='5' then 5\n" +
+            "when cgkd.certype='6' then 6 end as zhyl110000010, \n" +
+            "cgkd.cernum as zhyl110000011,\n" +
             "\n" +
             "--f.\"name\"||g.\"name\"||h.\"name\" as zhyl110100001,--需要转换\n" +
             "i.d as zhyl110100001,\n" +
-            "a.address as zhyl110100002,\n" +
-            "a.code as zhyl110100003,\n" +
+            "cgkd.address as zhyl110100002,\n" +
+            "cgkd.code as zhyl110100003,\n" +
             "\n" +
-            " a.contact_data \n" +
+            " cgkd.contact_data \n" +
             " \n" +
-            " from hospital.hs_patient a \n" +
-            "left join hospital.hs_hospital b on a.hospitalid=b.id\n" +
-            "left join hospital.hs_dcit c on cast(a.certype as integer) =c.id\n" +
-            "left join hospital.hs_dcit d on cast(a.marriaged as integer) =d.id\n" +
+            " from hospital.hs_patient cgkd \n" +
+            "left join hospital.hs_hospital b on cgkd.hospitalid=b.id\n" +
+            "left join hospital.hs_dcit c on cast(cgkd.certype as integer) =c.id\n" +
+            "left join hospital.hs_dcit d on cast(cgkd.marriaged as integer) =d.id\n" +
             "\n" +
-            "left join hospital.hs_region f on cast(a.province as integer) =f.id\n" +
-            "left join hospital.hs_region g on cast(a.city as integer) =g.id\n" +
-            "left join hospital.hs_region h on cast(a.area as integer) =h.id\n" +
-            "left join public.dict1 i on a.id=i.a\n" +
+            "left join hospital.hs_region f on cast(cgkd.province as integer) =f.id\n" +
+            "left join hospital.hs_region g on cast(cgkd.city as integer) =g.id\n" +
+            "left join hospital.hs_region h on cast(cgkd.area as integer) =h.id\n" +
+            "left join public.dict1 i on cgkd.id=i.cgkd\n" +
             "left join public.nation j on d.dictname=j.\"name\" \n" +
-            "where a.id='?'";
+            "where cgkd.id='?'";
 
 
     public final static String patientInfoSql ="select \n" +
@@ -56,22 +56,22 @@ public class Constant {
             "case when b.examinetype='17' then (EXTRACT(EPOCH FROM b.outtime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR else null end as  zhyl210000005\n" +
             "\n" +
             "\n" +
-            "from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
-            "left join hospital.hs_hospital c on a.hospitalid=c.id \n" +
-            "where  b.reporttype='首诊报告' and b.historyflag=0  and  a.id='?'"
+            "from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
+            "left join hospital.hs_hospital c on cgkd.hospitalid=c.id \n" +
+            "where  b.reporttype='首诊报告' and b.historyflag=0  and  cgkd.id='?'"
             ;
 
 
     public final static String withDrawSql ="select \n" +
-            "a.id , c.hospitalcode  as center, a.agreetime as time_enroll, a.outtime as WITHDRAW_TIME,\n" +
-            "case when a .reason='113' then 1   \n" +
-            "when a .reason='114' then 2 \n" +
-            "when a .reason='115' then 3\n" +
-            "when a .reason='116' then 4  end as  WITHDRAW_REASON,\n" +
-            "a.outremark as WITHDRAW_OTH\n" +
-            "from hospital.hs_patient a \n" +
-            "left join hospital.hs_hospital c on a.hospitalid=c.id where   a.id='?' ";
+            "cgkd.id , c.hospitalcode  as center, cgkd.agreetime as time_enroll, cgkd.outtime as WITHDRAW_TIME,\n" +
+            "case when cgkd .reason='113' then 1   \n" +
+            "when cgkd .reason='114' then 2 \n" +
+            "when cgkd .reason='115' then 3\n" +
+            "when cgkd .reason='116' then 4  end as  WITHDRAW_REASON,\n" +
+            "cgkd.outremark as WITHDRAW_OTH\n" +
+            "from hospital.hs_patient cgkd \n" +
+            "left join hospital.hs_hospital c on cgkd.hospitalid=c.id where   cgkd.id='?' ";
 
 
     public final static String baseLineHisSql ="  select \n" +
@@ -108,37 +108,37 @@ public class Constant {
             "d.szjbjzs_data--肾脏病家族史\n" +
             "\n" +
             "\n" +
-            "from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
-            "left join hospital.hs_hospital c on a.hospitalid=c.id  \n" +
+            "from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
+            "left join hospital.hs_hospital c on cgkd.hospitalid=c.id  \n" +
             "left join hospital.hs_caseone d on b.id=d.id\n" +
             "\n" +
-            " where  b.reporttype='首诊报告' and b.historyflag=0 and a.id='?'\n";
+            " where  b.reporttype='首诊报告' and b.historyflag=0 and cgkd.id='?'\n";
 
 
 
-    public final static String treatmentHistorySql ="select a.id as id ,c.hospitalcode  as center,  a.agreetime as time_enroll,\n" +
+    public final static String treatmentHistorySql ="select cgkd.id as id ,c.hospitalcode  as center,  cgkd.agreetime as time_enroll,\n" +
             "b.intime as visit_time,\n" +
             "d.yys_data\n" +
             "\n" +
             "\n" +
-            "from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
-            "left join hospital.hs_hospital c on a.hospitalid=c.id  \n" +
+            "from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
+            "left join hospital.hs_hospital c on cgkd.hospitalid=c.id  \n" +
             "left join hospital.hs_caseone d on b.id=d.id\n" +
             "\n" +
-            " where  b.reporttype='首诊报告'  and b.historyflag=0 and   a.id='?' ";
+            " where  b.reporttype='首诊报告'  and b.historyflag=0 and   cgkd.id='?' ";
 
 
-    public final static String familySql ="select a.id as id ,c.hospitalcode  as center,\n" +
+    public final static String familySql ="select cgkd.id as id ,c.hospitalcode  as center,\n" +
             "d.szjbjzs_data\n" +
             "\n" +
-            "from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
-            "left join hospital.hs_hospital c on a.hospitalid=c.id  \n" +
+            "from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
+            "left join hospital.hs_hospital c on cgkd.hospitalid=c.id  \n" +
             "left join hospital.hs_caseone d on b.id=d.id\n" +
             "\n" +
-            " where  b.reporttype='首诊报告'  and b.historyflag=0 and   a.id='?' ";
+            " where  b.reporttype='首诊报告'  and b.historyflag=0 and   cgkd.id='?' ";
 
 
 
@@ -157,12 +157,12 @@ public class Constant {
             "      d.remark as zhyl210200012\n" +
             " \n" +
             " \n" +
-            "  from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
-            "left join hospital.hs_hospital c on a.hospitalid=c.id  \n" +
+            "  from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
+            "left join hospital.hs_hospital c on cgkd.hospitalid=c.id  \n" +
             "left join hospital.hs_casetwo d on b.id=d.id\n" +
             "\n" +
-            " where  b.reporttype='首诊报告'  and b.historyflag=0 and   a.id='?'  ";
+            " where  b.reporttype='首诊报告'  and b.historyflag=0 and   cgkd.id='?'  ";
 
     public final static String basicLabSql =" select  (EXTRACT(EPOCH FROM d.ncg_check_time::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR as zhyl210301001,\n" +
             " case when d.ncg_pro='1' then 0 when d.ncg_pro='2' then 1  when d.ncg_pro='3' then 2 when d.ncg_pro='4' then 3 when d.ncg_pro='5' then 4 \n" +
@@ -216,12 +216,12 @@ public class Constant {
             "d.iga_tjh as zhyl210313001\n" +
             "\n" +
             "\n" +
-            "   from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
-            "left join hospital.hs_hospital c on a.hospitalid=c.id  \n" +
+            "   from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
+            "left join hospital.hs_hospital c on cgkd.hospitalid=c.id  \n" +
             "left join hospital.hs_casethree d on b.id=d.id\n" +
             "\n" +
-            " where  b.reporttype='首诊报告'  and b.historyflag=0 and   a.id='?' \n" +
+            " where  b.reporttype='首诊报告'  and b.historyflag=0 and   cgkd.id='?' \n" +
             "  ";
 
 
@@ -493,12 +493,12 @@ public class Constant {
             "    \n" +
             "    \n" +
             "    \n" +
-            " from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
-            "left join hospital.hs_hospital c on a.hospitalid=c.id  \n" +
+            " from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
+            "left join hospital.hs_hospital c on cgkd.hospitalid=c.id  \n" +
             "left join hospital.hs_casefour d on b.id=d.id\n" +
             "\n" +
-            " where  b.reporttype='首诊报告'  and b.historyflag=0 and   a.id='?' ";
+            " where  b.reporttype='首诊报告'  and b.historyflag=0 and   cgkd.id='?' ";
 
 
 
@@ -510,12 +510,12 @@ public class Constant {
             "d.xq_data,\n" +
             "d.yy_data\n" +
             " \n" +
-            " from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
-            "left join hospital.hs_hospital c on a.hospitalid=c.id  \n" +
+            " from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
+            "left join hospital.hs_hospital c on cgkd.hospitalid=c.id  \n" +
             "left join hospital.hs_casefive d on b.id=d.id\n" +
             "\n" +
-            " where  b.reporttype='首诊报告'  and b.historyflag=0 and   a.id='?' \n" +
+            " where  b.reporttype='首诊报告'  and b.historyflag=0 and   cgkd.id='?' \n" +
             "  ";
 
 
@@ -535,12 +535,12 @@ public class Constant {
             "  d.ys_sszhs as zhyl210603006,\n" +
             "  d.cssj as zhyl210604001\n" +
             " \n" +
-            "  from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
-            "left join hospital.hs_hospital c on a.hospitalid=c.id  \n" +
+            "  from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
+            "left join hospital.hs_hospital c on cgkd.hospitalid=c.id  \n" +
             "left join hospital.hs_casesix d on b.id=d.id\n" +
             "\n" +
-            " where  b.reporttype='首诊报告'  and b.historyflag=0 and   a.id='?' ";
+            " where  b.reporttype='首诊报告'  and b.historyflag=0 and   cgkd.id='?' ";
 
 
 
@@ -566,15 +566,15 @@ public class Constant {
             "  case when d.is_end is not null then(case when d.is_end=0 then 0 else 1 end) end as zhyl210701011,\n" +
             "  case when d.is_end=0 then null when d.is_end=117 then 1  when d.is_end=118 then 2 when d.is_end=119 then 3 when d.is_end=120 then 4 end as zhyl210701012\n" +
             "  \n" +
-            "   from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
-            "left join hospital.hs_hospital c on a.hospitalid=c.id  \n" +
+            "   from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
+            "left join hospital.hs_hospital c on cgkd.hospitalid=c.id  \n" +
             "left join hospital.hs_caseseven d on b.id=d.case_id \n" +
             "left join (select * from hospital.hs_drugdcit  ) e on d.drugdcit_id=e.id \n" +
             "\n" +
             " where  b.reporttype='首诊报告'  and b.historyflag=0 \n" +
             " and e.drugname !='甲泼尼龙冲击' and  e.drugname !='环磷酰胺冲击' \n" +
-            " and   a.id='?' ";
+            " and   cgkd.id='?' ";
 
 
     public final static String chongJi1Sql ="  select \n" +
@@ -592,15 +592,15 @@ public class Constant {
             "   d.is_lock as zhyl210702008\n" +
             "  \n" +
             "\n" +
-            "   from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
-            "left join hospital.hs_hospital c on a.hospitalid=c.id  \n" +
+            "   from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
+            "left join hospital.hs_hospital c on cgkd.hospitalid=c.id  \n" +
             "left join hospital.hs_caseseven d on b.id=d.case_id \n" +
             "left join (select * from hospital.hs_drugdcit  ) e on d.drugdcit_id=e.id \n" +
             "\n" +
             " where  b.reporttype='首诊报告'  and b.historyflag=0 \n" +
             " and ( e.drugname ='甲泼尼龙冲击'  )\n" +
-            " and   a.id='?' \n" +
+            " and   cgkd.id='?' \n" +
             " ";
 
     public final static String chongJi2Sql ="  select \n" +
@@ -630,15 +630,15 @@ public class Constant {
             "   d.is_lock as zhyl210702008\n" +
             "  \n" +
             "\n" +
-            "   from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
-            "left join hospital.hs_hospital c on a.hospitalid=c.id  \n" +
+            "   from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
+            "left join hospital.hs_hospital c on cgkd.hospitalid=c.id  \n" +
             "left join hospital.hs_caseseven d on b.id=d.case_id \n" +
             "left join (select * from hospital.hs_drugdcit  ) e on d.drugdcit_id=e.id \n" +
             "\n" +
             " where  b.reporttype='首诊报告'  and b.historyflag=0 \n" +
             " and ( e.drugname ='环磷酰胺冲击' )\n" +
-            " and   a.id='?' \n" +
+            " and   cgkd.id='?' \n" +
             " ";
 
 
@@ -660,7 +660,7 @@ public class Constant {
             "   d.source as zhyl210800005,\n" +
             "   d.explain as zhyl210800006\n" +
             " \n" +
-            "   from hospital.hs_patient a \n" +
+            "   from hospital.hs_patient cgkd \n" +
             "inner join \n" +
             "(\n" +
             "select  id,patientid,\n" +
@@ -668,14 +668,14 @@ public class Constant {
             "when historyflag=0 and parentid is not  null then (\n" +
             "case when parentid like'%,%' then ( TO_NUMBER((string_to_array(parentid, ','))[array_length(string_to_array(parentid, ','), 1)], '999999999D99') )\n" +
             " when parentid not like'%,%' then TO_NUMBER(parentid, '999999999D99') end)\n" +
-            "end as a\n" +
+            "end as cgkd\n" +
             "from hospital.hs_patientinfo   where reporttype='首诊报告'   and historyflag=0\n" +
             ")\n" +
             "\n" +
-            "b on a.id=b.patientid  \n" +
-            "left join hospital.hs_caseeightup d on b.a=d.case_id \n" +
+            "b on cgkd.id=b.patientid  \n" +
+            "left join hospital.hs_caseeightup d on b.cgkd=d.case_id \n" +
             "\n" +
-            " where   a.id='?' \n" +
+            " where   cgkd.id='?' \n" +
             " ";
 
 
@@ -687,9 +687,9 @@ public class Constant {
             "\n" +
             "b.id\n" +
             "\n" +
-            "from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
-            "where  b.reporttype='随访报告' and b.historyflag=0  and a.id='?'";
+            "from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
+            "where  b.reporttype='随访报告' and b.historyflag=0  and cgkd.id='?'";
 
     public final static String suiFangLastYaoWuSql ="select \n" +
             "  case when historyflag=0 and parentid is not  null then (\n" +
@@ -717,12 +717,12 @@ public class Constant {
             "case when b.examinetype='16' then (EXTRACT(EPOCH FROM b.intime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR else null end as  zhyl310000003,\n" +
             "case when b.examinetype='17' then (EXTRACT(EPOCH FROM b.intime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR else null end as  zhyl310000004,\n" +
             "case when b.examinetype='17' then (EXTRACT(EPOCH FROM b.outtime::timestamp with time zone AT TIME ZONE 'UTC') * 1000)::VARCHAR else null end as  zhyl310000005,\n" +
-            "a.hospitalid as zhyl310000006, a.caseno as zhyl310000007 "+
+            "cgkd.hospitalid as zhyl310000006, cgkd.caseno as zhyl310000007 "+
             "\n" +
             "\n" +
-            "from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
-            "left join hospital.hs_hospital c on a.hospitalid=c.id \n" +
+            "from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
+            "left join hospital.hs_hospital c on cgkd.hospitalid=c.id \n" +
             "where  b.reporttype='随访报告' and b.historyflag=0  and b.id='?'"
             ;
 
@@ -746,8 +746,8 @@ public class Constant {
             "d.\"explain\" as zhyl310100028\n" +
             " \n" +
             "\n" +
-            "from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
+            "from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
             "left join hospital.hs_caseone d on b.id=d.id\n" +
             " where  b.reporttype='随访报告' and b.historyflag=0 and b.id='?'";
 
@@ -766,8 +766,8 @@ public class Constant {
             "      d.remark as zhyl310200012\n" +
             " \n" +
             " \n" +
-            "  from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
+            "  from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
             "left join hospital.hs_casetwo d on b.id=d.id\n" +
             "\n" +
             " where  b.reporttype='随访报告'  and b.historyflag=0 and  b.id='?' ";
@@ -810,8 +810,8 @@ public class Constant {
             "d.iga_tjh as zhyl310313001\n" +
             "\n" +
             "\n" +
-            "   from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
+            "   from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
             "left join hospital.hs_casethree d on b.id=d.id\n" +
             "\n" +
             " where  b.reporttype='随访报告'  and b.historyflag=0 and  b.id ='?'";
@@ -1083,8 +1083,8 @@ public class Constant {
             "    \n" +
             "    \n" +
             "    \n" +
-            " from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
+            " from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
             "left join hospital.hs_casefour d on b.id=d.id\n" +
             "\n" +
             " where  b.reporttype='随访报告'  and b.historyflag=0 and  b.id ='?'";
@@ -1101,8 +1101,8 @@ public class Constant {
             "d.xq_data,\n" +
             "d.yy_data\n" +
             " \n" +
-            " from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
+            " from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
             "left join hospital.hs_casefive d on b.id=d.id\n" +
             "\n" +
             " where  b.reporttype='随访报告'  and b.historyflag=0 and  b.id ='?'";
@@ -1125,9 +1125,9 @@ public class Constant {
             "  d.ys_sszhs as zhyl310603006,\n" +
             "  d.cssj as zhyl310604001\n" +
             " \n" +
-            "  from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
-            "left join hospital.hs_hospital c on a.hospitalid=c.id  \n" +
+            "  from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
+            "left join hospital.hs_hospital c on cgkd.hospitalid=c.id  \n" +
             "left join hospital.hs_casesix d on b.id=d.id\n" +
             "\n" +
             " where  b.reporttype='随访报告'  and b.historyflag=0 and   b.id ='?'\n";
@@ -1155,8 +1155,8 @@ public class Constant {
             "  case when d.is_end is not null then(case when d.is_end=0 then 0 else 1 end) end as zhyl310701011,\n" +
             "  case when d.is_end=0 then null when d.is_end=117 then 1  when d.is_end=118 then 2 when d.is_end=119 then 3 when d.is_end=120 then 4 end  as zhyl310701012\n" +
             "  \n" +
-            "   from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
+            "   from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
             "left join hospital.hs_caseseven d on b.id=d.case_id \n" +
             "left join (select * from hospital.hs_drugdcit  ) e on d.drugdcit_id=e.id \n" +
             "\n" +
@@ -1194,9 +1194,9 @@ public class Constant {
             "   d.is_lock as zhyl310702008\n" +
             "  \n" +
             "\n" +
-            "   from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
-            "left join hospital.hs_hospital c on a.hospitalid=c.id  \n" +
+            "   from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
+            "left join hospital.hs_hospital c on cgkd.hospitalid=c.id  \n" +
             "left join hospital.hs_caseseven d on b.id=d.case_id \n" +
             "left join (select * from hospital.hs_drugdcit  ) e on d.drugdcit_id=e.id \n" +
             "\n" +
@@ -1234,9 +1234,9 @@ public class Constant {
             "   d.is_lock as zhyl310702008\n" +
             "  \n" +
             "\n" +
-            "   from hospital.hs_patient a \n" +
-            "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
-            "left join hospital.hs_hospital c on a.hospitalid=c.id  \n" +
+            "   from hospital.hs_patient cgkd \n" +
+            "inner join hospital.hs_patientinfo b on cgkd.id=b.patientid \n" +
+            "left join hospital.hs_hospital c on cgkd.hospitalid=c.id  \n" +
             "left join hospital.hs_caseseven d on b.id=d.case_id \n" +
             "left join (select * from hospital.hs_drugdcit  ) e on d.drugdcit_id=e.id \n" +
             "\n" +
@@ -1263,7 +1263,7 @@ public class Constant {
             "   d.source as zhyl310800005,\n" +
             "   d.explain as zhyl310800006\n" +
             " \n" +
-            "   from hospital.hs_patient a \n" +
+            "   from hospital.hs_patient cgkd \n" +
             "inner join \n" +
             "(\n" +
             "select  id,patientid,\n" +
@@ -1274,7 +1274,7 @@ public class Constant {
             "end as newid\n" +
             "from hospital.hs_patientinfo   where reporttype='随访报告'   and historyflag=0\n" +
             ")\n" +
-            "b on a.id=b.patientid  \n" +
+            "b on cgkd.id=b.patientid  \n" +
             "left join hospital.hs_caseeightup d on b.newid=d.case_id \n" +
             "\n" +
             " where   b.id='?'";

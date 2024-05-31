@@ -13,9 +13,9 @@ public class JDBCUtils {
 
 
     private static String MYSQLURL = "jdbc:mysql://ip:port/dbname?userSSL=true&useUnicode=true&characterEncoding=UTF8&serverTimezone=Asia/Shanghai";
-    //jdbc:mysql://localhost:3306/test
+    //jdbc:mysql://localhost:3306/test111
     private static String POSTGRESQLURL = "jdbc:postgresql://ip:port/dbname?searchpath=schema";
-    //jdbc:postgresql://localhost:5432/postgres?searchpath=test
+    //jdbc:postgresql://localhost:5432/postgres?searchpath=test111
 //    private static String ORACLEURL = "jdbc:oracle:thin:@ip:port/dbname";   //jdbc:oracle:thin:@ip:port/dbname 使用的是Service Name方式来指定数据库
     private static String ORACLEURL = "jdbc:oracle:thin:@ip:port:dbname"; //jdbc:oracle:thin:@ip:port:dbname 使用的是SID方式来指定数据库。
     //jdbc:oracle:thin:@10.0.108.21:1521:jyk
@@ -44,7 +44,7 @@ public class JDBCUtils {
         }
         if (databaseType.equals("sqlserver")) {
             SQLSERVERURL = SQLSERVERURL.replace("dbname", dbname).replace("ip", ip).replace("port", port);
-            kettleLog.logBasic("-----url----"+SQLSERVERURL);
+//            kettleLog.logBasic("-----url----"+SQLSERVERURL);
             Properties properties = new Properties();
             properties.put("user", user);
             properties.put("password", password);

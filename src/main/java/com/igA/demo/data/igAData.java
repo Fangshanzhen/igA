@@ -4,10 +4,7 @@ import com.igA.demo.utils.JDBCUtils;
 import com.igA.demo.utils.ResultSetUtils;
 import lombok.extern.slf4j.Slf4j;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.*;
 
 import com.alibaba.fastjson.JSON;
@@ -2191,7 +2188,7 @@ public class igAData {
     }
 
 
-    private static List<Map<String, Object>> commonExecute2(Connection connection, String sql, Statement statementTable, ResultSet resultSetTable) throws Exception {
+    public static List<Map<String, Object>> commonExecute2(Connection connection, String sql, Statement statementTable, ResultSet resultSetTable) throws Exception {
         List<Map<String, Object>> list = new ArrayList<>();
 
         try {
@@ -2221,6 +2218,23 @@ public class igAData {
         }
         return map;
     }
+
+    public static Map<String, Object> commonExecute0(Connection connection, String sql, String[] params) throws Exception {
+        Map<String, Object> map = new HashMap<>();
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            for (int i = 0; i < params.length; i++) {
+                pstmt.setString(i + 1, params[i]);
+            }
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+                if (resultSet != null) {
+                    map = ResultSetUtils.allResultSetToJson(resultSet);
+                }
+            }
+        }
+        return map;
+    }
+
+
 
     public static List<String> commonExecute(Connection connection, Statement statementTable, ResultSet resultSetTable, String sql) throws Exception {
         List<String> list = new ArrayList<>();

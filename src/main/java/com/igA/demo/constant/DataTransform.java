@@ -450,4 +450,73 @@ public class DataTransform {
         }
     }
 
+
+    public static JSONObject transformQiangdu(JSONObject jsonObj, Object o, String key) {
+        if (String.valueOf(o).equals("-")) {
+            jsonObj.put(key, 0);
+        }
+        if (String.valueOf(o).equals("+-")) {
+            jsonObj.put(key, 1);
+        }
+        if (String.valueOf(o).equals("+")) {
+            jsonObj.put(key, 2);
+        }
+        if (String.valueOf(o).equals("++")) {
+            jsonObj.put(key, 3);
+        }
+        if (String.valueOf(o).equals("+++")) {
+            jsonObj.put(key, 4);
+        }
+        if (String.valueOf(o).equals("++++")) {
+            jsonObj.put(key, 5);
+        }
+        if (String.valueOf(o).equals("-~+-")) {
+            jsonObj.put(key, 6);
+        }
+        if (String.valueOf(o).equals("-~+")) {
+            jsonObj.put(key, 7);
+        }
+        if (String.valueOf(o).equals("-~++")) {
+            jsonObj.put(key, 8);
+        }
+        if (String.valueOf(o).equals("-~+++")) {
+            jsonObj.put(key, 9);
+        }
+        if (String.valueOf(o).equals("-~++++")) {
+            jsonObj.put(key, 10);
+        }
+        if (String.valueOf(o).equals("+-~+")) {
+            jsonObj.put(key, 11);
+        }if (String.valueOf(o).equals("+-~++")) {
+            jsonObj.put(key, 12);
+        }
+        if (String.valueOf(o).equals("+-~+++")) {
+            jsonObj.put(key, 13);
+        }
+        if (String.valueOf(o).equals("+-~++++")) {
+            jsonObj.put(key, 14);
+        }
+        if (String.valueOf(o).equals("+~++")) {
+            jsonObj.put(key, 15);
+        }
+        if (String.valueOf(o).equals("+~+++")) {
+            jsonObj.put(key, 16);
+        }
+        if (String.valueOf(o).equals("+~++++")) {
+            jsonObj.put(key, 17);
+        }
+        if (String.valueOf(o).equals("++~+++")) {
+            jsonObj.put(key, 18);
+        }
+        if (String.valueOf(o).equals("++~++++")) {
+            jsonObj.put(key, 19);
+        }
+        if (String.valueOf(o).equals("+++~++++")) {
+            jsonObj.put(key, 20);
+        }
+
+
+        return jsonObj;
+    }
+
 }
