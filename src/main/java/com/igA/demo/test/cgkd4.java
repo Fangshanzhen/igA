@@ -9,19 +9,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.igA.demo.constant.PediatricKidneyDatabaseConstant2.KidneyIdSql2;
+import static com.igA.demo.constant.PediatricKidneyDatabaseConstant4.KidneyIdSql4;
 import static com.igA.demo.data.igAData.commonExecute;
 
-//遗传病-早发蛋白尿数据
-
+////遗传病-早发蛋白尿数据
 @Slf4j
-public class cgkd {
+public class cgkd4 {
 
     public static void main(String[] args) throws Exception {
 
@@ -41,9 +41,9 @@ public class cgkd {
             // 设置连接的持久性
             connection.setHoldability(ResultSet.HOLD_CURSORS_OVER_COMMIT);
             List<String> idList = new ArrayList<>();
-            idList = commonExecute(connection, statement, resultSet, KidneyIdSql2);
+            idList = commonExecute(connection, statement, resultSet, KidneyIdSql4);
 
-//            idList= Arrays.asList("402881994085277f0140863278e80255");
+            idList= Arrays.asList("2c95808a6536349601653e9515e00609");
 
             int numberOfIds = idList.size();
             int poolSize = 4; // 根据你的机器配置和任务复杂度调整线程池大小
@@ -58,7 +58,7 @@ public class cgkd {
                 for (final String id : idList) {
                     executorService.submit(() -> {
                         try {
-                            PediatricKidneyData2.transformData(null, null, null, id);
+                            PediatricKidneyData4.transformData(null, null, null, id);
                             successCount.incrementAndGet(); // 成功运行后递增计数器
                         } catch (Exception e) {
                             e.printStackTrace();
