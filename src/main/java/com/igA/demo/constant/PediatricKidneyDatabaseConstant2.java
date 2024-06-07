@@ -260,7 +260,7 @@ public class PediatricKidneyDatabaseConstant2 {
             "GuangJingXiaoQiuShu as zhyl6200019,\n" +
             "case when GuangJingZhenDuan='轻微病变' then '0'  when GuangJingZhenDuan='系膜增生' then '1'  when GuangJingZhenDuan='膜性肾病' then '2' \n" +
             "when GuangJingZhenDuan='局灶节段肾小球硬化' then '3' \n" +
-            "when GuangJingZhenDuan='系膜增生肾小球肾炎' then '4' \n" +
+            "when GuangJingZhenDuan='膜增生性肾小球肾炎' then '4' \n" +
             "when GuangJingZhenDuan='其他' then '5' end as zhyl6200020,\n" +
             "GuangJingZhenDuanQiTa as zhyl6200021,\n" +
             "GuangJingZhenDuanJuTiMiaoShu as zhyl6200022\n" +

@@ -789,7 +789,7 @@ public class PediatricKidneyData2 {
 
     }
 
-    private static void commonjiancha(String s, JSONArray jsonArray, String sql, JSONObject jsonObject, String biaoti, Connection connection, Statement statement, ResultSet resultSet) throws Exception {
+    public static void commonjiancha(String s, JSONArray jsonArray, String sql, JSONObject jsonObject, String biaoti, Connection connection, Statement statement, ResultSet resultSet) throws Exception {
         String xueshenghua2Sql = sql.replace("?", s);
         List<Map<String, Object>> xueshenghua2SqlList = commonExecute2(connection, xueshenghua2Sql, statement, resultSet);
         if (xueshenghua2SqlList != null) {
