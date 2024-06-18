@@ -21,6 +21,7 @@ import org.json.JSONException;
 import static com.igA.demo.constant.DataTransform.*;
 import static com.igA.demo.constant.PediatricKidneyDatabaseConstant2.*;
 import static com.igA.demo.constant.PediatricKidneyDatabaseConstant4.*;
+import static com.igA.demo.constant.PediatricKidneyDatabaseConstant4.gandanyingxiangxue4;
 import static com.igA.demo.data.PediatricKidneyData2.commonjiancha;
 import static com.igA.demo.data.PediatricKidneyData2.jiazushi;
 import static com.igA.demo.data.igAData.*;
@@ -30,7 +31,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.pentaho.di.core.logging.LogChannel;
 import org.pentaho.di.core.logging.LogChannelFactory;
 
-//遗传病-早发蛋白尿数据
+//肾脏囊性疾病
 
 @Slf4j
 public class PediatricKidneyData4 {
@@ -103,7 +104,7 @@ public class PediatricKidneyData4 {
                         JSONObject zhyl1000000 = new JSONObject();
 
                         zhyl1000000.put("zhyl1100000", map);
-                        jsonObject.put("zhyl100000000", zhyl1000000);   //一般资料zhyl1000000
+                        jsonObject.put("zhyl1000000", zhyl1000000);   //一般资料zhyl1000000
                     }
 
 
@@ -599,7 +600,7 @@ public class PediatricKidneyData4 {
                     commonjiancha(s, zhyl6000017Json, ganhuojian4, zhyl6000000JSONObject, "zhyl6000017", connection, statement, resultSet);
 
                     JSONArray zhyl6000018Json = new JSONArray(); //其他检查
-                    commonjiancha(s, zhyl6000018Json, qitajiancha4, zhyl6000000JSONObject, "zhyl6000018", connection, statement, resultSet);
+                    commonjiancha(s, zhyl6000018Json, yankejiancha4, zhyl6000000JSONObject, "zhyl6000018", connection, statement, resultSet);
 
 
                     JSONArray zhyl6000019Json = new JSONArray(); //基因检测
@@ -777,11 +778,9 @@ public class PediatricKidneyData4 {
                             JSONArray zhyl8000014Json = new JSONArray();
                             commonjiancha(suifang, zhyl8000014Json, gandanyingxiangxue4, zhyl8000000Json, "zhyl8000014", connection, statement, resultSet);
 
-
-
-
-
-
+                            //-------用药 每次随访可能有多个---------
+                            JSONArray zhyl8000010Json = new JSONArray(); //随访的药就是用药里面的，所以用s，不用随访
+                            commonjiancha(s, zhyl8000010Json, suifangyongyao2, zhyl8000000Json, "zhyl8000010", connection, statement, resultSet);
 
                             zhyl8000000JSONArray.add(zhyl8000000Json);
                         }
@@ -790,7 +789,9 @@ public class PediatricKidneyData4 {
                         jsonObject.put("zhyl8000000", zhyl8000000JSONArray);
                     }
 
-
+//-----------------------------------结局----------------------------------------------------
+                    JSONArray zhyl9000000JSONArray = new JSONArray();
+                    commonjiancha(s, zhyl9000000JSONArray, jieju2, jsonObject, "zhyl9000000", connection, statement, resultSet);
 
 
 

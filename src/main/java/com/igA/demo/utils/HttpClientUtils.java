@@ -46,7 +46,7 @@ public class HttpClientUtils {
         } else {
 //            postMethod.addRequestHeader("Content-Type", MediaType.MULTIPART_FORM_DATA);
         }
-        postMethod.addRequestHeader("AIIT-ZHYL-PLATFORM", "25");  //修改
+        postMethod.addRequestHeader("AIIT-ZHYL-PLATFORM", "27");  //修改  iga是25, cgkd是27
 
         if (token != null) {
             postMethod.addRequestHeader("AIIT-ZHYL-AUTH", token);
@@ -98,7 +98,7 @@ public class HttpClientUtils {
                 "file",
                 multipartFile.getInputStream(),
                 ContentType.create("multipart/form-data", StandardCharsets.UTF_8),
-               "Hospital-1_0.json"
+                "Hospital-1_0.json"
         );
 
         HttpEntity multipart = builder.build();
@@ -119,5 +119,46 @@ public class HttpClientUtils {
         httpClient.close();
         return kettleResponse;
     }
+
+
+    public static kettleResponse uploadFile1(String url, MultipartFile multipartFile, String token, String type) throws IOException {
+        kettleResponse kettleResponse = new kettleResponse();
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpPost uploadFile = new HttpPost(url);
+        uploadFile.addHeader("AIIT-ZHYL-PLATFORM", "27");
+
+        if (token != null) {
+            uploadFile.addHeader("AIIT-ZHYL-AUTH", token);
+        }
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        if (type.equals("2")) { //蛋白尿
+            builder.addBinaryBody(
+                    "file",
+                    multipartFile.getInputStream(),
+                    ContentType.create("multipart/form-data", StandardCharsets.UTF_8),
+                    "Hospital-9_0.json"
+            );
+        }
+
+
+        HttpEntity multipart = builder.build();
+        uploadFile.setEntity(multipart);
+
+        try {
+            CloseableHttpResponse response = httpClient.execute(uploadFile);
+            HttpEntity responseEntity = response.getEntity();
+            String responseContent = EntityUtils.toString(responseEntity, "UTF-8");
+            kettleResponse.setCode(response.getStatusLine().getStatusCode());
+            kettleResponse.setData(responseContent);
+
+        } finally {
+
+            httpClient.close();
+        }
+
+        httpClient.close();
+        return kettleResponse;
+    }
+
 
 }

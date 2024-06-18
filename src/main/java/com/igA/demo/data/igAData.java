@@ -2046,7 +2046,7 @@ public class igAData {
                     System.out.println(jsonStr);
                     //------------------------------传输数据-----------------------------
                     //------------------------------传输数据-----------------------------
-                 transform(baseUrl, jsonStr, s, connection, admin, password);
+                    transform(baseUrl, jsonStr, s, connection, admin, password);
 
 
                 }
@@ -2172,17 +2172,18 @@ public class igAData {
             if (list.equals("list")) {
                 JSONArray jsonArray = new JSONArray();
                 String s = String.valueOf(basicLabMap.get(key));
-                if (s != null && s.contains(",")) {
-                    String[] a = s.split(",");
-                    for (String s1 : a) {
-                        jsonArray.add(Integer.valueOf(s1));
+                if (s != null) {
+                    if (s.contains(",")) {
+                        String[] a = s.split(",");
+                        for (String s1 : a) {
+                            jsonArray.add(Integer.valueOf(s1));
+                        }
                     }
-
+                    if (!s.contains(",") && !s.equals("null")) {
+                        jsonArray.add(Integer.valueOf(s));
+                    }
+                    json.put(key, jsonArray);
                 }
-                if (s != null && !s.contains(",") && !s.equals("null")) {
-                    jsonArray.add(Integer.valueOf(s));
-                }
-                json.put(key, jsonArray);
             }
         }
     }
@@ -2233,7 +2234,6 @@ public class igAData {
         }
         return map;
     }
-
 
 
     public static List<String> commonExecute(Connection connection, Statement statementTable, ResultSet resultSetTable, String sql) throws Exception {

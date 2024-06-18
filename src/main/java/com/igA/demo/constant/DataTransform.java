@@ -327,12 +327,11 @@ public class DataTransform {
     }
 
 
-    public static void transform(String baseUrl, String jsonStr, String id,Connection connection,String admin,String password) throws Exception {
+    public static void transform(String baseUrl, String jsonStr, String id, Connection connection, String admin, String password) throws Exception {
         LogChannelFactory logChannelFactory = new org.pentaho.di.core.logging.LogChannelFactory();
-        LogChannel kettleLog = logChannelFactory.create("IgA传输数据");
+        LogChannel kettleLog = logChannelFactory.create("传输数据");
 
-
-        String dataUrl = baseUrl + "/iga-export/imexport/importData";
+//        String dataUrl = baseUrl + "/iga-export/imexport/importData";
 //        dataUrl = "http://10.0.108.41/api-gate/iga-export/imexport/importData";
 
 
@@ -340,7 +339,7 @@ public class DataTransform {
         String accessToken = null;
         Statement tokenTime = null;
         ResultSet resultSetToken = null;
-        String tokenSql = "SELECT token  FROM  "  + "public.token_time  ";
+        String tokenSql = "SELECT token  FROM  " + "public.token_time  ";
         List<String> tokenList = null;
         tokenTime = executeSql(tokenSql, connection);
         resultSetToken = tokenTime.executeQuery(tokenSql);
@@ -350,14 +349,14 @@ public class DataTransform {
             }
             if (tokenList == null || (tokenList.size() == 0) || (tokenList.size() > 0 && tokenList.get(0) == null)
                     || (tokenList.size() > 0 && tokenList.get(0).equals("")) || (tokenList.size() > 0 && tokenList.get(0).equals("null"))) {
-                accessToken = getToken(baseUrl,admin,password);
+                accessToken = getToken(baseUrl, admin, password);
                 Date date = new Date();
                 long a = date.getTime() + 30 * 60 * 1000;  //30分钟
-                String sql = "UPDATE "  + "public.token_time " + " SET token= " + "'" + accessToken + "'" + "  ,  token_time= " + a;
+                String sql = "UPDATE " + "public.token_time " + " SET token= " + "'" + accessToken + "'" + "  ,  token_time= " + a;
                 tokenTime = executeSql(sql, connection);
                 tokenTime.execute(sql);
             } else if (tokenList.size() > 0 && tokenList.get(0) != null && !tokenList.get(0).equals("null")) { //有token
-                tokenSql = "SELECT token_time  FROM  " +  "public.token_time  ";
+                tokenSql = "SELECT token_time  FROM  " + "public.token_time  ";
                 List<String> timeList = new ArrayList<>();
                 tokenTime = executeSql(tokenSql, connection);
                 resultSetToken = tokenTime.executeQuery(tokenSql);
@@ -370,7 +369,7 @@ public class DataTransform {
                     if (Long.valueOf(timeList.get(0)) > a) {
                         accessToken = tokenList.get(0);
                     } else {
-                        accessToken = getToken(baseUrl,admin,password);
+                        accessToken = getToken(baseUrl, admin, password);
                         Date date1 = new Date();
                         long a1 = date1.getTime() + 30 * 60 * 1000;
                         String sql1 = "UPDATE " + "public.token_time  " + " SET token = " + "'" + accessToken + "'" + "  ,  token_time= " + a1;
@@ -388,7 +387,7 @@ public class DataTransform {
         if (accessToken != null) {
             MultipartFile multipartFile = FileTransformUtils.transform(jsonStr);
             //                    kettleLog.logBasic(jsonStr);
-            kettleResponse dataResponse = HttpClientUtils.uploadFile(dataUrl, multipartFile, accessToken);
+            kettleResponse dataResponse = HttpClientUtils.uploadFile(baseUrl, multipartFile, accessToken);
             if (dataResponse.getCode() == 200) {
                 log.info("病人id: " + id + "  传输数据成功!");
 //                kettleLog.logBasic("病人id: " + id + "  transform data success");
@@ -401,16 +400,15 @@ public class DataTransform {
     }
 
 
-    private static Statement executeSql(String sql, Connection connection) throws Exception {
-        Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY,
-                ResultSet.CLOSE_CURSORS_AT_COMMIT);
+    public static Statement executeSql(String sql, Connection connection) throws Exception {
+        Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
         statement.setQueryTimeout(6000);
         statement.setFetchSize(100000);
         statement.setEscapeProcessing(false);
         return statement;
     }
 
-    private static String getToken(String baseUrl,String admin,String password) throws Exception {
+    public static String getToken(String baseUrl, String admin, String password) throws Exception {
 
         String tokenUrl = baseUrl + "/auth/user/login";
 //        tokenUrl = "http://10.0.108.41/api-gate/auth/user/login";
@@ -440,7 +438,8 @@ public class DataTransform {
         return accessToken;
 
     }
-    private static void close(Statement statement, ResultSet resultSet) throws SQLException {
+
+    public static void close(Statement statement, ResultSet resultSet) throws SQLException {
         if (resultSet != null) {
             resultSet.close();
         }
@@ -487,7 +486,8 @@ public class DataTransform {
         }
         if (String.valueOf(o).equals("+-~+")) {
             jsonObj.put(key, 11);
-        }if (String.valueOf(o).equals("+-~++")) {
+        }
+        if (String.valueOf(o).equals("+-~++")) {
             jsonObj.put(key, 12);
         }
         if (String.valueOf(o).equals("+-~+++")) {

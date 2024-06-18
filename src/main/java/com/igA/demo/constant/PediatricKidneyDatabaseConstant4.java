@@ -27,7 +27,7 @@ public class PediatricKidneyDatabaseConstant4 {
     public final static String gerenshi4 ="select * from dbo.gerenshi4  where id='?'";
 
     //体格检查
-    public final static String tigejiancha4 ="select * from dbo.tige  where id='?'";
+    public final static String tigejiancha4 ="select * from dbo.tige  where dmid='?'";
 
 
     //尿常规

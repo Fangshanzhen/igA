@@ -43,7 +43,7 @@ public class cgkd4 {
             List<String> idList = new ArrayList<>();
             idList = commonExecute(connection, statement, resultSet, KidneyIdSql4);
 
-            idList= Arrays.asList("2c95808a641e4b5d01646b37f45806b3");
+//            idList= Arrays.asList("2c95808a641e4b5d01649e94e5230acf");
 
             int numberOfIds = idList.size();
             int poolSize = 4; // 根据你的机器配置和任务复杂度调整线程池大小

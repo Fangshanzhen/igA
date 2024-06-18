@@ -3,12 +3,12 @@ package com.igA.demo.test;
 import com.igA.demo.data.*;
 import com.igA.demo.utils.JDBCUtils;
 import lombok.extern.slf4j.Slf4j;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -19,6 +19,15 @@ import static com.igA.demo.constant.PediatricKidneyDatabaseConstant2.KidneyIdSql
 import static com.igA.demo.data.igAData.commonExecute;
 
 //遗传病-早发蛋白尿数据
+/**
+ * start： 1开始传数据， 0或者其他不传数据
+ * type:
+ * 1		Alport综合征
+ * 2		蛋白尿性肾脏疾病
+ * 3		肾小管疾病
+ * 4		肾脏囊性疾病
+ * 5		先天性肾脏尿路畸形
+ */
 
 @Slf4j
 public class cgkd {
@@ -35,22 +44,22 @@ public class cgkd {
             log.error("database connection error: " + e, "");
             return; // 如果数据库连接失败，直接返回
         }
-
         log.info("数据库连接成功");
+
+
+        String type = "2";  //表明不同的数据
+
         if (connection != null) {
             // 设置连接的持久性
             connection.setHoldability(ResultSet.HOLD_CURSORS_OVER_COMMIT);
             List<String> idList = new ArrayList<>();
-            idList = commonExecute(connection, statement, resultSet, KidneyIdSql2);
+            idList = commonExecute(connection, statement, resultSet, KidneyIdSql2.replace("#", type));
 
-//            idList= Arrays.asList("402881994085277f0140863278e80255");
+//          idList= Arrays.asList("2c95808a667552b901671bf84581220f");
 
-            int numberOfIds = idList.size();
-            int poolSize = 4; // 根据你的机器配置和任务复杂度调整线程池大小
-
+            int poolSize = 3; // 调整线程池大小
             // 创建一个固定大小的线程池
             ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
-
             // 创建一个AtomicInteger来统计成功运行的次数
             AtomicInteger successCount = new AtomicInteger(0);
 
@@ -58,7 +67,7 @@ public class cgkd {
                 for (final String id : idList) {
                     executorService.submit(() -> {
                         try {
-                            PediatricKidneyData2.transformData(null, null, null, id);
+                            PediatricKidneyData2.transformData(null, "admin", "72d0645981154de34f35e03d06c626cc", id, "1", type);
                             successCount.incrementAndGet(); // 成功运行后递增计数器
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -91,4 +100,6 @@ public class cgkd {
             log.error("Error closing resources: " + e, "");
         }
     }
+
+
 }
