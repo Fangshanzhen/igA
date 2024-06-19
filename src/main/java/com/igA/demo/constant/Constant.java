@@ -546,15 +546,15 @@ public class Constant {
 
     public final static String yaoWuSql =" \n" +
             " select \n" +
-            " case when e.pid='2' then 2 \n" +
-            " when e.pid='3' then 3 \n" +
-            "  when e.pid='4' then 4 \n" +
-            "     when e.pid='5' then 5 \n" +
-            "      when e.pid='30' then 30 \n" +
+            " case when e.pid='2' then 100000 \n" +
+            " when e.pid='3' then 200000 \n" +
+            "  when e.pid='4' then 300000 \n" +
+            "     when e.pid='5' then 400000 \n" +
+            "      when e.pid='30' then 500000 \n" +
             " \n" +
             " end as zhyl210701001,\n" +
             " e.starddict  as zhyl210701002,\n" +
-            " d.id as zhyl210701013,\n" +
+            " f.a as zhyl210701013,\n" +
             " d.drug_type as zhyl210701003,\n" +
             " case when d.place='0' then null else d.place end as zhyl210701004,\n" +
             " d.dose as zhyl210701005,\n" +
@@ -570,7 +570,8 @@ public class Constant {
             "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
             "left join hospital.hs_hospital c on a.hospitalid=c.id  \n" +
             "left join hospital.hs_caseseven d on b.id=d.case_id \n" +
-            "left join (select * from hospital.hs_drugdcit  ) e on d.drugdcit_id=e.id \n" +
+            "left join (select * from hospital.hs_drugdcit  ) e on d.drugdcit_id=e.id " +
+            "left join hospital.drug f on e.drugname=f.b\n" +
             "\n" +
             " where  b.reporttype='首诊报告'  and b.historyflag=0 \n" +
             " and e.drugname !='甲泼尼龙冲击' and  e.drugname !='环磷酰胺冲击' \n" +
@@ -1134,15 +1135,15 @@ public class Constant {
 
 
     public final static String suiFangYaoWuSql =" select \n" +
-            " case when e.pid='2' then 2 \n" +
-            " when e.pid='3' then 3 \n" +
-            "  when e.pid='4' then 4 \n" +
-            "     when e.pid='5' then 5 \n" +
-            "      when e.pid='30' then 30 \n" +
+            " case when e.pid='2' then 100000  \n" +
+            " when e.pid='3' then 200000  \n" +
+            "  when e.pid='4' then 300000 \n" +
+            "     when e.pid='5' then 400000  \n" +
+            "      when e.pid='30' then 500000 \n" +
             " \n" +
             " end as zhyl310701001,\n" +
             " e.starddict  as zhyl310701002,\n" +
-            " d.id as zhyl310701013,\n" +
+            " f.a as zhyl310701013,\n" +
             " d.drug_type as zhyl310701003,\n" +
             " case when d.place='0' then null else d.place end  as zhyl310701004,\n" +
             " d.dose as zhyl310701005,\n" +
@@ -1159,7 +1160,7 @@ public class Constant {
             "inner join hospital.hs_patientinfo b on a.id=b.patientid \n" +
             "left join hospital.hs_caseseven d on b.id=d.case_id \n" +
             "left join (select * from hospital.hs_drugdcit  ) e on d.drugdcit_id=e.id \n" +
-            "\n" +
+            "left join hospital.drug f on e.drugname=f.b\n" +
             " where  b.reporttype='随访报告'   \n" +
             " and e.drugname !='甲泼尼龙冲击' and  e.drugname !='环磷酰胺冲击' \n" +
             " and b.id ='?'";

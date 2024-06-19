@@ -22,11 +22,11 @@ import static com.igA.demo.data.igAData.commonExecute;
 /**
  * start： 1开始传数据， 0或者其他不传数据
  * type:
- * 1		Alport综合征
- * 2		蛋白尿性肾脏疾病
- * 3		肾小管疾病
- * 4		肾脏囊性疾病
- * 5		先天性肾脏尿路畸形
+ * 1		Alport综合征         1
+ * 2		蛋白尿性肾脏疾病     9
+ * 3		肾小管疾病          3
+ * 4		肾脏囊性疾病        5
+ * 5		先天性肾脏尿路畸形  7
  */
 
 @Slf4j
@@ -47,7 +47,8 @@ public class cgkd {
         log.info("数据库连接成功");
 
 
-        String type = "2";  //表明不同的数据
+        String type = "3";  //表明不同的数据
+        String start="1"; //1开始传数据， 0或者其他不传数据
 
         if (connection != null) {
             // 设置连接的持久性
@@ -55,9 +56,9 @@ public class cgkd {
             List<String> idList = new ArrayList<>();
             idList = commonExecute(connection, statement, resultSet, KidneyIdSql2.replace("#", type));
 
-//          idList= Arrays.asList("2c95808a667552b901671bf84581220f");
+      //  idList= Arrays.asList("2c95808a6929d9470169c7849fc30b2d");
 
-            int poolSize = 3; // 调整线程池大小
+            int poolSize = 2; // 调整线程池大小
             // 创建一个固定大小的线程池
             ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
             // 创建一个AtomicInteger来统计成功运行的次数
@@ -67,7 +68,7 @@ public class cgkd {
                 for (final String id : idList) {
                     executorService.submit(() -> {
                         try {
-                            PediatricKidneyData2.transformData(null, "admin", "72d0645981154de34f35e03d06c626cc", id, "1", type);
+                            PediatricKidneyData2.transformData(null, "admin", "72d0645981154de34f35e03d06c626cc", id, start, type);
                             successCount.incrementAndGet(); // 成功运行后递增计数器
                         } catch (Exception e) {
                             e.printStackTrace();

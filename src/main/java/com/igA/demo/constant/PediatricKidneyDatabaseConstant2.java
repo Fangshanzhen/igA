@@ -26,7 +26,7 @@ public class PediatricKidneyDatabaseConstant2 {
     //个人史
     public final static String gerenshi2 = "select * from dbo.gerenshi  where id='?'";
     //  家族史
-    public final static String jiazhushi2 = "select * from dbo.fh1 where FHSUBREL='#' and  DMID='?' ";
+    public final static String jiazhushi2 = "select * from dbo.fh1 where    DMID='?' ";
 ////体格检查
 //    public final static String tigejiancha2 ="select a.ID,\n" +
 //        "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', b.VSDTC) as bigint )*1000 AS  zhyl5000001,\n" +
@@ -485,7 +485,7 @@ public class PediatricKidneyDatabaseConstant2 {
 
     //用药
     public final static String yongyao2 = "  \n" +
-            "select  \n" +
+            "select  a.id as _id, \n" +
             "case when CMOCCUR='有' then '1'  when CMOCCUR='无' then '0'  end as zhyl7000001,\n" +
             "case when CMCAT='降压药' then '100000' when CMCAT='利尿剂' then '200000' when CMCAT='免疫抑制药物' then '300000'  end as zhyl7000002,\n" +
             "case when b.Column1 like '101%' then '101000'\n" +

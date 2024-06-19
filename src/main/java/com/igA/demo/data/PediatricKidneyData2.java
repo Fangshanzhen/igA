@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -162,152 +163,9 @@ public class PediatricKidneyData2 {
 //----------------------------------------------家族史---------------------------------
                     JSONObject zhyl4000000Json = new JSONObject();//家族史
 
-                    JSONObject zhyl4000001Json = new JSONObject();//母亲
-                    JSONObject zhyl4000002Json = new JSONObject();//父亲
-                    JSONArray zhyl4000003JsonArray = new JSONArray(); //兄弟姐妹
-                    JSONArray zhyl4000004JsonArray = new JSONArray(); //父母辈亲属
-                    JSONArray zhyl4000005JsonArray = new JSONArray(); //（外）祖父母
-                    JSONArray zhyl4000006JsonArray = new JSONArray(); //其他
-
-                    jiazushi(zhyl4000000Json, s, zhyl4000001Json, jiazhushi2, "母亲", connection, statement, resultSet, "zhyl4000001", "zhyl4200000", "zhyl4200001",
-                            "zhyl4200002", "zhyl4200003", "zhyl4200004", "zhyl4200005", "zhyl4200006", "zhyl4200007",
-                            "zhyl4200008", "zhyl4200009", "zhyl4100006", null, "zhyl4200060", "zhyl4200066", "zhyl4200067");//母亲家族史
-                    jiazushi(zhyl4000000Json, s, zhyl4000002Json, jiazhushi2, "父亲", connection, statement, resultSet, "zhyl4000002", "zhyl4200010", "zhyl4200011",
-                            "zhyl4200012", "zhyl4200013", "zhyl4200014", "zhyl4200015", "zhyl4200016", "zhyl4200017",
-                            "zhyl4200018", "zhyl4200019", "zhyl4100012", null, "zhyl4200061", "zhyl4200068", "zhyl4200069");//父亲家族史
-
-                    List<String> xiongdi = Arrays.asList("哥哥", "弟弟", "姐姐", "妹妹");
-                    for (String x : xiongdi) {
-                        JSONObject zhyl4000003Json = new JSONObject();//兄弟姐妹
-                        if (x.equals("哥哥")) {
-                            zhyl4000003Json.put("zhyl4100030", "1");
-                        }
-                        if (x.equals("弟弟")) {
-                            zhyl4000003Json.put("zhyl4100030", "2");
-                        }
-                        if (x.equals("姐姐")) {
-                            zhyl4000003Json.put("zhyl4100030", "3");
-                        }
-                        if (x.equals("妹妹")) {
-                            zhyl4000003Json.put("zhyl4100030", "4");
-                        }
-                        jiazushi(zhyl4000000Json, s, zhyl4000003Json, jiazhushi2, x, connection, statement, resultSet, "zhyl4000003", "zhyl4200020", "zhyl4200021",
-                                "zhyl4200022", "zhyl4200023", "zhyl4200024", "zhyl4200025", "zhyl4200026", "zhyl4200027",
-                                "zhyl4200028", "zhyl4200029", "zhyl4100018", zhyl4000003JsonArray, "zhyl4200062", "zhyl4200070", "zhyl4200071");//兄弟姐妹
-                    }
-
-                    List<String> zhangbei = Arrays.asList("母亲的弟弟", "母亲的哥哥", "母亲的姐姐", "母亲的妹妹", "父亲的姐姐", "父亲的妹妹", "父亲的弟弟", "父亲的哥哥");
-                    for (String x : zhangbei) {
-                        JSONObject zhyl4000004Json = new JSONObject();//父母辈亲属
-                        if (x.equals("母亲的弟弟") || x.equals("母亲的哥哥")) {
-                            zhyl4000004Json.put("zhyl4100031", "1");
-                        }
-                        if (x.equals("母亲的姐姐") || x.equals("母亲的妹妹")) {
-                            zhyl4000004Json.put("zhyl4100031", "2");
-                        }
-                        if (x.equals("父亲的姐姐") || x.equals("父亲的妹妹")) {
-                            zhyl4000004Json.put("zhyl4100031", "3");
-                        }
-                        if (x.equals("父亲的弟弟")) {
-                            zhyl4000004Json.put("zhyl4100031", "4");
-                        }
-                        if (x.equals("父亲的哥哥")) {
-                            zhyl4000004Json.put("zhyl4100031", "5");
-                        }
-                        jiazushi(zhyl4000000Json, s, zhyl4000004Json, jiazhushi2, x, connection, statement, resultSet, "zhyl4000004", "zhyl4200030", "zhyl4200031",
-                                "zhyl4200032", "zhyl4200033", "zhyl4200034", "zhyl4200035", "zhyl4200036", "zhyl4200037",
-                                "zhyl4200038", "zhyl4200039", "zhyl4100038", zhyl4000004JsonArray, "zhyl4200063", "zhyl4200072", "zhyl4200073");//父母辈亲属
-                    }
-
-                    List<String> zufu = Arrays.asList("祖父", "外祖父", "祖母", "外祖母");
-                    for (String x : zufu) {
-                        JSONObject zhyl4000005Json = new JSONObject();//（外）祖父母
-                        if (x.equals("祖父")) {
-                            zhyl4000005Json.put("zhyl4100032", "3");
-                        }
-                        if (x.equals("外祖父")) {
-                            zhyl4000005Json.put("zhyl4100032", "1");
-                        }
-                        if (x.equals("祖母")) {
-                            zhyl4000005Json.put("zhyl4100032", "4");
-                        }
-                        if (x.equals("外祖母")) {
-                            zhyl4000005Json.put("zhyl4100032", "2");
-                        }
-
-                        jiazushi(zhyl4000000Json, s, zhyl4000005Json, jiazhushi2, x, connection, statement, resultSet, "zhyl4000005", "zhyl4200040", "zhyl4200041",
-                                "zhyl4200042", "zhyl4200043", "zhyl4200044", "zhyl4200045", "zhyl4200046", "zhyl4200047",
-                                "zhyl4200048", "zhyl4200049", "zhyl4100029", zhyl4000005JsonArray, "zhyl4200064", "zhyl4200074", "zhyl4200075");//（外）祖父母
-                    }
-
-                    List<String> other = Arrays.asList(
-                            "父亲的姐姐的儿子",
-                            "母亲的姐姐的儿子",
-                            "母亲的弟弟的女儿",
-                            "母亲的妹妹的儿子",
-                            "母亲的姐姐的女儿",
-                            "外祖母的弟弟",
-                            "外祖母的妹妹",
-                            "母亲的妹妹的女儿",
-                            "父亲的妹妹",
-                            "父亲的姐姐的女儿",
-                            "外祖母的母亲",
-                            "母亲的弟弟的儿子",
-                            "外祖母的姐姐",
-                            "外祖父的哥哥",
-                            "患者儿子",
-                            "父亲的哥哥的女儿",
-                            "祖母的弟弟",
-                            "外祖母的父亲",
-                            "外祖母的哥哥",
-                            "母亲的哥哥的儿子",
-                            "祖母的哥哥",
-                            "祖母的妹妹",
-                            "祖母的姐姐",
-                            "父亲的哥哥的儿子",
-                            "祖母的父亲",
-                            "祖父母",
-                            "母亲的兄弟姐妹",
-                            "患糖尿病亲属",
-                            "兄弟姐妹",
-                            "其他有肾脏尿路畸形亲属",
-                            "外祖父母",
-                            "父亲的兄弟姐妹",
-                            "外祖父的父亲",
-                            "姐姐的儿子",
-                            "患者女儿",
-                            "外祖父的弟弟",
-                            "母亲的哥哥的女儿",
-                            "外祖父的姐姐",
-                            "外祖父的母亲",
-                            "父亲的妹妹的儿子",
-                            "外祖父的妹妹",
-                            "祖母的母亲",
-                            "祖父的哥哥",
-                            "祖父的姐姐",
-                            "祖父的父亲",
-                            "祖父的弟弟",
-                            "祖父的妹妹",
-                            "母亲的姐姐的配偶",
-                            "父亲的妹妹的女儿",
-                            "父亲的哥哥的配偶",
-                            "父亲的弟弟的女儿",
-                            "父亲的弟弟的配偶",
-                            "父亲的弟弟的儿子",
-                            "祖母的哥哥的配偶",
-                            "外祖父的哥哥的配偶",
-                            "哥哥的儿子",
-                            "祖父的哥哥的配偶",
-                            "父亲的姐姐的配偶"); //其它
-                    for (String x : other) {
-                        JSONObject zhyl4000006Json = new JSONObject();
-                        zhyl4000006Json.put("zhyl4100039", x);
-                        zhyl4000006Json.put("zhyl4100033", "1");
-                        jiazushi(zhyl4000000Json, s, zhyl4000006Json, jiazhushi2, x, connection, statement, resultSet, "zhyl4000006", "zhyl4200050", "zhyl4200051",
-                                "zhyl4200052", "zhyl4200053", "zhyl4200054", "zhyl4200055", "zhyl4200056", "zhyl4200057",
-                                "zhyl4200058", "zhyl4200059", "zhyl4100040", zhyl4000006JsonArray, "zhyl4200065", "zhyl4200076", "zhyl4200077");//其它
-                    }
-
+                    JSONArray zhyl4100000JsonArray = new JSONArray(); //
+                    jiazushi(s, jiazhushi2, connection, statement, resultSet, zhyl4100000JsonArray);//家族史
+                    zhyl4000000Json.put("zhyl4100000", zhyl4100000JsonArray);
 
                     jsonObject.put("zhyl4000000", zhyl4000000Json);
 
@@ -925,8 +783,8 @@ public class PediatricKidneyData2 {
                                 zhyl80000001Json.put("zhyl80001001", zhyl80001001Json);
                             }
 
-                            JSONObject zhyl80000001=new JSONObject();
-                            zhyl80000001.put("zhyl80000001",zhyl80000001Json);
+                            JSONObject zhyl80000001 = new JSONObject();
+                            zhyl80000001.put("zhyl80000001", zhyl80000001Json);
                             zhyl80000000JSONArray.add(zhyl80000001);
                             zhyl8000000Json.put("zhyl80000000", zhyl80000000JSONArray);
                         }
@@ -1003,109 +861,122 @@ public class PediatricKidneyData2 {
         }
     }
 
-    public static void jiazushi(JSONObject zhyl4000000Json, String s, JSONObject kaitouJson, String sql, String jiazuguanxi, Connection connection, Statement statement, ResultSet resultSet,
-                                String kaitou, String danbainiao, String danbainiaonianling, String shengongneng, String shengongnengnianling,
-                                String tingli, String tinglinianling, String yanbu, String yanbulianling, String xueniao,
-                                String xueniaonianling, String qita, JSONArray jsonArray, String shengcunzhuangtai, String shennangzhong, String shennangzhonglianling) throws Exception {
-        String muqin = sql.replace("?", s).replace("#", jiazuguanxi);
-        Map<String, Object> muqinMap = commonExecute1(connection, muqin, statement, resultSet);
+    public static void jiazushi(String s, String sql, Connection connection, Statement statement, ResultSet resultSet, JSONArray jsonArray) throws Exception {
+        String guanxi = sql.replace("?", s);
+        List<Map<String, Object>> muqinMapList = commonExecute2(connection, guanxi, statement, resultSet);
+        if (muqinMapList != null && muqinMapList.size() > 0) {
+            for (Map<String, Object> muqinMap : muqinMapList) {
+                JSONObject zhyl4100000Json = new JSONObject();
+                if (muqinMap != null && muqinMap.size() > 0) {
+                    List<String> nameList = new ArrayList<>();
+                    List<String> isNotList = new ArrayList<>();
+                    List<String> ageList = new ArrayList<>();
+                    for (String key : muqinMap.keySet()) {
 
-        if (muqinMap != null && muqinMap.size() > 0) {
-            List<String> nameList = new ArrayList<>();
-            List<String> isNotList = new ArrayList<>();
-            List<String> ageList = new ArrayList<>();
-            for (String key : muqinMap.keySet()) {
-                if (key.toUpperCase().equals("FHTERM") && muqinMap.get(key).toString().contains(",")) {
-                    nameList = Arrays.asList(muqinMap.get(key).toString().split(","));
-                }
-                if (key.toUpperCase().equals("FHTERM") && !muqinMap.get(key).toString().contains(",")) {
-                    nameList = Collections.singletonList(muqinMap.get(key).toString());
-                }
-                if (key.toUpperCase().equals("FHOCCUR") && muqinMap.get(key).toString().contains(",")) {
-                    isNotList = Arrays.asList(muqinMap.get(key).toString().split(","));
-                }
-                if (key.toUpperCase().equals("FHOCCUR") && !muqinMap.get(key).toString().contains(",")) {
-                    isNotList = Collections.singletonList(muqinMap.get(key).toString());
-                }
-                if (key.toUpperCase().equals("AGE") && muqinMap.get(key).toString().contains(",")) {
-                    ageList = Arrays.asList(muqinMap.get(key).toString().split(","));
-                }
-                if (key.toUpperCase().equals("AGE") && !muqinMap.get(key).toString().contains(",")) {
-                    ageList = Collections.singletonList(muqinMap.get(key).toString());
-                }
-                if (key.toUpperCase().equals("FHORRES")) {
-                    kaitouJson.put(qita, muqinMap.get(key));
-                }
-                if (key.toUpperCase().equals("FHSTATUS")) {
-                    kaitouJson.put(shengcunzhuangtai, castDataShengCun((String) muqinMap.get(key)));
-                }
-                if (key.toUpperCase().equals("FHITEM")) { //有无家族史
-                    zhyl4000000Json.put("zhyl4000007", castDataYinYang((String) muqinMap.get(key)));
-                }
-            }
-            if (nameList.size() > 0) {
-                for (int i = 0; i < nameList.size(); i++) {
-                    String name = nameList.get(i);
-                    String isNot = isNotList.get(i);
-                    String age = ageList.get(i);
-                    if (name.contains("蛋白尿")) {
-                        kaitouJson.put(danbainiao, castData(isNot));
-                        if (!age.contains("#") && age != null) {
-                            kaitouJson.put(danbainiaonianling, age);
-                        } else {
-                            kaitouJson.put(danbainiaonianling, null);
+                        if (key.toUpperCase().equals("FHTERM") && muqinMap.get(key).toString().contains(",")) {
+                            nameList = Arrays.asList(muqinMap.get(key).toString().split(","));
+                        }
+                        if (key.toUpperCase().equals("FHTERM") && !muqinMap.get(key).toString().contains(",")) {
+                            nameList = Collections.singletonList(muqinMap.get(key).toString());
+                        }
+                        if (key.toUpperCase().equals("FHOCCUR") && muqinMap.get(key).toString().contains(",")) {
+                            isNotList = Arrays.asList(muqinMap.get(key).toString().split(","));
+                        }
+                        if (key.toUpperCase().equals("FHOCCUR") && !muqinMap.get(key).toString().contains(",")) {
+                            isNotList = Collections.singletonList(muqinMap.get(key).toString());
+                        }
+                        if (key.toUpperCase().equals("AGE") && muqinMap.get(key).toString().contains(",")) {
+                            ageList = Arrays.asList(muqinMap.get(key).toString().split(","));
+                        }
+                        if (key.toUpperCase().equals("AGE") && !muqinMap.get(key).toString().contains(",")) {
+                            ageList = Collections.singletonList(muqinMap.get(key).toString());
+                        }
+                        if (key.toUpperCase().equals("FHORRES")) {
+                            zhyl4100000Json.put("zhyl4100015", muqinMap.get(key));//其他
+                        }
+                        if (key.toUpperCase().equals("FHOTHER")) {
+                            zhyl4100000Json.put("zhyl4100018", muqinMap.get(key));//具体表现
+                        }
+                        if (key.toUpperCase().equals("FHSTATUS")) {//生存状态
+                            zhyl4100000Json.put("zhyl4100002", castDataShengCun((String) muqinMap.get(key)));
+                        }
+                        if (key.toUpperCase().equals("FHITEM")) { //有无家族史
+                            zhyl4100000Json.put("zhyl4000001", castDataYinYang((String) muqinMap.get(key)));
+                        }
+                        if (key.toUpperCase().equals("FHSUBREL")) { //与患者关系
+                            zhyl4100000Json.put("zhyl4100001", muqinMap.get(key));
                         }
                     }
-                    if (name.contains("肾功能异常")) {
-                        kaitouJson.put(shengongneng, castData(isNot));
-                        if (!age.contains("#") && age != null) {
-                            kaitouJson.put(shengongnengnianling, age);
-                        } else {
-                            kaitouJson.put(shengongnengnianling, null);
+                    if (nameList.size() > 0) {
+                        for (int i = 0; i < nameList.size(); i++) {
+                            String name = nameList.get(i);
+                            String isNot = isNotList.get(i);
+                            String age = ageList.get(i);
+                            if (name.contains("蛋白尿")) {
+                                zhyl4100000Json.put("zhyl4100003", castData(isNot));
+                                if (!age.contains("#") && age != null) {
+                                    zhyl4100000Json.put("zhyl4100004", age);
+                                } else {
+                                    zhyl4100000Json.put("zhyl4100004", null);
+                                }
+                            }
+                            if (name.contains("肾功能异常")) {
+                                zhyl4100000Json.put("zhyl4100005", castData(isNot));
+                                if (!age.contains("#") && age != null) {
+                                    zhyl4100000Json.put("zhyl4100006", age);
+                                } else {
+                                    zhyl4100000Json.put("zhyl4100006", null);
+                                }
+                            }
+                            if (name.contains("听力异常")) {
+                                zhyl4100000Json.put("zhyl4100007", castData(isNot));
+                                if (!age.contains("#") && age != null) {
+                                    zhyl4100000Json.put("zhyl4100008", age);
+                                } else {
+                                    zhyl4100000Json.put("zhyl4100008", null);
+                                }
+                            }
+                            if (name.contains("眼部症状")) {
+                                zhyl4100000Json.put("zhyl4100009", castData(isNot));
+                                if (!age.contains("#") && age != null) {
+                                    zhyl4100000Json.put("zhyl4100010", age);
+                                } else {
+                                    zhyl4100000Json.put("zhyl4100010", null);
+                                }
+                            }
+                            if (name.contains("血尿")) {
+                                zhyl4100000Json.put("zhyl4100011", castData(isNot));
+                                if (!age.contains("#") && age != null) {
+                                    zhyl4100000Json.put("zhyl4100012", age);
+                                } else {
+                                    zhyl4100000Json.put("zhyl4100012", null);
+                                }
+                            }
+                            if (name.contains("肾囊肿")) {
+                                zhyl4100000Json.put("zhyl4100013", castData(isNot));
+                                if (!age.contains("#") && age != null) {
+                                    zhyl4100000Json.put("zhyl4100014", age);
+                                } else {
+                                    zhyl4100000Json.put("zhyl4100014", null);
+                                }
+                            }
+
+                            if (name.contains("肾脏尿路畸形")) {
+                                zhyl4100000Json.put("zhyl4100016", castData(isNot));
+                                if (!age.contains("#") && age != null) {
+                                    zhyl4100000Json.put("zhyl4100017", age);
+                                } else {
+                                    zhyl4100000Json.put("zhyl4100017", null);
+                                }
+                            }
+
                         }
-                    }
-                    if (name.contains("听力异常")) {
-                        kaitouJson.put(tingli, castData(isNot));
-                        if (!age.contains("#") && age != null) {
-                            kaitouJson.put(tinglinianling, age);
-                        } else {
-                            kaitouJson.put(tinglinianling, null);
-                        }
-                    }
-                    if (name.contains("眼部症状")) {
-                        kaitouJson.put(yanbu, castData(isNot));
-                        if (!age.contains("#") && age != null) {
-                            kaitouJson.put(yanbulianling, age);
-                        } else {
-                            kaitouJson.put(yanbulianling, null);
-                        }
-                    }
-                    if (name.contains("血尿")) {
-                        kaitouJson.put(xueniao, castData(isNot));
-                        if (!age.contains("#") && age != null) {
-                            kaitouJson.put(xueniaonianling, age);
-                        } else {
-                            kaitouJson.put(xueniaonianling, null);
-                        }
-                    }
-                    if (name.contains("肾囊肿")) {
-                        kaitouJson.put(shennangzhong, castData(isNot));
-                        if (!age.contains("#") && age != null) {
-                            kaitouJson.put(shennangzhonglianling, age);
-                        } else {
-                            kaitouJson.put(shennangzhonglianling, null);
-                        }
+
                     }
 
+                    jsonArray.add(zhyl4100000Json);
+
                 }
-
-            }
-
-            if (jsonArray != null) {
-                jsonArray.add(kaitouJson);
-                zhyl4000000Json.put(kaitou, jsonArray);
-            } else {
-                zhyl4000000Json.put(kaitou, kaitouJson);
             }
         }
 
@@ -1174,7 +1045,7 @@ public class PediatricKidneyData2 {
             }
             if (tokenList == null || (tokenList.size() == 0) || (tokenList.size() > 0 && tokenList.get(0) == null)
                     || (tokenList.size() > 0 && tokenList.get(0).equals("")) || (tokenList.size() > 0 && tokenList.get(0).equals("null"))) {
-                accessToken = getToken(tokenurl, admin, password);
+                accessToken = getToken(tokenurl, admin, password, "cgkd");
                 Date date = new Date();
                 long a = date.getTime() + 30 * 60 * 1000;  //30分钟
                 String sql = "UPDATE " + "dbo.token_time " + " SET token= " + "'" + accessToken + "'" + "  ,  token_time= " + a;
@@ -1194,7 +1065,7 @@ public class PediatricKidneyData2 {
                     if (Long.valueOf(timeList.get(0)) > a) {
                         accessToken = tokenList.get(0);
                     } else {
-                        accessToken = getToken(tokenurl, admin, password);
+                        accessToken = getToken(tokenurl, admin, password, "cgkd");
                         Date date1 = new Date();
                         long a1 = date1.getTime() + 30 * 60 * 1000;
                         String sql1 = "UPDATE " + "dbo.token_time  " + " SET token = " + "'" + accessToken + "'" + "  ,  token_time= " + a1;

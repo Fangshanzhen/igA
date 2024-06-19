@@ -127,12 +127,12 @@ public class PediatricKidneyData4 {
                     JSONArray zhyl4000005JsonArray = new JSONArray(); //（外）祖父母
                     JSONArray zhyl4000006JsonArray = new JSONArray(); //其他
 
-                    jiazushi(zhyl4000000Json, s, zhyl4000001Json, jiazhushi2, "母亲", connection, statement, resultSet, "zhyl4000001", "zhyl4200000", "zhyl4200001",
-                            "zhyl4200002", "zhyl4200003", "zhyl4200004", "zhyl4200005", "zhyl4200006", "zhyl4200007",
-                            "zhyl4200008", "zhyl4200009", "zhyl4100006", null, "zhyl4200060", "zhyl4200066", "zhyl4200067");//母亲家族史
-                    jiazushi(zhyl4000000Json, s, zhyl4000002Json, jiazhushi2, "父亲", connection, statement, resultSet, "zhyl4000002", "zhyl4200010", "zhyl4200011",
-                            "zhyl4200012", "zhyl4200013", "zhyl4200014", "zhyl4200015", "zhyl4200016", "zhyl4200017",
-                            "zhyl4200018", "zhyl4200019", "zhyl4100012", null, "zhyl4200061", "zhyl4200068", "zhyl4200069");//父亲家族史
+//                    jiazushi(zhyl4000000Json, s, zhyl4000001Json, jiazhushi2, "母亲", connection, statement, resultSet, "zhyl4000001", "zhyl4200000", "zhyl4200001",
+//                            "zhyl4200002", "zhyl4200003", "zhyl4200004", "zhyl4200005", "zhyl4200006", "zhyl4200007",
+//                            "zhyl4200008", "zhyl4200009", "zhyl4100006", null, "zhyl4200060", "zhyl4200066", "zhyl4200067");//母亲家族史
+//                    jiazushi(zhyl4000000Json, s, zhyl4000002Json, jiazhushi2, "父亲", connection, statement, resultSet, "zhyl4000002", "zhyl4200010", "zhyl4200011",
+//                            "zhyl4200012", "zhyl4200013", "zhyl4200014", "zhyl4200015", "zhyl4200016", "zhyl4200017",
+//                            "zhyl4200018", "zhyl4200019", "zhyl4100012", null, "zhyl4200061", "zhyl4200068", "zhyl4200069");//父亲家族史
 
                     List<String> xiongdi = Arrays.asList("哥哥", "弟弟", "姐姐", "妹妹");
                     for (String x : xiongdi) {
@@ -149,9 +149,9 @@ public class PediatricKidneyData4 {
                         if (x.equals("妹妹")) {
                             zhyl4000003Json.put("zhyl4100030", "4");
                         }
-                        jiazushi(zhyl4000000Json, s, zhyl4000003Json, jiazhushi2, x, connection, statement, resultSet, "zhyl4000003", "zhyl4200020", "zhyl4200021",
-                                "zhyl4200022", "zhyl4200023", "zhyl4200024", "zhyl4200025", "zhyl4200026", "zhyl4200027",
-                                "zhyl4200028", "zhyl4200029", "zhyl4100018", zhyl4000003JsonArray, "zhyl4200062", "zhyl4200070", "zhyl4200071");//兄弟姐妹
+//                        jiazushi(zhyl4000000Json, s, zhyl4000003Json, jiazhushi2, x, connection, statement, resultSet, "zhyl4000003", "zhyl4200020", "zhyl4200021",
+//                                "zhyl4200022", "zhyl4200023", "zhyl4200024", "zhyl4200025", "zhyl4200026", "zhyl4200027",
+//                                "zhyl4200028", "zhyl4200029", "zhyl4100018", zhyl4000003JsonArray, "zhyl4200062", "zhyl4200070", "zhyl4200071");//兄弟姐妹
                     }
 
                     List<String> zhangbei = Arrays.asList("母亲的弟弟", "母亲的哥哥", "母亲的姐姐", "母亲的妹妹", "父亲的姐姐", "父亲的妹妹", "父亲的弟弟", "父亲的哥哥");
@@ -172,9 +172,9 @@ public class PediatricKidneyData4 {
                         if (x.equals("父亲的哥哥")) {
                             zhyl4000004Json.put("zhyl4100031", "5");
                         }
-                        jiazushi(zhyl4000000Json, s, zhyl4000004Json, jiazhushi2, x, connection, statement, resultSet, "zhyl4000004", "zhyl4200030", "zhyl4200031",
-                                "zhyl4200032", "zhyl4200033", "zhyl4200034", "zhyl4200035", "zhyl4200036", "zhyl4200037",
-                                "zhyl4200038", "zhyl4200039", "zhyl4100038", zhyl4000004JsonArray, "zhyl4200063", "zhyl4200072", "zhyl4200073");//父母辈亲属
+//                        jiazushi(zhyl4000000Json, s, zhyl4000004Json, jiazhushi2, x, connection, statement, resultSet, "zhyl4000004", "zhyl4200030", "zhyl4200031",
+//                                "zhyl4200032", "zhyl4200033", "zhyl4200034", "zhyl4200035", "zhyl4200036", "zhyl4200037",
+//                                "zhyl4200038", "zhyl4200039", "zhyl4100038", zhyl4000004JsonArray, "zhyl4200063", "zhyl4200072", "zhyl4200073");//父母辈亲属
                     }
 
                     List<String> zufu = Arrays.asList("祖父", "外祖父", "祖母", "外祖母");
@@ -193,9 +193,9 @@ public class PediatricKidneyData4 {
                             zhyl4000005Json.put("zhyl4100032", "2");
                         }
 
-                        jiazushi(zhyl4000000Json, s, zhyl4000005Json, jiazhushi2, x, connection, statement, resultSet, "zhyl4000005", "zhyl4200040", "zhyl4200041",
-                                "zhyl4200042", "zhyl4200043", "zhyl4200044", "zhyl4200045", "zhyl4200046", "zhyl4200047",
-                                "zhyl4200048", "zhyl4200049", "zhyl4100029", zhyl4000005JsonArray, "zhyl4200064", "zhyl4200074", "zhyl4200075");//（外）祖父母
+//                        jiazushi(zhyl4000000Json, s, zhyl4000005Json, jiazhushi2, x, connection, statement, resultSet, "zhyl4000005", "zhyl4200040", "zhyl4200041",
+//                                "zhyl4200042", "zhyl4200043", "zhyl4200044", "zhyl4200045", "zhyl4200046", "zhyl4200047",
+//                                "zhyl4200048", "zhyl4200049", "zhyl4100029", zhyl4000005JsonArray, "zhyl4200064", "zhyl4200074", "zhyl4200075");//（外）祖父母
                     }
 
                     List<String> other = Arrays.asList(
@@ -261,9 +261,9 @@ public class PediatricKidneyData4 {
                         JSONObject zhyl4000006Json = new JSONObject();
                         zhyl4000006Json.put("zhyl4100039", x);
                         zhyl4000006Json.put("zhyl4100033", "1");
-                        jiazushi(zhyl4000000Json, s, zhyl4000006Json, jiazhushi2, x, connection, statement, resultSet, "zhyl4000006", "zhyl4200050", "zhyl4200051",
-                                "zhyl4200052", "zhyl4200053", "zhyl4200054", "zhyl4200055", "zhyl4200056", "zhyl4200057",
-                                "zhyl4200058", "zhyl4200059", "zhyl4100040", zhyl4000006JsonArray, "zhyl4200065", "zhyl4200076", "zhyl4200077");//其它
+//                        jiazushi(zhyl4000000Json, s, zhyl4000006Json, jiazhushi2, x, connection, statement, resultSet, "zhyl4000006", "zhyl4200050", "zhyl4200051",
+//                                "zhyl4200052", "zhyl4200053", "zhyl4200054", "zhyl4200055", "zhyl4200056", "zhyl4200057",
+//                                "zhyl4200058", "zhyl4200059", "zhyl4100040", zhyl4000006JsonArray, "zhyl4200065", "zhyl4200076", "zhyl4200077");//其它
                     }
 
                     jsonObject.put("zhyl4000000", zhyl4000000Json);

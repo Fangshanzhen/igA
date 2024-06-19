@@ -349,7 +349,7 @@ public class DataTransform {
             }
             if (tokenList == null || (tokenList.size() == 0) || (tokenList.size() > 0 && tokenList.get(0) == null)
                     || (tokenList.size() > 0 && tokenList.get(0).equals("")) || (tokenList.size() > 0 && tokenList.get(0).equals("null"))) {
-                accessToken = getToken(baseUrl, admin, password);
+                accessToken = getToken(baseUrl, admin, password,"iga");
                 Date date = new Date();
                 long a = date.getTime() + 30 * 60 * 1000;  //30分钟
                 String sql = "UPDATE " + "public.token_time " + " SET token= " + "'" + accessToken + "'" + "  ,  token_time= " + a;
@@ -369,7 +369,7 @@ public class DataTransform {
                     if (Long.valueOf(timeList.get(0)) > a) {
                         accessToken = tokenList.get(0);
                     } else {
-                        accessToken = getToken(baseUrl, admin, password);
+                        accessToken = getToken(baseUrl, admin, password,"iga");
                         Date date1 = new Date();
                         long a1 = date1.getTime() + 30 * 60 * 1000;
                         String sql1 = "UPDATE " + "public.token_time  " + " SET token = " + "'" + accessToken + "'" + "  ,  token_time= " + a1;
@@ -408,10 +408,9 @@ public class DataTransform {
         return statement;
     }
 
-    public static String getToken(String baseUrl, String admin, String password) throws Exception {
+    public static String getToken(String baseUrl, String admin, String password,String xiangmuid) throws Exception {
 
-        String tokenUrl = baseUrl + "/auth/user/login";
-//        tokenUrl = "http://10.0.108.41/api-gate/auth/user/login";
+        String tokenUrl  = "http://10.0.108.41/api-gate/auth/user/login";
 
         kettleResponse tokenResponse = null;  //
         Map<String, Object> tokenMap = new HashMap<String, Object>();
@@ -421,7 +420,7 @@ public class DataTransform {
         String accessToken = null;
 
         try {
-            tokenResponse = HttpClientUtils.doPost(tokenUrl, null, JSON.toJSONString(tokenMap, SerializerFeature.WriteMapNullValue), "1");
+            tokenResponse = HttpClientUtils.doPost(tokenUrl, null, JSON.toJSONString(tokenMap, SerializerFeature.WriteMapNullValue), "1",xiangmuid);
         } catch (IOException e) {
             e.printStackTrace();
         }

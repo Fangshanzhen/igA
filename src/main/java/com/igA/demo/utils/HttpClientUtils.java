@@ -29,7 +29,7 @@ import java.nio.charset.StandardCharsets;
 public class HttpClientUtils {
 
 
-    public static kettleResponse doPost(String url, String token, Object jsonStr, String type) throws IOException {
+    public static kettleResponse doPost(String url, String token, Object jsonStr, String type, String xiangmuid) throws IOException {
 
         kettleResponse kettleResponse = new kettleResponse();
 
@@ -46,8 +46,12 @@ public class HttpClientUtils {
         } else {
 //            postMethod.addRequestHeader("Content-Type", MediaType.MULTIPART_FORM_DATA);
         }
-        postMethod.addRequestHeader("AIIT-ZHYL-PLATFORM", "27");  //修改  iga是25, cgkd是27
-
+        if (xiangmuid.equals("iga")) {
+            postMethod.addRequestHeader("AIIT-ZHYL-PLATFORM", "25");
+        }// iga是25, cgkd是27
+        if (xiangmuid.equals("cgkd")) {
+            postMethod.addRequestHeader("AIIT-ZHYL-PLATFORM", "27");
+        }
         if (token != null) {
             postMethod.addRequestHeader("AIIT-ZHYL-AUTH", token);
         }
@@ -139,6 +143,38 @@ public class HttpClientUtils {
                     "Hospital-9_0.json"
             );
         }
+        if (type.equals("1")) { //Alport 综合征
+            builder.addBinaryBody(
+                    "file",
+                    multipartFile.getInputStream(),
+                    ContentType.create("multipart/form-data", StandardCharsets.UTF_8),
+                    "Hospital-1_0.json"
+            );
+        }
+        if (type.equals("3")) { //肾小管疾病
+            builder.addBinaryBody(
+                    "file",
+                    multipartFile.getInputStream(),
+                    ContentType.create("multipart/form-data", StandardCharsets.UTF_8),
+                    "Hospital-3_0.json"
+            );
+        }
+        if (type.equals("4")) { //肾脏囊性疾病
+            builder.addBinaryBody(
+                    "file",
+                    multipartFile.getInputStream(),
+                    ContentType.create("multipart/form-data", StandardCharsets.UTF_8),
+                    "Hospital-5_0.json"
+            );
+        }
+        if (type.equals("5")) { //先天性肾脏尿路畸形
+            builder.addBinaryBody(
+                    "file",
+                    multipartFile.getInputStream(),
+                    ContentType.create("multipart/form-data", StandardCharsets.UTF_8),
+                    "Hospital-7_0.json"
+            );
+        }
 
 
         HttpEntity multipart = builder.build();
@@ -152,7 +188,6 @@ public class HttpClientUtils {
             kettleResponse.setData(responseContent);
 
         } finally {
-
             httpClient.close();
         }
 
