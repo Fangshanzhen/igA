@@ -76,8 +76,8 @@ public class PediatricKidneyData2 {
                             if (map.keySet().contains("zhyl1110024") && key.equals("zhyl1110024")) {
                                 zhyl1100022Json.put("zhyl1110024", map.get(key));
                             }
-                            if (map.keySet().contains("zhyl1110026") && key.equals("zhyl1110026")) {
-                                zhyl1100022Json.put("zhyl1110026", map.get(key));
+                            if (map.keySet().contains("zhyl1100026") && key.equals("zhyl1100026")) {
+                                zhyl1100022Json.put("zhyl1100026", map.get(key));
                             }
                             if (map.keySet().contains("zhyl1110028") && key.equals("zhyl1110028")) {
                                 zhyl1100027Json.put("zhyl1110028", map.get(key));
@@ -180,6 +180,7 @@ public class PediatricKidneyData2 {
                                 JSONObject zhyl5000022Json = new JSONObject();
                                 JSONObject zhyl5000027Json = new JSONObject();
                                 JSONObject zhyl5000030Json = new JSONObject();
+                                JSONObject zhyl5000050Json = new JSONObject();
                                 for (String key : yaoWuMap.keySet()) {
                                     transJson(yaoWuMap, key, "zhyl5100022", zhyl5000022Json, null);
                                     transJson(yaoWuMap, key, "zhyl5100023", zhyl5000022Json, null);
@@ -187,6 +188,10 @@ public class PediatricKidneyData2 {
                                     transJson(yaoWuMap, key, "zhyl5100029", zhyl5000027Json, null);
                                     transJson(yaoWuMap, key, "zhyl5100031", zhyl5000030Json, null);
                                     transJson(yaoWuMap, key, "zhyl5100032", zhyl5000030Json, null);
+                                    transJson(yaoWuMap, key, "zhyl5000051", zhyl5000050Json, null);
+                                    transJson(yaoWuMap, key, "zhyl5000052", zhyl5000050Json, null);
+                                    transJson(yaoWuMap, key, "zhyl5000053", zhyl5000050Json, null);
+                                    transJson(yaoWuMap, key, "zhyl5000054", zhyl5000050Json, null);
 
                                 }
                                 yaoWuMap.remove("zhyl5100022");
@@ -195,10 +200,15 @@ public class PediatricKidneyData2 {
                                 yaoWuMap.remove("zhyl5100029");
                                 yaoWuMap.remove("zhyl5100031");
                                 yaoWuMap.remove("zhyl5100032");
+                                yaoWuMap.remove("zhyl5100051");
+                                yaoWuMap.remove("zhyl5100052");
+                                yaoWuMap.remove("zhyl5100053");
+                                yaoWuMap.remove("zhyl5100054");
 
                                 yaoWuMap.put("zhyl5000022", zhyl5000022Json);
                                 yaoWuMap.put("zhyl5000027", zhyl5000027Json);
                                 yaoWuMap.put("zhyl5000030", zhyl5000030Json);
+                                yaoWuMap.put("zhyl5000050", zhyl5000050Json);
                                 zhyl5000000Json.add(yaoWuMap);
                             }
                         }
@@ -873,22 +883,22 @@ public class PediatricKidneyData2 {
                     List<String> ageList = new ArrayList<>();
                     for (String key : muqinMap.keySet()) {
 
-                        if (key.toUpperCase().equals("FHTERM") && muqinMap.get(key).toString().contains(",")) {
+                        if (key.toUpperCase().equals("FHTERM") && muqinMap.get(key)!=null  && muqinMap.get(key).toString().contains(",")) {
                             nameList = Arrays.asList(muqinMap.get(key).toString().split(","));
                         }
-                        if (key.toUpperCase().equals("FHTERM") && !muqinMap.get(key).toString().contains(",")) {
+                        if (key.toUpperCase().equals("FHTERM") && muqinMap.get(key)!=null && !muqinMap.get(key).toString().contains(",")) {
                             nameList = Collections.singletonList(muqinMap.get(key).toString());
                         }
-                        if (key.toUpperCase().equals("FHOCCUR") && muqinMap.get(key).toString().contains(",")) {
+                        if (key.toUpperCase().equals("FHOCCUR") && muqinMap.get(key)!=null && muqinMap.get(key).toString().contains(",")) {
                             isNotList = Arrays.asList(muqinMap.get(key).toString().split(","));
                         }
-                        if (key.toUpperCase().equals("FHOCCUR") && !muqinMap.get(key).toString().contains(",")) {
+                        if (key.toUpperCase().equals("FHOCCUR") && muqinMap.get(key)!=null && !muqinMap.get(key).toString().contains(",")) {
                             isNotList = Collections.singletonList(muqinMap.get(key).toString());
                         }
-                        if (key.toUpperCase().equals("AGE") && muqinMap.get(key).toString().contains(",")) {
+                        if (key.toUpperCase().equals("AGE") && muqinMap.get(key)!=null && muqinMap.get(key).toString().contains(",")) {
                             ageList = Arrays.asList(muqinMap.get(key).toString().split(","));
                         }
-                        if (key.toUpperCase().equals("AGE") && !muqinMap.get(key).toString().contains(",")) {
+                        if (key.toUpperCase().equals("AGE") && muqinMap.get(key)!=null && !muqinMap.get(key).toString().contains(",")) {
                             ageList = Collections.singletonList(muqinMap.get(key).toString());
                         }
                         if (key.toUpperCase().equals("FHORRES")) {

@@ -47,8 +47,8 @@ public class cgkd {
         log.info("数据库连接成功");
 
 
-        String type = "3";  //表明不同的数据
-        String start="1"; //1开始传数据， 0或者其他不传数据
+        String type = "1";  //表明不同的数据
+        String start="0"; //1开始传数据， 0或者其他不传数据
 
         if (connection != null) {
             // 设置连接的持久性
@@ -56,9 +56,9 @@ public class cgkd {
             List<String> idList = new ArrayList<>();
             idList = commonExecute(connection, statement, resultSet, KidneyIdSql2.replace("#", type));
 
-      //  idList= Arrays.asList("2c95808a6929d9470169c7849fc30b2d");
+        idList= Arrays.asList("2c95808a6735c58801683a896f20160a");
 
-            int poolSize = 2; // 调整线程池大小
+            int poolSize = 1; // 调整线程池大小
             // 创建一个固定大小的线程池
             ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
             // 创建一个AtomicInteger来统计成功运行的次数

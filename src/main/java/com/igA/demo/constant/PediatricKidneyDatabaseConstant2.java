@@ -10,7 +10,7 @@ public class PediatricKidneyDatabaseConstant2 {
     public final static String yibanziliao2 = "select a.id , SUBNAM as zhyl1100001,SUBJMRID as zhyl1100002,case when DMSUBRE='门诊' then '1' when DMSUBRE='住院' then '2' end as zhyl1100003,\n" +
             "case when SEX='男' then '1' when SEX='女' then '2' end as zhyl1100004, d.b1 as zhyl1100005,\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', BRIHDTC) as bigint )*1000 AS zhyl1100006, AGEY as zhyl1100023,\n" +
-            "c.a  as zhyl1110023, SUBADRRE as zhyl1110024,SUBZIPCD as zhyl1110026,SUBHTEL as zhyl1110028,SUBMTEL as zhyl1110029,\n" +
+            "c.a  as zhyl1110023, SUBADRRE as zhyl1110024,SUBZIPCD as zhyl1100026,SUBHTEL as zhyl1110028,SUBMTEL as zhyl1110029,\n" +
             "SUBMTEL2 as zhyl1110030, case when a.PACOMAT ='否' then 0  when a.PACOMAT ='是' then 1 end as  zhyl1200031, null as zhyl1200030,\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', DMVISDTC) as bigint )*1000 AS  zhyl1100031,\n" +
             "REGHOID as zhyl1100032,INVNAM as zhyl1100033,cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', DMDTC) as bigint )*1000 AS  zhyl1100034,\n" +
@@ -487,12 +487,14 @@ public class PediatricKidneyDatabaseConstant2 {
     public final static String yongyao2 = "  \n" +
             "select  a.id as _id, \n" +
             "case when CMOCCUR='有' then '1'  when CMOCCUR='无' then '0'  end as zhyl7000001,\n" +
-            "case when CMCAT='降压药' then '100000' when CMCAT='利尿剂' then '200000' when CMCAT='免疫抑制药物' then '300000'  end as zhyl7000002,\n" +
+            "case when CMCAT='降压药' then '100000' when CMCAT='利尿剂' then '200000' when CMCAT='免疫抑制药物' then '300000' when CMCAT='调节电解质、酸碱平衡药' then '400000' when CMCAT='维生素、微量元素药物' then '500000'    end as zhyl7000002,\n" +
             "case when b.Column1 like '101%' then '101000'\n" +
             "when b.Column1 like '102%' then '102000' \n" +
             "when b.Column1 like '201%' then '201000' \n" +
             "when b.Column1 like '301%' then '301000' \n" +
             "when b.Column1 like '302%' then '302000' \n" +
+            "when b.Column1 like '401%' then '401000' \n" +
+            "when b.Column1 like '501%' then '501000' \n" +
             "end  as zhyl7000003,\n" +
             "b.Column1 as zhyl7000004," +
             "case when CMDOSFRM='片剂' then '1'when CMDOSFRM='注射剂' then '2'when CMDOSFRM='胶囊剂' then '3'when CMDOSFRM='颗粒剂' then '4'when CMDOSFRM='丸剂' then '5'\n" +
@@ -549,15 +551,15 @@ public class PediatricKidneyDatabaseConstant2 {
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', BBDTC ) as bigint )*1000 AS zhyl8100004,\n" +
             "SCR as zhyl8100005,\n" +
             "BUN as zhyl8100006,\n" +
-            "ALT as zhyl8100051,\n" +
-            "AST as zhyl8100052,\n" +
-            "CA as zhyl8100053,\n" +
-            "P as zhyl8100054,\n" +
-            "K as zhyl8100055,\n" +
-            "HCO3 as zhyl8100056,\n" +
-            "ALP as zhyl8100057,\n" +
-            "GGT as zhyl8100058,\n" +
-            "TBA as zhyl8100059\n" +
+            "ALT as zhyl80000031,\n" +
+            "AST as zhyl80000032,\n" +
+            "CA as zhyl80000033,\n" +
+            "P as zhyl80000034,\n" +
+            "K as zhyl80000035,\n" +
+            "HCO3 as zhyl8100036,\n" +
+            "ALP as zhyl8100037,\n" +
+            "GGT as zhyl8100038,\n" +
+            "TBA as zhyl8100039\n" +
             "\n" +
             "from dbo.E_BB  where  DELMARK=0  and  [SOURCE]='随访' and SOURCEID ='?'  ";
     //尿常规
@@ -645,12 +647,14 @@ public class PediatricKidneyDatabaseConstant2 {
     //用药
     public final static String suifangyongyao2 = " select  \n" +
             "case when CMOCCUR='有' then '1'  when CMOCCUR='无' then '0'  end as zhyl8100037,\n" +
-            "case when CMCAT='降压药' then '100000' when CMCAT='利尿剂' then '200000' when CMCAT='免疫抑制药物' then '300000'  end as zhyl8100038,\n" +
+            "case when CMCAT='降压药' then '100000' when CMCAT='利尿剂' then '200000' when CMCAT='免疫抑制药物' then '300000' when CMCAT='调节电解质、酸碱平衡药' then '400000' when CMCAT='维生素、微量元素药物' then '500000'   end as zhyl8100038,\n" +
             "case when b.Column1 like '101%' then '101000'\n" +
             "when b.Column1 like '102%' then '102000' \n" +
             "when b.Column1 like '201%' then '201000' \n" +
             "when b.Column1 like '301%' then '301000' \n" +
             "when b.Column1 like '302%' then '302000' \n" +
+            "when b.Column1 like '401%' then '401000' \n" +
+            "when b.Column1 like '501%' then '501000' \n" +
             "end  as zhyl8100039,\n" +
             "b.Column1 as zhyl8100040," +
             "case when CMDOSFRM='片剂' then '1'when CMDOSFRM='注射剂' then '2'when CMDOSFRM='胶囊剂' then '3'when CMDOSFRM='颗粒剂' then '4'when CMDOSFRM='丸剂' then '5'\n" +
