@@ -3,6 +3,7 @@ package com.igA.demo.test;
 import com.igA.demo.data.*;
 import com.igA.demo.utils.JDBCUtils;
 import lombok.extern.slf4j.Slf4j;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,6 +20,7 @@ import static com.igA.demo.constant.PediatricKidneyDatabaseConstant2.KidneyIdSql
 import static com.igA.demo.data.igAData.commonExecute;
 
 //遗传病-早发蛋白尿数据
+
 /**
  * start： 1开始传数据， 0或者其他不传数据
  * type:
@@ -47,8 +49,8 @@ public class cgkd {
         log.info("数据库连接成功");
 
 
-        String type = "1";  //表明不同的数据
-        String start="0"; //1开始传数据， 0或者其他不传数据
+        String type = "2";  //表明不同的数据
+        String start = "0"; //1开始传数据， 0或者其他不传数据
 
         if (connection != null) {
             // 设置连接的持久性
@@ -56,7 +58,7 @@ public class cgkd {
             List<String> idList = new ArrayList<>();
             idList = commonExecute(connection, statement, resultSet, KidneyIdSql2.replace("#", type));
 
-        idList= Arrays.asList("2c95808a6735c58801683a896f20160a");
+            idList = Arrays.asList("2c95808a641e4b5d016441bb74f3026f");
 
             int poolSize = 1; // 调整线程池大小
             // 创建一个固定大小的线程池

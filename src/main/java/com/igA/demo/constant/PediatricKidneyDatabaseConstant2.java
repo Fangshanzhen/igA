@@ -41,163 +41,244 @@ public class PediatricKidneyDatabaseConstant2 {
     public final static String tigejiancha2 = "select * from dbo.tige  where dmid='?'";
     //尿常规
     public final static String niaochanggui2 = "SELECT \n" +
-            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', b.URDTC ) as bigint )*1000 AS zhyl6100000,\n" +
-            "b.URHOSP as zhyl6100001,\n" +
+            "case when  b.[SOURCE]='随访'  then '1' else '0' end as zhyl600000101,\n" +
+            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', b.URDTC ) as bigint )*1000 AS zhyl600000102,\n" +
+            "b.URHOSP as zhyl600000103,\n" +
             "case when b.UPL='-' then '0' when b.UPL='+-' then '1' when b.UPL='+' then '2' when b.UPL='++' then '3'  \n" +
-            "when b.UPL='+++' then '4'when b.UPL='+++++' then '5' end as zhyl6100002, b.UPN as zhyl6100003,\n" +
-            "case when b.RBCAN='是' then '1' when b.RBCAN='否' then '0'  end as zhyl6200100,b.RBCDSC as zhyl6200101,\n" +
-            "case when b.RBCFORM='肾小球性' then '0' when b.RBCFORM='非肾小球性' then '1'  end as zhyl6200102,\n" +
-            "b.RBCFOSC as zhyl6200103,\n" +
-            "case when  b.[SOURCE]='随访'  then '1' else '0' end as zhyl6100101\n" +
+            "when b.UPL='+++' then '4'when b.UPL='+++++' then '5' end as zhyl600000104,\n" +
+            "b.UPN as zhyl6000001051,\n" +
+            "b.UPNREF as zhyl6000001052,\n" +
+            "case when b.RBCAN='是' then '1' when b.RBCAN='否' then '0'  end as zhyl6000001061,\n" +
+            "b.RBC as zhyl6000001062,\n" +
+            "b.RBC1 as zhyl6000001063,\n" +
+            "b.RBCDSC as zhyl6000001064,\n" +
+            "case when b.RBCFORM='肾小球性' then '0' when b.RBCFORM='非肾小球性' then '1'  end as zhyl6000001071,\n" +
+            "b.RBCFOSC as zhyl6000001072,\n" +
+            "b.SG as zhyl6000001081,\n" +
+            "b.SGREF as zhyl6000001082,\n" +
+            "b.GLU as zhyl6000001091,\n" +
+            "b.GLUREF as zhyl6000001092,\n" +
+            "b.RBC as zhyl6000001101,\n" +
+            "b.RBC1 as zhyl6000001102,\n" +
+            "b.RBCREF as zhyl6000001103,\n" +
+            "b.RBCDSC as zhyl6000001104,\n" +
+            "b.PH as zhyl6000001111,\n" +
+            "b.PHREF as zhyl6000001112,\n" +
+            "b.UPH as zhyl6000001121,\n" +
+            "b.UPHREF as zhyl6000001122,\n" +
+            "b.WBC AS zhyl6000001131,\n" +
+            "b.WBC1 as zhyl6000001132,\n" +
+            "b.WBCREF as zhyl6000001133,\n" +
+            "b.WBCDSC as zhyl6000001134\n" +
             "\n" +
             "from dbo.DM a left join dbo.E_UR b on a.ID =b.DMID \n" +
-            "where  b.DELMARK=0  and  b.DMID='?'  ";
+            "where  b.DELMARK=0   and  b.DMID='?'  ";
 
     //24小时尿钙体重比
     public final static String niaogaitizhong2 = " select \n" +
-            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', UCDTC  ) as bigint )*1000 as  zhyl61000061,\n" +
-            "UCHOSP as zhyl61000062,\n" +
-            "UCDL as zhyl61000063,\n" +
-            "UCWEIGHT as zhyl61000064,\n" +
-            "UCUWP as zhyl61000065\n" +
+            "case when  [SOURCE]='随访'  then '1' else '0' end as zhyl600003001,\n" +
+            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', UCDTC  ) as bigint )*1000 as  zhyl600003002,\n" +
+            "UCHOSP as zhyl600003003,\n" +
+            "UCDL as zhyl6000030041,\n" +
+            "UCDLREF as zhyl6000030042,\n" +
+            "UCWEIGHT as zhyl600003005,\n" +
+            "UCUWP as zhyl6000030061,\n" +
+            "UCUWPREF as zhyl6000030062\n" +
+            "\n" +
             "from dbo.E_UC where DELMARK=0 and  DMID='?'";
 
     //尿蛋白肌酐比
     public final static String niaodanbaijigan2 = " SELECT \n" +
-            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', b.PCDTC ) as bigint )*1000 AS zhyl6100006,\n" +
-            "b.PCHOSP as zhyl6100007,\n" +
-            "b.PCNDB as zhyl6100008,\n" +
-            "b.PCNJG as zhyl6100009,\n" +
-            "b.PCORRES as zhyl6100010,\n" +
-            "case when  b.[SOURCE]='随访'  then '1' else '0' end as zhyl6100102\n" +
+            "case when  b.[SOURCE]='随访'  then '1' else '0' end as zhyl600000201,\n" +
+            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', b.PCDTC ) as bigint )*1000 AS zhyl600000202,\n" +
+            "b.PCHOSP as zhyl600000203,\n" +
+            "b.PCNDB as zhyl600000204,\n" +
+            "b.PCNJG as zhyl600000205,\n" +
+            "b.PCORRES as zhyl6000002061,\n" +
+            "b.PCSREF as zhyl6000002062\n" +
             "\n" +
             "from dbo.DM a left join dbo.E_PC b on a.ID =b.DMID \n" +
-            "where  b.DELMARK=0 and  b.PCTYPE ='尿蛋白/肌酐比'  and   b.DMID='?' ";
+            "where  b.DELMARK=0  and b.PCTYPE='尿蛋白/肌酐比'  and   b.DMID='?' ";
+
     //24h尿蛋白定量
     public final static String niaodanbaidingliang24h2 = " SELECT \n" +
-            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', b.UPDTC ) as bigint )*1000 AS zhyl6100011,\n" +
-            "b.UPHOSP as zhyl6100012,\n" +
-            "b.UPDL as zhyl6100013,\n" +
-            "b.UPWEIGHT as zhyl6100014,\n" +
-            "b.UPUWP as zhyl6100015,\n" +
-            "case when  b.[SOURCE]='随访'  then '1' else '0' end as zhyl6100103\n" +
+            "case when  b.[SOURCE]='随访'  then '1' else '0' end as zhyl600000301,\n" +
+            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', b.UPDTC ) as bigint )*1000 AS zhyl600000302,\n" +
+            "b.UPHOSP as zhyl600000303,\n" +
+            "b.UPDL as zhyl6000003041,\n" +
+            "UPDLREF as zhyl6000003042,\n" +
+            "UPWEIGHT as zhyl600000305,\n" +
+            "\n" +
+            "b.UPUWP as zhyl6000003061,\n" +
+            "b.UPUWPREF as zhyl6000003062\n" +
             "\n" +
             "from dbo.DM a left join dbo.E_UP b on a.ID =b.DMID  \n" +
             "where  b.DELMARK=0  and  b.DMID='?' ";
+
     //24h肌酐清除率
-    public final static String jiganqingchu24h2 = "select *,cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', HEDTC ) as bigint )*1000 AS zhyl6100016,\n" +
-            "case when  [SOURCE]='随访'  then '1' else '0' end as zhyl6100104\n" +
+    public final static String jiganqingchu24h2 = "select *,cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', HEDTC ) as bigint )*1000 AS zhyl600000402,\n" +
+            "case when  [SOURCE]='随访'  then '1' else '0' end as zhyl600000401\n" +
             "from dbo.ehe1 \n" +
             "where   HETYPE='24小时肌酐清除率'   and  DELMARK=0 and  DMID='?'  ";
     //肾早损
-    public final static String shenzaosuai2 = " select   \n" +
-            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', IRDTC ) as bigint )*1000 AS zhyl6100023,\n" +
-            "IRHOSP as zhyl6100024,\n" +
-            "MALB as zhyl6100106,\n" +
-            "case when MALBORRE='正常' then '1'   when MALBORRE='异常' then '0'   when MALBORRE='不详' then '2'  end  as zhyl6100107,\n" +
-            "TRU as zhyl6100108,\n" +
-            "case when TRUORRE='正常' then '1'   when TRUORRE='异常' then '0'   when TRUORRE='不详' then '2'  end  as zhyl6100109,\n" +
-            "NAG as zhyl6100110,\n" +
-            "case when NAGORRE='正常' then '1'   when NAGORRE='异常' then '0'   when NAGORRE='不详' then '2'  end  as zhyl6100111,\n" +
-            "A1MG as zhyl6100112,\n" +
-            "case when A1MGORRE='正常' then '1'   when A1MGORRE='异常' then '0'   when A1MGORRE='不详' then '2'  end  as zhyl6100113,\n" +
-            "MALBJG as zhyl6100114,\n" +
-            "case when MALBJGORRE='正常' then '1'   when MALBJGORRE='异常' then '0'   when MALBJGORRE='不详' then '2'  end  as zhyl6100115,\n" +
-            "IROTHER as zhyl6100030,\n" +
-            "case when  [SOURCE]='随访'  then '1' else '0' end as zhyl6100105\n" +
+    public final static String shenzaosuai2 = " select  \n" +
+            "case when  [SOURCE]='随访'  then '1' else '0' end as zhyl600000501,\n" +
+            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', IRDTC ) as bigint )*1000 AS zhyl600000501,\n" +
+            "IRHOSP as zhyl600000503,\n" +
+            "MALB as zhyl6000005041,\n" +
+            "MALBREF as zhyl6000005042,\n" +
+            "case when MALBORRE='正常' then '1'   when MALBORRE='异常' then '0'   when MALBORRE='不详' then '2'  end  as  zhyl6000005043,\n" +
+            "TRU as zhyl6000005051,\n" +
+            "TRUREF as zhyl6000005052,\n" +
+            "case when TRUORRE='正常' then '1'   when TRUORRE='异常' then '0'   when TRUORRE='不详' then '2'  end  as zhyl6000005053,\n" +
+            "NAG as zhyl6000005061,\n" +
+            "NAGREF as zhyl6000005062,\n" +
+            "case when NAGORRE='正常' then '1'   when NAGORRE='异常' then '0'   when NAGORRE='不详' then '2'  end  as zhyl6000005063,\n" +
+            "A1MG as zhyl6000005071,\n" +
+            "A1MGREF as zhyl6000005072,\n" +
+            "case when A1MGORRE='正常' then '1'   when A1MGORRE='异常' then '0'   when A1MGORRE='不详' then '2'  end  as zhyl6000005073,\n" +
+            "MALBJG as zhyl6000005081,\n" +
+            "MALBJGREF as zhyl6000005082,\n" +
+            "case when MALBJGORRE='正常' then '1'   when MALBJGORRE='异常' then '0'   when MALBJGORRE='不详' then '2'  end  as zhyl6000005083,\n" +
+            "IROTHER as zhyl600000509\n" +
             "\n" +
-            "from dbo.E_IR  where  DELMARK=0 and DMID='?' ";
+            "\n" +
+            "from dbo.E_IR  where  DELMARK=0  and DMID='?' ";
 
     //尿蛋白电泳
-    public final static String niaodanbaidianyong2 = " select   \n" +
-            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', UEDTC ) as bigint )*1000 AS zhyl6100116,\n" +
-            "UEHOSP as zhyl6100117,\n" +
-            "SPPORG  as zhyl6100118,\n" +
-            "ALBPORG as zhyl6100119,\n" +
-            "BPPORG as zhyl6100120\n" +
+    public final static String niaodanbaidianyong2 = " \n" +
+            "select   \n" +
+            "case when   [SOURCE]='随访'  then '1' else '0' end as  zhyl600000601,\n" +
+            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', UEDTC ) as bigint )*1000 AS zhyl600000602,\n" +
+            "UEHOSP as zhyl600000603,\n" +
+            "SPPORG  as zhyl6000006041,\n" +
+            "SPPREF as zhyl6000006042,\n" +
+            "ALBPORG as zhyl6000006051,\n" +
+            "ALBPREF as zhyl6000006052,\n" +
+            "BPPORG as zhyl6000006061,\n" +
+            "BPPREF as zhyl6000006062\n" +
             "\n" +
             "from dbo.E_UE  where  DELMARK=0  and DMID='?'  "; //and [SOURCE] is null
 
     //血生化
     public final static String xueshenghua2 = " select   \n" +
-            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', BBDTC ) as bigint )*1000 AS zhyl6100122,\n" +
-            "BBHOSP as zhyl6100123,\n" +
-            "ALB as zhyl6100124,\n" +
-            "SCR  as zhyl6100125,\n" +
-            "BUN as zhyl6100126,\n" +
-            "TCHO as zhyl6100127,\n" +
-            "ALT as zhyl6100128,\n" +
-            "AST as zhyl6100129,\n" +
-            "K as zhyl6100130,\n" +
-            "P as zhyl6100131,\n" +
-            "case when  [SOURCE]='随访'  then '1' else '0' end as zhyl6100121\n" +
+            "case when  [SOURCE]='随访'  then '1' else '0' end as zhyl600000701,\n" +
+            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', BBDTC ) as bigint )*1000 AS zhyl600000702,\n" +
+            "BBHOSP as  zhyl600000703,\n" +
+            "ALB as zhyl600000704,\n" +
+            "SCR as zhyl6000007051,\n" +
+            "SCRREF as zhyl6000007052,\n" +
+            "BUN as zhyl6000007061,\n" +
+            "BUNREF as zhyl6000007062,\n" +
+            "TCHO as zhyl6000007071,\n" +
+            "TCHOREF as zhyl6000007072,\n" +
+            "ALT as zhyl6000007081,\n" +
+            "ALTREF as zhyl6000007082,\n" +
+            "AST as zhyl6000007091,\n" +
+            "ASTREF as zhyl6000007092,\n" +
+            "K as zhyl6000007101,\n" +
+            "KREF as zhyl6000007102,\n" +
+            "P as zhyl6000007111,\n" +
+            "PREF as zhyl6000007112,\n" +
+            "CA as zhyl6000007121,\n" +
+            "CAREF as zhyl6000007122,\n" +
+            "CL as zhyl6000007131,\n" +
+            "CLREF as zhyl6000007132,\n" +
+            "MG as zhyl6000007141,\n" +
+            "MGREF as zhyl6000007142,\n" +
+            "NA as zhyl6000007151,\n" +
+            "NAREF as zhyl6000007152,\n" +
+            "AG as zhyl6000007161,\n" +
+            "AGREF as zhyl6000007162,\n" +
+            "ALP as zhyl6000007171,\n" +
+            "ALPREF as zhyl6000007172,\n" +
+            "LD as zhyl6000007181,\n" +
+            "LDREF as zhyl6000007182,\n" +
+            "TBA as zhyl6000007191,\n" +
+            "TBAREF as zhyl6000007192,\n" +
+            "GGT as zhyl6000007201,\n" +
+            "GGTREF as zhyl6000007202,\n" +
+            "HCO3 as zhyl6000007211,\n" +
+            "HCO3REF as zhyl6000007212,\n" +
+            "LAT as zhyl6000007221,\n" +
+            "LATREF as zhyl6000007222,\n" +
+            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', VERDTC ) as bigint )*1000 AS  zhyl600000723\n" +
             "\n" +
-            "from dbo.E_BB  where  DELMARK=0   and DMID='?' ";//and [SOURCE] is null
+            "\n" +
+            "from dbo.E_BB  where  DELMARK=0    and DMID='?' ";//and [SOURCE] is null
 
     //免疫球蛋白
     public final static String mianyiqiudanbai2 = " select   \n" +
-            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', IGDTC ) as bigint )*1000 AS zhyl6100132,\n" +
-            "IGHOSP as zhyl6100133,\n" +
-            "IGG as zhyl6100134,\n" +
-            "IGA as zhyl6100135,\n" +
-            "IGM as zhyl6100136\n" +
-            "\n" +
+            "case when  [SOURCE]='随访'  then '1' else '0' end as zhyl600000801,\n" +
+            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', IGDTC ) as bigint )*1000 AS zhyl600000802,\n" +
+            "IGHOSP as zhyl600000803,\n" +
+            "IGG as zhyl6000008041,\n" +
+            "IGGREF as zhyl6000008042,\n" +
+            "IGA as zhyl6000008051,\n" +
+            "IGAREF as zhyl6000008052,\n" +
+            "IGM as zhyl6000008061,\n" +
+            "IGMREF as zhyl6000008062\n" +
             "from dbo.E_IG  where  DELMARK=0   and DMID='?' ";  // and [SOURCE] is null
+
     //血补体
     public final static String xuebuti2 = "  select   \n" +
-            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', BCDTC ) as bigint )*1000 AS zhyl6100137,\n" +
-            "BCHOSP as zhyl6100138,\n" +
-            "C3 as zhyl6100139,\n" +
-            "C4 as zhyl6100140\n" +
+            "case when  [SOURCE]='随访'  then '1' else '0' end as zhyl600000901,\n" +
+            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', BCDTC ) as bigint )*1000 AS zhyl600000902,\n" +
+            "BCHOSP as zhyl600000903,\n" +
+            "C3 as zhyl6000009041,\n" +
+            "C3REF as zhyl6000009042,\n" +
+            "C4 as zhyl6000009051,\n" +
+            "C4REF as zhyl6000009052\n" +
             "\n" +
-            "\n" +
-            "from dbo.E_BC  where  DELMARK=0 and DMID='?'  ";  // and [SOURCE] is null
+            "from dbo.E_BC  where  DELMARK=0  and DMID='?'  ";  // and [SOURCE] is null
     //感染筛查
     public final static String ganranshuaicha2 = "  select   \n" +
-            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', ISDTC ) as bigint )*1000 AS zhyl6100141,\n" +
-            "ISHOSP as zhyl6100142,\n" +
-            "case when ISORRE='阴性' then '0'  when ISORRE='阳性' then '1' end   as zhyl6100143,\n" +
-            "ISDESC as zhyl6100144\n" +
-            "\n" +
-            "from dbo.E_IS  where  DELMARK=0  and DMID='?'  ";// and [SOURCE] is null
+            "case when  [SOURCE]='随访'  then '1' else '0' end as  zhyl600001001,\n" +
+            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', ISDTC ) as bigint )*1000 AS zhyl600001002,\n" +
+            "ISHOSP as zhyl600001003,\n" +
+            "case when ISORRE='阴性' then '0'  when ISORRE='阳性' then '1' end   as zhyl600001004,\n" +
+            "ISDESC as zhyl600001005\n" +
+            "from dbo.E_IS  where  DELMARK=0   and DMID='?'  ";// and [SOURCE] is null
 
     //TORCH
     public final static String TORCH2 = "  select   \n" +
-            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', TODTC ) as bigint )*1000 AS zhyl6100031,\n" +
-            "TOHOSP as zhyl6100032,\n" +
-            "case when TOORRE='阴性' then '0'  when TOORRE='阳性' then '1' end   as zhyl6100033,\n" +
-            "TODESC as zhyl6100034\n" +
+            "case when  [SOURCE]='随访'  then '1' else '0' end as zhyl600001101,\n" +
+            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', TODTC ) as bigint )*1000 AS zhyl600001102,\n" +
+            "TOHOSP as zhyl600001103,\n" +
+            "case when TOORRE='阴性' then '0'  when TOORRE='阳性' then '1' end   as zhyl600001104,\n" +
+            "TODESC as zhyl600001105\n" +
             "\n" +
-            "from dbo.E_TO  where  DELMARK=0  and DMID='?'   ";
+            "from dbo.E_TO  where  DELMARK=0 and DMID='?'   ";
     //超声心动
     public final static String chaoshenxindong2 = " select   \n" +
-            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', EGDTC ) as bigint )*1000 AS zhyl6100035,\n" +
-            "EGHOSP as zhyl6100036,\n" +
-            "case when EGORRE='异常' then '0'  when EGORRE='正常' then '1' end   as zhyl6100037,\n" +
+            "case when  [SOURCE]='随访'  then '1' else '0' end as zhyl600001301,\n" +
+            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', EGDTC ) as bigint )*1000 AS zhyl600001302,\n" +
+            "EGHOSP as zhyl600001303,\n" +
+            "case when EGORRE='异常' then '0'  when EGORRE='正常' then '1' end   as zhyl600001304,\n" +
             "case when CAST(EGDESC AS varchar(max))='室缺' then '0' when CAST(EGDESC AS varchar(max))='房缺' then '1' when CAST(EGDESC AS varchar(max))='左心室肥大' then '2' when CAST(EGDESC AS varchar(max))='肺动脉瓣狭窄' then '3' when CAST(EGDESC AS varchar(max))='分散性主动脉瓣下狭窄' then '4' \n" +
-            "when CAST(EGDESC AS varchar(max))='三尖瓣下移' then '5' when CAST(EGDESC AS varchar(max))='其他' then '6'   end  as zhyl6100038,\n" +
-            "null as zhyl6100039\n" +
-            "\n" +
-            "from dbo.E_EG  where  DELMARK=0  and DMID='?' ";
+            "when CAST(EGDESC AS varchar(max))='三尖瓣下移' then '5' when CAST(EGDESC AS varchar(max))='其他' then '6'   end  as zhyl600001305,\n" +
+            "null as zhyl600001306\n" +
+            "from dbo.E_EG  where  DELMARK=0   and DMID='?' ";
     //腹部B超
     public final static String fububichao2 = " select * from (\n" +
             "select a.DMID,\n" +
-            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', a.BUDTC ) as bigint )*1000 AS zhyl6100040,\n" +
-            "a.BUHOSP as zhyl6100041,\n" +
-            "case when a.BUORRE='正常' then '1'  when a.BUORRE='异常' then '0'  end as zhyl6100042,\n" +
-            "case when a.BUSIZE='正常' then '1' when a.BUSIZE='增大' then '0' when a.BUSIZE='缩小' then '2' end as zhyl6100043,\n" +
-            "a.BUDESC as zhyl6100044,\n" +
-            "case when b.BUORRE='正常' then '1'  when b.BUORRE='异常' then '0'  end as zhyl6100045,\n" +
-            "b.LSL as zhyl6100046,\n" +
-            "b.LSW as zhyl6100047,\n" +
-            "b.LSH as zhyl6100048,\n" +
-            "b.RSL as zhyl6100049,\n" +
-            "b.RSW as zhyl6100050,\n" +
-            "b.RSH as zhyl6100051,\n" +
-            "b.BUECHO as zhyl6100052,\n" +
-            "b.BUDESC as zhyl6100053,\n" +
-            "null as zhyl6100054,\n" +
-            "'0' as zhyl6100145\n" +
+            "'0' as zhyl600001401,\n" +
+            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', a.BUDTC ) as bigint )*1000 AS zhyl600001402,\n" +
+            "a.BUHOSP as zhyl600001403,\n" +
+            "case when a.BUORRE='正常' then '1'  when a.BUORRE='异常' then '0'  end as zhyl6000014041,\n" +
+            "case when a.BUSIZE='正常' then '1' when a.BUSIZE='增大' then '0' when a.BUSIZE='缩小' then '2' end as zhyl6000014042,\n" +
+            "a.BUDESC as zhyl6000014043,\n" +
+            "case when b.BUORRE='正常' then '1'  when b.BUORRE='异常' then '0'  end as zhyl6000014051,\n" +
+            "b.LSL as zhyl6000014052,\n" +
+            "b.LSW as zhyl6000014053,\n" +
+            "b.LSH as zhyl6000014054,\n" +
+            "b.RSL as zhyl6000014055,\n" +
+            "b.RSW as zhyl6000014056,\n" +
+            "b.RSH as zhyl6000014057,\n" +
+            "case when b.BUECHO='正常' then 1 when b.BUECHO='增强' then 0  end  as zhyl6000014058,\n" +
+            "b.BUDESC as zhyl6000014059,\n" +
+            "null as zhyl600001406\n" +
+            "\n" +
             "\n" +
             "\n" +
             "from  (select * from  (\n" +
@@ -208,28 +289,29 @@ public class PediatricKidneyDatabaseConstant2 {
             "(select * from  (\n" +
             "select  * ,ROW_NUMBER() OVER (PARTITION BY DMID,BUDTC,BUCAT ORDER BY BUDTC desc) AS num\n" +
             "from  dbo.E_BU where BUCAT='肾脏'  and DELMARK=0 and [SOURCE] is null \n" +
-            ") s where num=1) b on a.DMID=b.DMID\n" +
+            ") s where num=1) b on a.DMID=b.DMID and a.BUDTC=b.BUDTC\n" +
             "\n" +
             "\n" +
             "UNION \n" +
             "\n" +
             "select a.DMID,\n" +
-            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', a.BUDTC ) as bigint )*1000 AS zhyl6100040,\n" +
-            "a.BUHOSP as zhyl6100041,\n" +
-            "case when a.BUORRE='正常' then '1'  when a.BUORRE='异常' then '0'  end as zhyl6100042,\n" +
-            "case when a.BUSIZE='正常' then '1' when a.BUSIZE='增大' then '0' when a.BUSIZE='缩小' then '2' end as zhyl6100043,\n" +
-            "a.BUDESC as zhyl6100044,\n" +
-            "case when b.BUORRE='正常' then '1'  when b.BUORRE='异常' then '0'  end as zhyl6100045,\n" +
-            "b.LSL as zhyl6100046,\n" +
-            "b.LSW as zhyl6100047,\n" +
-            "b.LSH as zhyl6100048,\n" +
-            "b.RSL as zhyl6100049,\n" +
-            "b.RSW as zhyl6100050,\n" +
-            "b.RSH as zhyl6100051,\n" +
-            "case when b.BUECHO='正常'  then '1'   when b.BUECHO='增强'  then '0'   end   as zhyl6100052,\n" +
-            "b.BUDESC as zhyl6100053,\n" +
-            "null as zhyl6100054,\n" +
-            "'1' as zhyl6100145\n" +
+            "'1' as zhyl600001401,\n" +
+            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', a.BUDTC ) as bigint )*1000 AS zhyl600001402,\n" +
+            "a.BUHOSP as zhyl600001403,\n" +
+            "case when a.BUORRE='正常' then '1'  when a.BUORRE='异常' then '0'  end as zhyl6000014041,\n" +
+            "case when a.BUSIZE='正常' then '1' when a.BUSIZE='增大' then '0' when a.BUSIZE='缩小' then '2' end as zhyl6000014042,\n" +
+            "a.BUDESC as zhyl6000014043,\n" +
+            "case when b.BUORRE='正常' then '1'  when b.BUORRE='异常' then '0'  end as zhyl6000014051,\n" +
+            "b.LSL as zhyl6000014052,\n" +
+            "b.LSW as zhyl6000014053,\n" +
+            "b.LSH as zhyl6000014054,\n" +
+            "b.RSL as zhyl6000014055,\n" +
+            "b.RSW as zhyl6000014056,\n" +
+            "b.RSH as zhyl6000014057,\n" +
+            "case when b.BUECHO='正常' then 1 when b.BUECHO='增强' then 0  end  as zhyl6000014058,\n" +
+            "b.BUDESC as zhyl6000014059,\n" +
+            "null as zhyl600001406\n" +
+            "\n" +
             "\n" +
             "\n" +
             "from  (select * from  (\n" +
@@ -239,9 +321,10 @@ public class PediatricKidneyDatabaseConstant2 {
             "left join \n" +
             "(select * from  (\n" +
             "select  * ,ROW_NUMBER() OVER (PARTITION BY DMID,BUDTC,BUCAT ORDER BY BUDTC desc) AS num\n" +
-            "from  dbo.E_BU where BUCAT='肾脏'  and DELMARK=0 and [SOURCE] ='随访'\n" +
-            ") s where num=1) b on a.DMID=b.DMID and a.BUDTC=b.BUDTC " +
-            ") v  where DMID='?' ";
+            "from  dbo.E_BU where BUCAT='肾脏'  and DELMARK=0 and [SOURCE] ='随访' \n" +
+            ") s where num=1) b on a.DMID=b.DMID and a.BUDTC=b.BUDTC\n" +
+            "\n" +
+            ")v \n  where DMID='?' ";
     //免疫荧光-光镜
     public final static String guangjing2 = "  select \n" +
             "\n" +
@@ -269,7 +352,7 @@ public class PediatricKidneyDatabaseConstant2 {
             "FraRanSeQiangDu as zhyl6200016,\n" +
             "replace(replace(FraChenJiBuWei,'GBM',1),'系膜区',2) as zhyl6200017,\n" +
             "replace(replace(replace(FraChenJiXingShi,'颗粒',1),'线性',2),'块状',3) as zhyl6200018,\n" +
-            "\n" +
+            "MianYiYingGuangXiaoQiuMiaoShu as zhyl61000611,\n" +
             "GuangJingXiaoQiuShu as zhyl6200019,\n" +
             "case when GuangJingZhenDuan='轻微病变' then '0'  when GuangJingZhenDuan='系膜增生' then '1'  when GuangJingZhenDuan='膜性肾病' then '2' \n" +
             "when GuangJingZhenDuan='局灶节段肾小球硬化' then '3' \n" +
@@ -374,14 +457,16 @@ public class PediatricKidneyDatabaseConstant2 {
     public final static String xuechanggui2 = " select \n" +
             " cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', BRDTC ) as bigint )*1000 AS zhyl60000211,\n" +
             " BRHOSP as zhyl60000212,\n" +
-            " HGB as zhyl60000213\n" +
-            "from dbo.E_BR where  DELMARK=0  and DMID='?' ";
+            " HGB as zhyl600002131,\n" +
+            " HGBREF as zhyl600002132\n" +
+            "from dbo.E_BR where  DELMARK=0   and DMID='?' ";
 
     //尿钙/肌酐比
-    public final static String niaogaijigan2 = " SELECT \n" +
+    public final static String niaogaijigan2 = "SELECT \n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', b.PCDTC ) as bigint )*1000 AS zhyl60000221,\n" +
             "b.PCHOSP as zhyl60000222,\n" +
-            "b.PCORRES as zhyl60000223\n" +
+            "b.PCORRES as zhyl600002231,\n" +
+            "b.PCSREF as zhyl600002232\n" +
             "from dbo.E_PC b\n" +
             "where  b.DELMARK=0 and b.PCTYPE='尿钙/肌酐比' and DMID='?' ";
 
@@ -455,6 +540,55 @@ public class PediatricKidneyDatabaseConstant2 {
             "null as zhyl60000285\n" +
             "from dbo.E_ES  where  DELMARK=0  and DMID='?' ";
 
+    //肾活检-肾组织IV胶原染色
+    public final static String shenhuojianranse2 ="select \n" +
+            "case when JCDX='患儿' then  '1'  when JCDX='患儿亲属' then  '2' end as zhyl60000291,\n" +
+            "YHEGX as zhyl60000292,\n" +
+            "case when SHJ='有' then '1' when SHJ='无' then '0'  end as zhyl60000293,\n" +
+            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', JCRQ ) as bigint )*1000 AS  zhyl60000294,\n" +
+            "JCYY as zhyl60000295,\n" +
+            "case when SZZJYRS='有' then '1' when SZZJYRS='无' then '0'  end as zhyl60000296,\n" +
+            "case when JCJG='正常' then 1  when JCJG='异常' then 0 end as zhyl600002971,\n" +
+            "case when A3GBMFBFS='阴性'  then 0  when A3GBMFBFS='间断阳性'  then 1  when A3GBMFBFS='连续阳性'  then 2 end as zhyl600002972,\n" +
+            "A3GBMRSQD as zhyl600002973,\n" +
+            "case when A3TBMFBFS='阴性'  then 0  when A3TBMFBFS='间断阳性'  then 1  when A3TBMFBFS='连续阳性'  then 2 end as zhyl600002974,\n" +
+            "A3TBMRSQD as zhyl600002975,\n" +
+            "case when A4GBMFBFS='阴性'  then 0  when A4GBMFBFS='间断阳性'  then 1  when A4GBMFBFS='连续阳性'  then 2 end as zhyl600002976,\n" +
+            "A4GBMRSQD as zhyl600002977,\n" +
+            "case when A4TBMFBFS='阴性'  then 0  when A4TBMFBFS='间断阳性'  then 1  when A4TBMFBFS='连续阳性'  then 2 end as zhyl600002978,\n" +
+            "A4TBMRSQD as zhyl600002979,\n" +
+            "case when A5BMSFBFS='阴性'  then 0  when A5BMSFBFS='间断阳性'  then 1  when A5BMSFBFS='连续阳性'  then 2 end as zhyl600002980,\n" +
+            "A5BMSRSQD as zhyl600002981,\n" +
+            "case when A5TBMFBFS='阴性'  then 0  when A5TBMFBFS='间断阳性'  then 1  when A5TBMFBFS='连续阳性'  then 2 end as zhyl600002982,\n" +
+            "A5TBMRSQD as zhyl600002983\n" +
+            "\n" +
+            "from   RBTEMP  where   DMID='?'";
+
+    //皮肤活检
+    public final static String pifihuojian2 ="  select * from (\n" +
+            "select a.dmid,\n" +
+            "case when a.SBOBJ='患儿' then  '1'  when a.SBOBJ='患儿亲属' then  '2' end as  zhyl60000321,\n" +
+            "a.SBOBJDSC as zhyl60000322,\n" +
+            "case when a.SBOCCUR='有' then '1' when a.SBOCCUR='无' then '0'  end as zhyl60000323,\n" +
+            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', a.SBDTC ) as bigint )*1000 AS  zhyl60000324,\n" +
+            "a.SITENAM as zhyl60000325,\n" +
+            "case when a.SBORRE='正常' then 1  when a.SBORRE='异常' then 0 end as  zhyl60000326,\n" +
+            "case when a.DISMODE='阴性'  then 0  when a.DISMODE='间断阳性'  then 1  when a.DISMODE='连续阳性'  then 2 end as zhyl60000327,\n" +
+            "a.INTESTA as zhyl60000328,\n" +
+            "case when b.DISMODE='阴性'  then 0  when b.DISMODE='间断阳性'  then 1  when b.DISMODE='连续阳性'  then 2 end as zhyl60000329,\n" +
+            "b.INTESTA as zhyl60000330\n" +
+            " \n" +
+            " from  (select * from  (\n" +
+            "select  * ,ROW_NUMBER() OVER (PARTITION BY DMID,SBDTC,SBCAT ORDER BY FORMID desc) AS num\n" +
+            "from  dbo. SB where SBCAT='α1（IV）染色'  and DELMARK=0 \n" +
+            ") s where num=1) a \n" +
+            "left join \n" +
+            "(select * from  (\n" +
+            "select  * ,ROW_NUMBER() OVER (PARTITION BY DMID,SBDTC,SBCAT ORDER BY FORMID desc) AS num\n" +
+            "from  dbo. SB where SBCAT='α5（IV）染色'  and DELMARK=0 \n" +
+            ") s where num=1) b on a.DMID=b.DMID and a.SBDTC=b.SBDTC\n" +
+            ") v where dmid='?' ";
+
 
     //结局
     public final static String jieju2 = "  select \n" +
@@ -488,13 +622,13 @@ public class PediatricKidneyDatabaseConstant2 {
             "select  a.id as _id, \n" +
             "case when CMOCCUR='有' then '1'  when CMOCCUR='无' then '0'  end as zhyl7000001,\n" +
             "case when CMCAT='降压药' then '100000' when CMCAT='利尿剂' then '200000' when CMCAT='免疫抑制药物' then '300000' when CMCAT='调节电解质、酸碱平衡药' then '400000' when CMCAT='维生素、微量元素药物' then '500000'    end as zhyl7000002,\n" +
-            "case when b.Column1 like '101%' then '101000'\n" +
-            "when b.Column1 like '102%' then '102000' \n" +
-            "when b.Column1 like '201%' then '201000' \n" +
-            "when b.Column1 like '301%' then '301000' \n" +
-            "when b.Column1 like '302%' then '302000' \n" +
-            "when b.Column1 like '401%' then '401000' \n" +
-            "when b.Column1 like '501%' then '501000' \n" +
+            "case when b.Column1 like '101%' or a.CMSCAT='ACEI' then '101000'\n" +
+            "when b.Column1 like '102%' or a.CMSCAT='ARB' then '102000' \n" +
+            "when b.Column1 like '201%' or a.CMSCAT='利尿剂' then '201000' \n" +
+            "when b.Column1 like '301%' or a.CMSCAT='免疫抑制剂' then '301000' \n" +
+            "when b.Column1 like '302%' or a.CMSCAT='糖皮质激素' then '302000' \n" +
+            "when b.Column1 like '401%' or a.CMSCAT='电解质' then '401000' \n" +
+            "when b.Column1 like '501%' or a.CMSCAT='维生素、微量元素药物' then '501000' \n" +
             "end  as zhyl7000003,\n" +
             "b.Column1 as zhyl7000004," +
             "case when CMDOSFRM='片剂' then '1'when CMDOSFRM='注射剂' then '2'when CMDOSFRM='胶囊剂' then '3'when CMDOSFRM='颗粒剂' then '4'when CMDOSFRM='丸剂' then '5'\n" +
@@ -648,13 +782,13 @@ public class PediatricKidneyDatabaseConstant2 {
     public final static String suifangyongyao2 = " select  \n" +
             "case when CMOCCUR='有' then '1'  when CMOCCUR='无' then '0'  end as zhyl8100037,\n" +
             "case when CMCAT='降压药' then '100000' when CMCAT='利尿剂' then '200000' when CMCAT='免疫抑制药物' then '300000' when CMCAT='调节电解质、酸碱平衡药' then '400000' when CMCAT='维生素、微量元素药物' then '500000'   end as zhyl8100038,\n" +
-            "case when b.Column1 like '101%' then '101000'\n" +
-            "when b.Column1 like '102%' then '102000' \n" +
-            "when b.Column1 like '201%' then '201000' \n" +
-            "when b.Column1 like '301%' then '301000' \n" +
-            "when b.Column1 like '302%' then '302000' \n" +
-            "when b.Column1 like '401%' then '401000' \n" +
-            "when b.Column1 like '501%' then '501000' \n" +
+            "case when b.Column1 like '101%' or a.CMSCAT='ACEI' then '101000'\n" +
+            "when b.Column1 like '102%' or a.CMSCAT='ARB' then '102000' \n" +
+            "when b.Column1 like '201%' or a.CMSCAT='利尿剂' then '201000' \n" +
+            "when b.Column1 like '301%' or a.CMSCAT='免疫抑制剂' then '301000' \n" +
+            "when b.Column1 like '302%' or a.CMSCAT='糖皮质激素' then '302000' \n" +
+            "when b.Column1 like '401%' or a.CMSCAT='电解质' then '401000' \n" +
+            "when b.Column1 like '501%' or a.CMSCAT='维生素、微量元素药物' then '501000' \n" +
             "end  as zhyl8100039,\n" +
             "b.Column1 as zhyl8100040," +
             "case when CMDOSFRM='片剂' then '1'when CMDOSFRM='注射剂' then '2'when CMDOSFRM='胶囊剂' then '3'when CMDOSFRM='颗粒剂' then '4'when CMDOSFRM='丸剂' then '5'\n" +

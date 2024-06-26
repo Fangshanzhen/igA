@@ -219,28 +219,172 @@ public class PediatricKidneyData2 {
                     JSONObject zhyl6000000JSONObject = new JSONObject(); //
                     JSONObject zhyl60000000JSONObject = new JSONObject();
 
-                    JSONArray zhyl6000001Json = new JSONArray(); //尿常规
+                    JSONArray zhyl6000001JSONArray = new JSONArray(); //尿常规
                     String niaochangguiSql = niaochanggui2.replace("?", s);
                     List<Map<String, Object>> niaochangguiList = commonExecute2(connection, niaochangguiSql, statement, resultSet);//有多条
-                    if (niaochangguiList != null) {
-                        zhyl6000001Json.addAll(niaochangguiList);
-                        zhyl60000000JSONObject.put("zhyl6000001", zhyl6000001Json);
+                    if (niaochangguiList != null && niaochangguiList.size() > 0) {
+                        for (Map<String, Object> niaochanggui : niaochangguiList) {
+                            if (niaochanggui != null && niaochanggui.size() > 0) {
+                                JSONObject zhyl6000001SONObject = new JSONObject();
+                                JSONObject zhyl600000105JSONObject = new JSONObject();
+                                JSONObject zhyl600000106JSONObject = new JSONObject();
+                                JSONObject zhyl600000107JSONObject = new JSONObject();
+                                JSONObject zhyl600000108JSONObject = new JSONObject();
+                                JSONObject zhyl600000109JSONObject = new JSONObject();
+                                JSONObject zhyl600000110JSONObject = new JSONObject();
+                                JSONObject zhyl600000111JSONObject = new JSONObject();
+                                JSONObject zhyl600000112JSONObject = new JSONObject();
+                                JSONObject zhyl600000113JSONObject = new JSONObject();
+
+                                for (String key : niaochanggui.keySet()) {
+                                    transJson(niaochanggui, key, "zhyl600000101", zhyl6000001SONObject, null);
+                                    transJson(niaochanggui, key, "zhyl600000102", zhyl6000001SONObject, null);
+                                    transJson(niaochanggui, key, "zhyl600000103", zhyl6000001SONObject, null);
+                                    transJson(niaochanggui, key, "zhyl600000104", zhyl6000001SONObject, null);
+
+                                    transJson(niaochanggui, key, "zhyl6000001051", zhyl600000105JSONObject, null);
+                                    transJson(niaochanggui, key, "zhyl6000001052", zhyl600000105JSONObject, null);
+
+                                    transJson(niaochanggui, key, "zhyl6000001061", zhyl600000106JSONObject, null);
+                                    transJson(niaochanggui, key, "zhyl6000001062", zhyl600000106JSONObject, null);
+                                    transJson(niaochanggui, key, "zhyl6000001063", zhyl600000106JSONObject, null);
+                                    transJson(niaochanggui, key, "zhyl6000001064", zhyl600000106JSONObject, null);
+
+                                    transJson(niaochanggui, key, "zhyl6000001071", zhyl600000107JSONObject, null);
+                                    transJson(niaochanggui, key, "zhyl6000001072", zhyl600000107JSONObject, null);
+
+                                    transJson(niaochanggui, key, "zhyl6000001081", zhyl600000108JSONObject, null);
+                                    transJson(niaochanggui, key, "zhyl6000001082", zhyl600000108JSONObject, null);
+
+                                    transJson(niaochanggui, key, "zhyl6000001091", zhyl600000109JSONObject, null);
+                                    transJson(niaochanggui, key, "zhyl6000001092", zhyl600000109JSONObject, null);
+
+                                    transJson(niaochanggui, key, "zhyl6000001101", zhyl600000110JSONObject, null);
+                                    transJson(niaochanggui, key, "zhyl6000001102", zhyl600000110JSONObject, null);
+                                    transJson(niaochanggui, key, "zhyl6000001103", zhyl600000110JSONObject, null);
+                                    transJson(niaochanggui, key, "zhyl6000001104", zhyl600000110JSONObject, null);
+
+                                    transJson(niaochanggui, key, "zhyl6000001111", zhyl600000111JSONObject, null);
+                                    transJson(niaochanggui, key, "zhyl6000001112", zhyl600000111JSONObject, null);
+
+                                    transJson(niaochanggui, key, "zhyl6000001121", zhyl600000112JSONObject, null);
+                                    transJson(niaochanggui, key, "zhyl6000001122", zhyl600000112JSONObject, null);
+
+                                    transJson(niaochanggui, key, "zhyl6000001131", zhyl600000113JSONObject, null);
+                                    transJson(niaochanggui, key, "zhyl6000001132", zhyl600000113JSONObject, null);
+                                    transJson(niaochanggui, key, "zhyl6000001133", zhyl600000113JSONObject, null);
+                                    transJson(niaochanggui, key, "zhyl6000001134", zhyl600000113JSONObject, null);
+                                }
+                                zhyl6000001SONObject.put("zhyl600000105", zhyl600000105JSONObject);
+                                zhyl6000001SONObject.put("zhyl600000106", zhyl600000106JSONObject);
+                                zhyl6000001SONObject.put("zhyl600000107", zhyl600000107JSONObject);
+                                zhyl6000001SONObject.put("zhyl600000108", zhyl600000108JSONObject);
+                                zhyl6000001SONObject.put("zhyl600000109", zhyl600000109JSONObject);
+                                zhyl6000001SONObject.put("zhyl600000110", zhyl600000110JSONObject);
+                                zhyl6000001SONObject.put("zhyl600000111", zhyl600000111JSONObject);
+                                zhyl6000001SONObject.put("zhyl600000112", zhyl600000112JSONObject);
+                                zhyl6000001SONObject.put("zhyl600000113", zhyl600000113JSONObject);
+
+                                zhyl6000001JSONArray.add(zhyl6000001SONObject);
+                            }
+
+                        }
+                        zhyl60000000JSONObject.put("zhyl6000001", zhyl6000001JSONArray);
                     }
 
-                    JSONArray zhyl6000002Json = new JSONArray(); //尿蛋白肌酐比
+
+
+                    JSONArray zhyl6000030Json = new JSONArray(); //24小时尿钙体重比
+                    String niaogaitizhong2Sql = niaogaitizhong2.replace("?", s);
+                    List<Map<String, Object>> niaogaitizhong2SqlList = commonExecute2(connection, niaogaitizhong2Sql, statement, resultSet);//有多条
+                    if (niaogaitizhong2SqlList != null && niaogaitizhong2SqlList.size() > 0) {
+                        for (Map<String, Object> niaogaitizhong : niaogaitizhong2SqlList) {
+                            if (niaogaitizhong != null && niaogaitizhong.size() > 0) {
+                                JSONObject zhyl6000030SONObject = new JSONObject();
+                                JSONObject zhyl600003004JSONObject = new JSONObject();
+                                JSONObject zhyl600003006JSONObject = new JSONObject();
+
+                                for (String key : niaogaitizhong.keySet()) {
+                                    transJson(niaogaitizhong, key, "zhyl600003001", zhyl6000030SONObject, null);
+                                    transJson(niaogaitizhong, key, "zhyl600003002", zhyl6000030SONObject, null);
+                                    transJson(niaogaitizhong, key, "zhyl600003003", zhyl6000030SONObject, null);
+                                    transJson(niaogaitizhong, key, "zhyl600003005", zhyl6000030SONObject, null);
+
+                                    transJson(niaogaitizhong, key, "zhyl6000030041", zhyl600003004JSONObject, null);
+                                    transJson(niaogaitizhong, key, "zhyl6000030042", zhyl600003004JSONObject, null);
+
+                                    transJson(niaogaitizhong, key, "zhyl6000030061", zhyl600003006JSONObject, null);
+                                    transJson(niaogaitizhong, key, "zhyl6000030062", zhyl600003006JSONObject, null);
+                                }
+                                zhyl6000030SONObject.put("zhyl600003004", zhyl600003004JSONObject);
+                                zhyl6000030SONObject.put("zhyl600003006", zhyl600003006JSONObject);
+
+                                zhyl6000030Json.add(zhyl6000030SONObject);
+                            }
+
+                        }
+                        zhyl60000000JSONObject.put("zhyl6000030", zhyl6000030Json);
+                    }
+
+
+                    JSONArray zhyl6000002JSONArray = new JSONArray(); //尿蛋白肌酐比
                     String niaodanbaijiganSql = niaodanbaijigan2.replace("?", s);
                     List<Map<String, Object>> niaodanbaijiganSqlList = commonExecute2(connection, niaodanbaijiganSql, statement, resultSet);
-                    if (niaodanbaijiganSqlList != null) {
-                        zhyl6000002Json.addAll(niaodanbaijiganSqlList);
-                        zhyl60000000JSONObject.put("zhyl6000002", zhyl6000002Json);
+                    if (niaodanbaijiganSqlList != null && niaodanbaijiganSqlList.size() > 0) {
+                        for (Map<String, Object> niaodanbai : niaodanbaijiganSqlList) {
+                            if (niaodanbai != null && niaodanbai.size() > 0) {
+                                JSONObject zhyl6000002SONObject = new JSONObject();
+                                JSONObject zhyl600000206JSONObject = new JSONObject();
+
+                                for (String key : niaodanbai.keySet()) {
+                                    transJson(niaodanbai, key, "zhyl600000201", zhyl6000002SONObject, null);
+                                    transJson(niaodanbai, key, "zhyl600000202", zhyl6000002SONObject, null);
+                                    transJson(niaodanbai, key, "zhyl600000203", zhyl6000002SONObject, null);
+                                    transJson(niaodanbai, key, "zhyl600000204", zhyl6000002SONObject, null);
+                                    transJson(niaodanbai, key, "zhyl600000205", zhyl6000002SONObject, null);
+
+                                    transJson(niaodanbai, key, "zhyl6000002061", zhyl600000206JSONObject, null);
+                                    transJson(niaodanbai, key, "zhyl6000002062", zhyl600000206JSONObject, null);
+                                }
+                                zhyl6000002SONObject.put("zhyl600000206", zhyl600000206JSONObject);
+                                zhyl6000002JSONArray.add(zhyl6000002SONObject);
+                            }
+
+                        }
+                        zhyl60000000JSONObject.put("zhyl6000002", zhyl6000002JSONArray);
                     }
 
-                    JSONArray zhyl6000003Json = new JSONArray(); //24h尿蛋白定量
+
+                    JSONArray zhyl6000003JSONArray = new JSONArray(); //24h尿蛋白定量
                     String niaodanbaidingliang24h2Sql = niaodanbaidingliang24h2.replace("?", s);
                     List<Map<String, Object>> niaodanbaidingliang24h2SqlList = commonExecute2(connection, niaodanbaidingliang24h2Sql, statement, resultSet);
-                    if (niaodanbaidingliang24h2SqlList != null) {
-                        zhyl6000003Json.addAll(niaodanbaidingliang24h2SqlList);
-                        zhyl60000000JSONObject.put("zhyl6000003", zhyl6000003Json);
+                    if (niaodanbaidingliang24h2SqlList != null && niaodanbaidingliang24h2SqlList.size() > 0) {
+                        for (Map<String, Object> niaodanbaidingliang : niaodanbaidingliang24h2SqlList) {
+                            if (niaodanbaidingliang != null && niaodanbaidingliang.size() > 0) {
+                                JSONObject zhyl6000003SONObject = new JSONObject();
+                                JSONObject zhyl600000304JSONObject = new JSONObject();
+                                JSONObject zhyl600000306JSONObject = new JSONObject();
+
+                                for (String key : niaodanbaidingliang.keySet()) {
+                                    transJson(niaodanbaidingliang, key, "zhyl600000301", zhyl6000003SONObject, null);
+                                    transJson(niaodanbaidingliang, key, "zhyl600000302", zhyl6000003SONObject, null);
+                                    transJson(niaodanbaidingliang, key, "zhyl600000303", zhyl6000003SONObject, null);
+                                    transJson(niaodanbaidingliang, key, "zhyl600000305", zhyl6000003SONObject, null);
+
+                                    transJson(niaodanbaidingliang, key, "zhyl6000003041", zhyl600000304JSONObject, null);
+                                    transJson(niaodanbaidingliang, key, "zhyl6000003042", zhyl600000304JSONObject, null);
+
+                                    transJson(niaodanbaidingliang, key, "zhyl6000003061", zhyl600000306JSONObject, null);
+                                    transJson(niaodanbaidingliang, key, "zhyl6000003062", zhyl600000306JSONObject, null);
+
+                                }
+                                zhyl6000003SONObject.put("zhyl600000304", zhyl600000304JSONObject);
+                                zhyl6000003SONObject.put("zhyl600000306", zhyl600000306JSONObject);
+                                zhyl6000003JSONArray.add(zhyl6000003SONObject);
+                            }
+
+                        }
+                        zhyl60000000JSONObject.put("zhyl6000003", zhyl6000003JSONArray);
                     }
 
 
@@ -254,6 +398,7 @@ public class PediatricKidneyData2 {
 
                                 List<String> nameList = new ArrayList<>();
                                 List<String> valueList = new ArrayList<>();
+                                List<String> refList = new ArrayList<>();
                                 for (String key : map1.keySet()) {
                                     if (key.toUpperCase().equals("HETERM") && map1.get(key).toString().contains(",")) {
                                         nameList = Arrays.asList(map1.get(key).toString().split(","));
@@ -261,51 +406,59 @@ public class PediatricKidneyData2 {
                                     if (key.toUpperCase().equals("VALUE") && map1.get(key).toString().contains(",")) {
                                         valueList = Arrays.asList(map1.get(key).toString().split(","));
                                     }
-                                    if (key.toUpperCase().equals("HEHOSP")) {
-                                        zhyl6000004JsonObject.put("zhyl6100017", map1.get(key));
+                                    if (key.toUpperCase().equals("HESREF") && map1.get(key).toString().contains(",")) {
+                                        refList = Arrays.asList(map1.get(key).toString().split(","));
                                     }
-                                    if (key.equals("zhyl6100016")) {
-                                        zhyl6000004JsonObject.put("zhyl6100016", map1.get(key));
+                                    if (key.toUpperCase().equals("HEHOSP")) {//检查医院
+                                        zhyl6000004JsonObject.put("zhyl600000403", map1.get(key));
                                     }
-                                    if (key.equals("zhyl6100104")) {
-                                        zhyl6000004JsonObject.put("zhyl6100104", map1.get(key));
+                                    if (key.equals("zhyl600000401")) {//是否为随访数据
+                                        zhyl6000004JsonObject.put("zhyl600000401", map1.get(key));
+                                    }
+                                    if (key.equals("zhyl600000402")) {//检查日期
+                                        zhyl6000004JsonObject.put("zhyl600000402", map1.get(key));
                                     }
                                 }
                                 if (nameList.size() > 0) {
                                     for (int i = 0; i < nameList.size(); i++) {
                                         if (nameList.get(i).contains("24hCCr") && !nameList.get(i).contains("校正24hCCr")) {
                                             if (!valueList.get(i).contains("#") && valueList.get(i) != null) {
-                                                zhyl6000004JsonObject.put("zhyl6100018", valueList.get(i));
+                                                zhyl6000004JsonObject.put("zhyl6000004041", valueList.get(i));
                                             } else {
-                                                zhyl6000004JsonObject.put("zhyl6100018", null);
+                                                zhyl6000004JsonObject.put("zhyl6000004041", null);
+                                            }
+                                            if (!refList.get(i).contains("#") && refList.get(i) != null) {
+                                                zhyl6000004JsonObject.put("zhyl6000004042", refList.get(i));
+                                            } else {
+                                                zhyl6000004JsonObject.put("zhyl6000004042", null);
                                             }
                                         }
                                         if (nameList.get(i).contains("身高")) {
                                             if (!valueList.get(i).contains("#") && valueList.get(i) != null) {
-                                                zhyl6000004JsonObject.put("zhyl6100019", valueList.get(i));
+                                                zhyl6000004JsonObject.put("zhyl600000405", valueList.get(i));
                                             } else {
-                                                zhyl6000004JsonObject.put("zhyl6100019", null);
+                                                zhyl6000004JsonObject.put("zhyl600000405", null);
                                             }
                                         }
                                         if (nameList.get(i).contains("体重")) {
                                             if (!valueList.get(i).contains("#") && valueList.get(i) != null) {
-                                                zhyl6000004JsonObject.put("zhyl6100020", valueList.get(i));
+                                                zhyl6000004JsonObject.put("zhyl600000406", valueList.get(i));
                                             } else {
-                                                zhyl6000004JsonObject.put("zhyl6100020", null);
+                                                zhyl6000004JsonObject.put("zhyl600000406", null);
                                             }
                                         }
                                         if (nameList.get(i).contains("体表面积")) {
                                             if (!valueList.get(i).contains("#") && valueList.get(i) != null) {
-                                                zhyl6000004JsonObject.put("zhyl6100021", valueList.get(i));
+                                                zhyl6000004JsonObject.put("zhyl600000407", valueList.get(i));
                                             } else {
-                                                zhyl6000004JsonObject.put("zhyl6100021", null);
+                                                zhyl6000004JsonObject.put("zhyl600000407", null);
                                             }
                                         }
                                         if (nameList.get(i).contains("校正24hCCr")) {
                                             if (!valueList.get(i).contains("#") && valueList.get(i) != null) {
-                                                zhyl6000004JsonObject.put("zhyl6100022", valueList.get(i));
+                                                zhyl6000004JsonObject.put("zhyl600000408", valueList.get(i));
                                             } else {
-                                                zhyl6000004JsonObject.put("zhyl6100022", null);
+                                                zhyl6000004JsonObject.put("zhyl600000408", null);
                                             }
                                         }
 
@@ -411,6 +564,7 @@ public class PediatricKidneyData2 {
                                     }
                                     transJson(guangjingMap, key, "zhyl6200017", zhyl6100061Json, "list");
                                     transJson(guangjingMap, key, "zhyl6200018", zhyl6100061Json, "list");
+                                    transJson(guangjingMap, key, "zhyl61000611", zhyl6100061Json, null);
 
                                     transJson(guangjingMap, key, "zhyl6200019", zhyl6100062Json, null);
                                     transJson(guangjingMap, key, "zhyl6200020", zhyl6100062Json, null);
@@ -510,9 +664,6 @@ public class PediatricKidneyData2 {
                     JSONArray zhyl6000020Json = new JSONArray(); //最终诊断
                     commonjiancha(s, zhyl6000020Json, zuizhongzhenduan2, zhyl60000000JSONObject, "zhyl6000020", connection, statement, resultSet);
 
-                    JSONArray zhyl6000030Json = new JSONArray(); //24小时尿钙体重比
-                    commonjiancha(s, zhyl6000030Json, niaogaitizhong2, zhyl60000000JSONObject, "zhyl6000030", connection, statement, resultSet);
-
 
                     JSONArray zhyl6000021Json = new JSONArray(); //血常规
                     commonjiancha(s, zhyl6000021Json, xuechanggui2, zhyl60000000JSONObject, "zhyl6000021", connection, statement, resultSet);
@@ -530,6 +681,7 @@ public class PediatricKidneyData2 {
 
                                 List<String> nameList = new ArrayList<>();
                                 List<String> valueList = new ArrayList<>();
+                                List<String> refList = new ArrayList<>();
                                 for (String key : map1.keySet()) {
                                     if (key.toUpperCase().equals("HETERM") && map1.get(key).toString().contains(",")) {
                                         nameList = Arrays.asList(map1.get(key).toString().split(","));
@@ -537,10 +689,13 @@ public class PediatricKidneyData2 {
                                     if (key.toUpperCase().equals("VALUE") && map1.get(key).toString().contains(",")) {
                                         valueList = Arrays.asList(map1.get(key).toString().split(","));
                                     }
-                                    if (key.toUpperCase().equals("HEHOSP")) {
+                                    if (key.toUpperCase().equals("HESREF") && map1.get(key).toString().contains(",")) {
+                                        refList = Arrays.asList(map1.get(key).toString().split(","));
+                                    }
+                                    if (key.toUpperCase().equals("HEHOSP")) {//检查医院
                                         zhyl6000023Object.put("zhyl60000232", map1.get(key));
                                     }
-                                    if (key.equals("zhyl60000231")) {
+                                    if (key.equals("zhyl60000231")) {//检查日期
                                         zhyl6000023Object.put("zhyl60000231", map1.get(key));
                                     }
                                 }
@@ -548,9 +703,14 @@ public class PediatricKidneyData2 {
                                     for (int i = 0; i < nameList.size(); i++) {
                                         if (nameList.get(i).contains("24h尿钙") && !nameList.get(i).contains("24h尿钙体重比")) {
                                             if (!valueList.get(i).contains("#") && valueList.get(i) != null) {
-                                                zhyl6000023Object.put("zhyl60000233", valueList.get(i));
+                                                zhyl6000023Object.put("zhyl600002331", valueList.get(i));
                                             } else {
-                                                zhyl6000023Object.put("zhyl60000233", null);
+                                                zhyl6000023Object.put("zhyl600002331", null);
+                                            }
+                                            if (!refList.get(i).contains("#") && refList.get(i) != null) {
+                                                zhyl6000023Object.put("zhyl600002332", refList.get(i));
+                                            } else {
+                                                zhyl6000023Object.put("zhyl600002332", null);
                                             }
                                         }
                                         if (nameList.get(i).contains("体重")) {
@@ -563,9 +723,14 @@ public class PediatricKidneyData2 {
 
                                         if (nameList.get(i).contains("24h尿钙体重比")) {
                                             if (!valueList.get(i).contains("#") && valueList.get(i) != null) {
-                                                zhyl6000023Object.put("zhyl60000235", valueList.get(i));
+                                                zhyl6000023Object.put("zhyl600002351", valueList.get(i));
                                             } else {
-                                                zhyl6000023Object.put("zhyl60000235", null);
+                                                zhyl6000023Object.put("zhyl600002351", null);
+                                            }
+                                            if (!refList.get(i).contains("#") && refList.get(i) != null) {
+                                                zhyl6000023Object.put("zhyl600002352", refList.get(i));
+                                            } else {
+                                                zhyl6000023Object.put("zhyl600002352", null);
                                             }
                                         }
                                     }
@@ -591,6 +756,92 @@ public class PediatricKidneyData2 {
 
                     JSONArray zhyl6000028Json = new JSONArray(); //眼科检查
                     commonjiancha(s, zhyl6000028Json, yankejiancha2, zhyl60000000JSONObject, "zhyl6000028", connection, statement, resultSet);
+
+                    JSONArray zhyl6000029JSONArray = new JSONArray(); //肾活检-肾组织IV胶原染色
+                    String shenhuojianranse = shenhuojianranse2.replace("?", s);
+                    List<Map<String, Object>> shenhuojianranse2List = commonExecute2(connection, shenhuojianranse, statement, resultSet);
+                    if (shenhuojianranse2List != null && shenhuojianranse2List.size() > 0) {
+                        for (Map<String, Object> shenhuojianransemap : shenhuojianranse2List) {
+                            if (shenhuojianransemap != null && shenhuojianransemap.size() > 0) {
+                                JSONObject zhyl6000029JSONObject = new JSONObject();
+                                JSONObject zhyl60000297Json = new JSONObject();
+                                for (String key : shenhuojianransemap.keySet()) {
+                                    transJson(shenhuojianransemap, key, "zhyl60000291", zhyl6000029JSONObject, null);
+                                    transJson(shenhuojianransemap, key, "zhyl60000292", zhyl6000029JSONObject, null);
+                                    transJson(shenhuojianransemap, key, "zhyl60000293", zhyl6000029JSONObject, null);
+                                    transJson(shenhuojianransemap, key, "zhyl60000294", zhyl6000029JSONObject, null);
+                                    transJson(shenhuojianransemap, key, "zhyl60000295", zhyl6000029JSONObject, null);
+                                    transJson(shenhuojianransemap, key, "zhyl60000296", zhyl6000029JSONObject, null);
+
+
+                                    transJson(shenhuojianransemap, key, "zhyl600002971", zhyl60000297Json, null);
+                                    transJson(shenhuojianransemap, key, "zhyl600002972", zhyl60000297Json, null);
+                                    transJson(shenhuojianransemap, key, "zhyl600002974", zhyl60000297Json, null);
+                                    transJson(shenhuojianransemap, key, "zhyl600002976", zhyl60000297Json, null);
+                                    transJson(shenhuojianransemap, key, "zhyl600002978", zhyl60000297Json, null);
+                                    transJson(shenhuojianransemap, key, "zhyl600002980", zhyl60000297Json, null);
+                                    transJson(shenhuojianransemap, key, "zhyl600002982", zhyl60000297Json, null);
+
+
+                                    if (key.equals("zhyl600002973")) {
+                                        transformQiangdu(zhyl60000297Json, shenhuojianransemap.get(key), "zhyl600002973");
+                                    }
+                                    if (key.equals("zhyl600002975")) {
+                                        transformQiangdu(zhyl60000297Json, shenhuojianransemap.get(key), "zhyl600002975");
+                                    }
+                                    if (key.equals("zhyl600002977")) {
+                                        transformQiangdu(zhyl60000297Json, shenhuojianransemap.get(key), "zhyl600002977");
+                                    }
+                                    if (key.equals("zhyl600002979")) {
+                                        transformQiangdu(zhyl60000297Json, shenhuojianransemap.get(key), "zhyl600002979");
+                                    }
+                                    if (key.equals("zhyl600002981")) {
+                                        transformQiangdu(zhyl60000297Json, shenhuojianransemap.get(key), "zhyl600002981");
+                                    }
+                                    if (key.equals("zhyl600002983")) {
+                                        transformQiangdu(zhyl60000297Json, shenhuojianransemap.get(key), "zhyl600002983");
+                                    }
+
+                                }
+                                zhyl6000029JSONObject.put("zhyl60000297", zhyl60000297Json);
+                                zhyl6000029JSONArray.add(zhyl6000029JSONObject);
+                            }
+                            zhyl60000000JSONObject.put("zhyl6000029", zhyl6000029JSONArray);
+
+                        }
+                    }
+
+                    JSONArray zhyl6000032JSONArray = new JSONArray(); //皮肤活检
+                    String pifihuojian = pifihuojian2.replace("?", s);
+                    List<Map<String, Object>> pifihuojianList = commonExecute2(connection, pifihuojian, statement, resultSet);
+                    if (pifihuojianList != null && pifihuojianList.size() > 0) {
+                        for (Map<String, Object> pifuhuojianmap : pifihuojianList) {
+                            if (pifuhuojianmap != null && pifuhuojianmap.size() > 0) {
+                                JSONObject zhyl6000032JSONObject = new JSONObject();
+                                for (String key : pifuhuojianmap.keySet()) {
+                                    transJson(pifuhuojianmap, key, "zhyl60000321", zhyl6000032JSONObject, null);
+                                    transJson(pifuhuojianmap, key, "zhyl60000322", zhyl6000032JSONObject, null);
+                                    transJson(pifuhuojianmap, key, "zhyl60000323", zhyl6000032JSONObject, null);
+                                    transJson(pifuhuojianmap, key, "zhyl60000324", zhyl6000032JSONObject, null);
+                                    transJson(pifuhuojianmap, key, "zhyl60000325", zhyl6000032JSONObject, null);
+                                    transJson(pifuhuojianmap, key, "zhyl60000326", zhyl6000032JSONObject, null);
+                                    transJson(pifuhuojianmap, key, "zhyl60000327", zhyl6000032JSONObject, null);
+                                    transJson(pifuhuojianmap, key, "zhyl60000329", zhyl6000032JSONObject, null);
+
+                                    if (key.equals("zhyl60000328")) {
+                                        transformQiangdu(zhyl6000032JSONObject, pifuhuojianmap.get(key), "zhyl60000328");
+                                    }
+                                    if (key.equals("zhyl60000330")) {
+                                        transformQiangdu(zhyl6000032JSONObject, pifuhuojianmap.get(key), "zhyl60000330");
+                                    }
+                                }
+                                zhyl6000029JSONArray.add(zhyl6000032JSONObject);
+                            }
+                            zhyl60000000JSONObject.put("zhyl6000032", zhyl6000029JSONArray);
+
+                        }
+                    }
+
 
 //----------------
                     //  zhyl6000000Json.add(zhyl60000000JSONObject);
@@ -883,22 +1134,22 @@ public class PediatricKidneyData2 {
                     List<String> ageList = new ArrayList<>();
                     for (String key : muqinMap.keySet()) {
 
-                        if (key.toUpperCase().equals("FHTERM") && muqinMap.get(key)!=null  && muqinMap.get(key).toString().contains(",")) {
+                        if (key.toUpperCase().equals("FHTERM") && muqinMap.get(key) != null && muqinMap.get(key).toString().contains(",")) {
                             nameList = Arrays.asList(muqinMap.get(key).toString().split(","));
                         }
-                        if (key.toUpperCase().equals("FHTERM") && muqinMap.get(key)!=null && !muqinMap.get(key).toString().contains(",")) {
+                        if (key.toUpperCase().equals("FHTERM") && muqinMap.get(key) != null && !muqinMap.get(key).toString().contains(",")) {
                             nameList = Collections.singletonList(muqinMap.get(key).toString());
                         }
-                        if (key.toUpperCase().equals("FHOCCUR") && muqinMap.get(key)!=null && muqinMap.get(key).toString().contains(",")) {
+                        if (key.toUpperCase().equals("FHOCCUR") && muqinMap.get(key) != null && muqinMap.get(key).toString().contains(",")) {
                             isNotList = Arrays.asList(muqinMap.get(key).toString().split(","));
                         }
-                        if (key.toUpperCase().equals("FHOCCUR") && muqinMap.get(key)!=null && !muqinMap.get(key).toString().contains(",")) {
+                        if (key.toUpperCase().equals("FHOCCUR") && muqinMap.get(key) != null && !muqinMap.get(key).toString().contains(",")) {
                             isNotList = Collections.singletonList(muqinMap.get(key).toString());
                         }
-                        if (key.toUpperCase().equals("AGE") && muqinMap.get(key)!=null && muqinMap.get(key).toString().contains(",")) {
+                        if (key.toUpperCase().equals("AGE") && muqinMap.get(key) != null && muqinMap.get(key).toString().contains(",")) {
                             ageList = Arrays.asList(muqinMap.get(key).toString().split(","));
                         }
-                        if (key.toUpperCase().equals("AGE") && muqinMap.get(key)!=null && !muqinMap.get(key).toString().contains(",")) {
+                        if (key.toUpperCase().equals("AGE") && muqinMap.get(key) != null && !muqinMap.get(key).toString().contains(",")) {
                             ageList = Collections.singletonList(muqinMap.get(key).toString());
                         }
                         if (key.toUpperCase().equals("FHORRES")) {
