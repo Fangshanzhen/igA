@@ -1867,33 +1867,33 @@ public class PediatricKidneyData2 {
                             String suifanggugexSql = suifanggugex.replace("?", suifang);
                             List<Map<String, Object>> suifanggugexSqlList = commonExecute2(connection, suifanggugexSql, statement, resultSet);
                             if (suifanggugexSqlList != null && suifanggugexSqlList.size() > 0) {
-                                Map<String, Object> gugex2=suifanggugexSqlList.get(0);
-                                    if (gugex2 != null && gugex2.size() > 0) {
-                                        JSONObject zhyl8000039JSONObject = new JSONObject();
-                                        for (String key : gugex2.keySet()) {
-                                            transJson(gugex2, key, "zhyl80000392", zhyl8000039JSONObject, null);
-                                            transJson(gugex2, key, "zhyl80000394", zhyl8000039JSONObject, "list");
-                                            transJson(gugex2, key, "zhyl80000395", zhyl8000039JSONObject, null);
-                                        }
-                                        zhyl80000001Json.put("zhyl8000039", zhyl8000039JSONObject);
+                                Map<String, Object> gugex2 = suifanggugexSqlList.get(0);
+                                if (gugex2 != null && gugex2.size() > 0) {
+                                    JSONObject zhyl8000039JSONObject = new JSONObject();
+                                    for (String key : gugex2.keySet()) {
+                                        transJson(gugex2, key, "zhyl80000392", zhyl8000039JSONObject, null);
+                                        transJson(gugex2, key, "zhyl80000394", zhyl8000039JSONObject, "list");
+                                        transJson(gugex2, key, "zhyl80000395", zhyl8000039JSONObject, null);
                                     }
+                                    zhyl80000001Json.put("zhyl8000039", zhyl8000039JSONObject);
+                                }
                             }
                             //------血甲状旁腺素 每次随访可能有多个---------
                             String suifangxuejiapangSql = suifangxuejiapang.replace("?", suifang);
                             List<Map<String, Object>> suifangxuejiapangSqllList = commonExecute2(connection, suifangxuejiapangSql, statement, resultSet);
                             if (suifangxuejiapangSqllList != null && suifangxuejiapangSqllList.size() > 0) {
-                                Map<String, Object> xuejiazhuangpang=suifangxuejiapangSqllList.get(0);
-                                    if (xuejiazhuangpang != null && xuejiazhuangpang.size() > 0) {
-                                        JSONObject zhyl8000040JSONObject = new JSONObject();
-                                        JSONObject zhyl80000403JSONObject = new JSONObject();
-                                        for (String key : xuejiazhuangpang.keySet()) {
-                                            transJson(xuejiazhuangpang, key, "zhyl80000402", zhyl8000040JSONObject, null);
-                                            transJson(xuejiazhuangpang, key, "zhyl800004031", zhyl80000403JSONObject, null);
-                                            transJson(xuejiazhuangpang, key, "zhyl800004032", zhyl80000403JSONObject, null);
-                                        }
-                                        zhyl8000040JSONObject.put("zhyl80000403", zhyl80000403JSONObject);
-                                        zhyl80000001Json.put("zhyl8000040", zhyl8000040JSONObject);
+                                Map<String, Object> xuejiazhuangpang = suifangxuejiapangSqllList.get(0);
+                                if (xuejiazhuangpang != null && xuejiazhuangpang.size() > 0) {
+                                    JSONObject zhyl8000040JSONObject = new JSONObject();
+                                    JSONObject zhyl80000403JSONObject = new JSONObject();
+                                    for (String key : xuejiazhuangpang.keySet()) {
+                                        transJson(xuejiazhuangpang, key, "zhyl80000402", zhyl8000040JSONObject, null);
+                                        transJson(xuejiazhuangpang, key, "zhyl800004031", zhyl80000403JSONObject, null);
+                                        transJson(xuejiazhuangpang, key, "zhyl800004032", zhyl80000403JSONObject, null);
                                     }
+                                    zhyl8000040JSONObject.put("zhyl80000403", zhyl80000403JSONObject);
+                                    zhyl80000001Json.put("zhyl8000040", zhyl8000040JSONObject);
+                                }
 
                             }
                             //-------泌尿系统影像学检查 每次随访可能有多个---------
@@ -1961,9 +1961,23 @@ public class PediatricKidneyData2 {
                     commonjiancha(s, zhyl10000004JSONArray, zhongshushenjing, zhyl11000000Json, "zhyl10000004", connection, statement, resultSet);
                     //耳、面、颈部
                     JSONArray zhyl10000005JSONArray = new JSONArray();
+                    commonjiancha(s, zhyl10000005JSONArray, ermianjing, zhyl11000000Json, "zhyl10000005", connection, statement, resultSet);
+                    //肺部 无数据
+                    JSONArray zhyl10000006JSONArray = new JSONArray();
+                    //唇和/或腭  无数据
+                    JSONArray zhyl10000007JSONArray = new JSONArray();
+                    //腹壁 无数据
+                    JSONArray zhyl10000008JSONArray = new JSONArray();
+                    //尿道下裂
+                    JSONArray zhyl10000009JSONArray = new JSONArray();
+                    commonjiancha(s, zhyl10000009JSONArray, niaodaoxielie, zhyl11000000Json, "zhyl10000009", connection, statement, resultSet);
+                    //膈疝\综合征 无数据
+                    //染色体检测
+                    JSONArray zhyl10000010JSONArray = new JSONArray();
+                    commonjiancha(s, zhyl10000010JSONArray, ranseti, zhyl11000000Json, "zhyl10000010", connection, statement, resultSet);
 
 
-                    zhyl10000000Json.put("zhyl11000000",zhyl11000000Json);
+                    zhyl10000000Json.put("zhyl11000000", zhyl11000000Json);
 
 //---------------------------------------------------------------------------------------
                     ObjectMapper mapper = new ObjectMapper();    //为了让json中的字段有序

@@ -916,7 +916,7 @@ public class PediatricKidneyDatabaseConstant2 {
             "from dbo.E_IR  where  DELMARK=0  and  [SOURCE]='随访'   and SOURCEID ='?'  ";
 
     //尿蛋白电泳
-    public final static String suifangniaodanbaidianyong2 ="  select   \n" +
+    public final static String suifangniaodanbaidianyong2 = "  select   \n" +
             "\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', UEDTC ) as bigint )*1000 AS zhyl800000602,\n" +
             "SPPORG  as zhyl8000006041,\n" +
@@ -929,7 +929,7 @@ public class PediatricKidneyDatabaseConstant2 {
             "from dbo.E_UE  where  DELMARK=0 and  [SOURCE]='随访'   and SOURCEID ='?' ";
 
     //纯音测听
-    public final static String suifangchunyinceting2 ="select dmid,\n" +
+    public final static String suifangchunyinceting2 = "select dmid,\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', PTDTC ) as bigint )*1000 AS zhyl8100070,\n" +
             "case when PTORRE='正常' then '1'  when PTORRE='异常' then '0'  end  as zhyl8100073,\n" +
             "PTDESC as zhyl8100074\n" +
@@ -937,26 +937,26 @@ public class PediatricKidneyDatabaseConstant2 {
             "from  dbo.E_PT where  DELMARK=0 and  [SOURCE]='随访'   and SOURCEID ='?' ";
 
     //眼裂隙灯检查
-    public final static String suifangyanleixideng2 =" select dmid,\n" +
+    public final static String suifangyanleixideng2 = " select dmid,\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', ESDTC ) as bigint )*1000 AS zhyl8100076,\n" +
             "case when ESORRE='正常' then '1'  when ESORRE='异常' then '0'  end  as zhyl8100079,\n" +
             "ESDESC as zhyl8100080\n" +
             "from  dbo.E_ES where  DELMARK=0  and  [SOURCE]='随访'   and SOURCEID ='?' ";
 
     //随访血常规
-    public final static String suifangxuechanggui2 =" select \n" +
+    public final static String suifangxuechanggui2 = " select \n" +
             " cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', BRDTC ) as bigint )*1000 AS zhyl80000211,\n" +
             " HGB as zhyl800002131,\n" +
             " HGBREF as zhyl800002132\n" +
             "from dbo.E_BR where  DELMARK=0  and  [SOURCE]='随访'   and SOURCEID ='?' ";
 
     //24小时尿电解质
-    public final static String suifang24niaodianjiezhi=" select *,cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', HEDTC ) as bigint )*1000 AS zhyl80000231\n" +
+    public final static String suifang24niaodianjiezhi = " select *,cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', HEDTC ) as bigint )*1000 AS zhyl80000231\n" +
             "from dbo.ehe1 \n" +
             "where   HETYPE='24小时尿电解质'   and  DELMARK=0 and  [SOURCE]='随访'   and SOURCEID ='?'  ";
 
     //肾脏影像学检查
-    public final static String suifangshenzangyixuejiancha= " SELECT \n" +
+    public final static String suifangshenzangyixuejiancha = " SELECT \n" +
             "\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', KIDTC ) as bigint )*1000 AS zhyl80000242,\n" +
             "KIHOSP as zhyl80000243,\n" +
@@ -976,7 +976,7 @@ public class PediatricKidneyDatabaseConstant2 {
             "where  DELMARK=0 and  [SOURCE]='随访'   and SOURCEID ='?' ";
 
     //肝、胆影像学检查
-    public final static String suifanggandanyingxiangxue =" SELECT \n" +
+    public final static String suifanggandanyingxiangxue = " SELECT \n" +
             "\n" +
             "case when LGIOCCUR='是' then 1  when LGIOCCUR='否' then 0 end as  zhyl80000262,\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', LGIDTC ) as bigint )*1000 AS zhyl80000263,\n" +
@@ -989,7 +989,7 @@ public class PediatricKidneyDatabaseConstant2 {
             "from dbo.E_LGI  where  DELMARK=0  and  [SOURCE]='随访'   and SOURCEID ='?' ";
 
     //酸中毒时尿PH
-    public final static String suifangsuanzhongdu ="select \n" +
+    public final static String suifangsuanzhongdu = "select \n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', PHDTC ) as bigint )*1000 AS zhyl80000332,\n" +
             "\n" +
             "PH as zhyl800003341,\n" +
@@ -998,7 +998,7 @@ public class PediatricKidneyDatabaseConstant2 {
             "from dbo.E_ph where DELMARK=0 and  [SOURCE]='随访'   and SOURCEID ='?' ";
 
     //肾钙化/肾结石
-    public final static String suifangshengaihua ="select \n" +
+    public final static String suifangshengaihua = "select \n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', KIDTC ) as bigint )*1000 AS zhyl80000382,\n" +
             "case when KIOCCUR='是' then 1 when KIOCCUR='否' then 0 end  as zhyl80000387,\n" +
             "case when KIMETHOD='泌尿系超声' then 1 when KIMETHOD='CT' then 2 when KIMETHOD='MRI' then 3 end as zhyl80000384\n" +
@@ -1006,7 +1006,7 @@ public class PediatricKidneyDatabaseConstant2 {
             "from dbo.E_KI   where DELMARK=0 and  [SOURCE]='随访'   and SOURCEID ='?' ";
 
     //骨骼X线片
-    public final static String suifanggugex =" select \n" +
+    public final static String suifanggugex = " select \n" +
             "\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', CRDTC ) as bigint )*1000 AS zhyl80000392,\n" +
             "replace(replace(replace(replace(CRLOCATION,'腕骨','1'),'上肢骨','2'),'下肢骨','3'),'腰椎','4') as zhyl80000394,\n" +
@@ -1015,14 +1015,14 @@ public class PediatricKidneyDatabaseConstant2 {
             "from dbo.E_CR   where DELMARK=0 and  [SOURCE]='随访'   and SOURCEID ='?'  ";
 
     //血甲状旁腺素
-    public final static String suifangxuejiapang =" select \n" +
+    public final static String suifangxuejiapang = " select \n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', PTHDTC  ) as bigint )*1000 as  zhyl80000402,\n" +
             "PTH as zhyl800004031,\n" +
             "PTHREF as zhyl800004032\n" +
             "from dbo.E_PTH where DELMARK=0 and  [SOURCE]='随访'   and SOURCEID ='?' ";
 
     //泌尿系统影像学检查
-    public final static String suifangminiaoxiyingxiangjiancha =" select \n" +
+    public final static String suifangminiaoxiyingxiangjiancha = " select \n" +
             "case when USTOCCUR='是' then 1 when USTOCCUR='否' then 0 end  as zhyl80000412,\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', USTDTC  ) as bigint )*1000 as  zhyl80000413,\n" +
             "null as zhyl80000414,\n" +
@@ -1135,31 +1135,48 @@ public class PediatricKidneyDatabaseConstant2 {
 
     //累及其他系统
     //肌肉骨骼
-    public final static String jirouguge=" select  \n" +
+    public final static String jirouguge = " select  \n" +
             "case when OSOCCUR='其它' then  4  when OSOCCUR='多指畸形' then  2 end as zhyl12000001,\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', OSDTC  ) as bigint )*1000 as  zhyl12000002,\n" +
             "OSDESC as zhyl12000003\n" +
             "from dbo.OtherSystem where DELMARK=0 and OSTYPE='肌肉骨骼' and dmid='?' ";
     //消化系统
-    public final static String xiaohuaxitong=" select  \n" +
+    public final static String xiaohuaxitong = " select  \n" +
             "case when OSOCCUR='肛门闭锁' then  1   end as zhyl12000004,\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', OSDTC  ) as bigint )*1000 as  zhyl12000005,\n" +
             "OSDESC as zhyl12000006\n" +
             "from dbo.OtherSystem where DELMARK=0 and OSTYPE='消化系统' and dmid='?' ";
     //先天性心脏病
-    public final static String xiantianxingxinzangbing=" select  \n" +
+    public final static String xiantianxingxinzangbing = " select  \n" +
             "case when OSOCCUR='房间隔缺损' then  1   end as zhyl12000007,\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', OSDTC  ) as bigint )*1000 as  zhyl12000008,\n" +
             "OSDESC as zhyl12000009\n" +
             "from dbo.OtherSystem where DELMARK=0 and OSTYPE='先天性心脏病' and dmid='?' ";
     //中枢神经系统
-    public final static String zhongshushenjing=" select  \n" +
+    public final static String zhongshushenjing = " select  \n" +
             "case when OSOCCUR='其它' then  5  when OSOCCUR='脊柱裂' then  1   end as zhyl12000010,\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', OSDTC  ) as bigint )*1000 as  zhyl12000011,\n" +
             "OSDESC as zhyl12000012\n" +
             "from dbo.OtherSystem where DELMARK=0 and OSTYPE='中枢神经系统' and dmid='?' ";
     //耳、面、颈部
-    public final static String ermianjing=" ";
+    public final static String ermianjing = " select  \n" +
+            "case when OSOCCUR='其它' then  5  when OSOCCUR='脊柱裂' then  1   end as zhyl12000013,\n" +
+            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', OSDTC  ) as bigint )*1000 as  zhyl12000014,\n" +
+            "OSDESC as zhyl12000015\n" +
+            "from dbo.OtherSystem where DELMARK=0 and OSTYPE='耳、面、颈部' and dmid='?' ";
+    //尿道下裂
+    public final static String niaodaoxielie = " select  \n" +
+            "case when OSOCCUR='是' then  1  when OSOCCUR='否' then  0   end as zhyl12000025,\n" +
+            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', OSDTC  ) as bigint )*1000 as  zhyl12000026,\n" +
+            "OSDESC as zhyl12000021\n" +
+            "from dbo.OtherSystem where DELMARK=0 and OSTYPE='尿道下裂' and dmid='?' ";
+    //染色体检测
+    public final static String ranseti = " select  \n" +
+            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', VERDTC  ) as bigint )*1000 as  zhyl12000037,\n" +
+            "CHU as zhyl12000034,\n" +
+            "case when CHOCCUR='无法判断' then 2  end as zhyl12000035,\n" +
+            "CHDESC as zhyl12000036\n" +
+            "from dbo.Chromosome where DELMARK=0 and dmid='?' ";
 
 }
 
