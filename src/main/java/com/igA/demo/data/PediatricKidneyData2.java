@@ -67,6 +67,7 @@ public class PediatricKidneyData2 {
                     map = commonExecute1(connection, yibanziliao, statement, resultSet);
                     JSONObject zhyl1100022Json = new JSONObject();
                     JSONObject zhyl1100027Json = new JSONObject();
+                    JSONObject zhyl1100037Json = new JSONObject();
 
                     if (map != null && map.size() > 0) {
                         for (String key : map.keySet()) {
@@ -89,6 +90,19 @@ public class PediatricKidneyData2 {
                                 zhyl1100027Json.put("zhyl1110030", map.get(key));
                             }
 
+                            if (map.keySet().contains("zhyl11000371") && key.equals("zhyl11000371")) {
+                                zhyl1100037Json.put("zhyl11000371", map.get(key));
+                            }
+                            if (map.keySet().contains("zhyl11000372") && key.equals("zhyl11000372")) {
+                                zhyl1100037Json.put("zhyl11000372", map.get(key));
+                            }
+                            if (map.keySet().contains("zhyl11000373") && key.equals("zhyl11000373")) {
+                                zhyl1100037Json.put("zhyl11000373", map.get(key));
+                            }
+                            if (map.keySet().contains("zhyl11000374") && key.equals("zhyl11000374")) {
+                                zhyl1100037Json.put("zhyl11000374", map.get(key));
+                            }
+
                         }
                         map.remove("zhyl1110023");
                         map.remove("zhyl1110024");
@@ -96,10 +110,15 @@ public class PediatricKidneyData2 {
                         map.remove("zhyl1110028");
                         map.remove("zhyl1110029");
                         map.remove("zhyl1110030");
+                        map.remove("zhyl11000371");
+                        map.remove("zhyl11000372");
+                        map.remove("zhyl11000373");
+                        map.remove("zhyl11000374");
 
 
                         map.put("zhyl1100022", zhyl1100022Json);
                         map.put("zhyl1100027", zhyl1100027Json);
+                        map.put("zhyl1100037", zhyl1100037Json);
 
 
                         JSONObject zhyl1000000 = new JSONObject();

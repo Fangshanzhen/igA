@@ -58,7 +58,7 @@ public class cgkd {
             List<String> idList = new ArrayList<>();
             idList = commonExecute(connection, statement, resultSet, KidneyIdSql2.replace("#", type));
 
-            idList = Arrays.asList("2c95808a641e4b5d01644068febd021b");
+//            idList = Arrays.asList("2c95808a641e4b5d01644068febd021b");
 
             int poolSize = 3; // 调整线程池大小
             // 创建一个固定大小的线程池

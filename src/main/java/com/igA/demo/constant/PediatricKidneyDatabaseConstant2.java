@@ -7,19 +7,42 @@ public class PediatricKidneyDatabaseConstant2 {
     //id
     public final static String KidneyIdSql2 = "select a.id  from dbo.DM a  where a.Del_Mark=0 and a.DataTypeId='#' ";
     //一般资料
-    public final static String yibanziliao2 = "select a.id , SUBNAM as zhyl1100001,SUBJMRID as zhyl1100002,case when DMSUBRE='门诊' then '1' when DMSUBRE='住院' then '2' end as zhyl1100003,\n" +
+    public final static String yibanziliao2 = "select a.id , i.a as zhyl11000001, SUBNAM as zhyl1100001,SUBJMRID as zhyl1100002,case when DMSUBRE='门诊' then '1' when DMSUBRE='住院' then '2' end as zhyl1100003,\n" +
             "case when SEX='男' then '1' when SEX='女' then '2' end as zhyl1100004, d.b1 as zhyl1100005,\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', BRIHDTC) as bigint )*1000 AS zhyl1100006, AGEY as zhyl1100023,\n" +
-            "c.a  as zhyl1110023, SUBADRRE as zhyl1110024,SUBZIPCD as zhyl1100026,SUBHTEL as zhyl1110028,SUBMTEL as zhyl1110029,\n" +
+            "c.a  as zhyl1110023, SUBADRRE as zhyl1110024,SUBZIPCD as zhyl1110026,SUBHTEL as zhyl1110028,SUBMTEL as zhyl1110029,\n" +
             "SUBMTEL2 as zhyl1110030, case when a.PACOMAT ='否' then 0  when a.PACOMAT ='是' then 1 end as  zhyl1200031, null as zhyl1200030,\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', DMVISDTC) as bigint )*1000 AS  zhyl1100031,\n" +
             "REGHOID as zhyl1100032,INVNAM as zhyl1100033,cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', DMDTC) as bigint )*1000 AS  zhyl1100034,\n" +
-            "VERNAM as zhyl1100007,cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', VERDTC) as bigint )*1000 AS  zhyl1100008,\n" +
-            "case when a.DMSIIC ='否' then 0  when a.DMSIIC ='是' then 1 end as zhyl1100009\n" +
-            "\n" +
-            "from dbo.DM a left join dbo.DICTABLEINFO b on a.SUBPROVINCE=b.[Path] \n" +
+            "a.VERNAM as zhyl1100007,cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', a.VERDTC) as bigint )*1000 AS  zhyl1100008,\n" +
+            "case when a.DMSIIC ='否' then 0  when a.DMSIIC ='是' then 1 end as zhyl1100009,\n" +
+            "case when e.MHOCCUR='是' then '1' when e.MHOCCUR='否' then '0' when e.MHOCCUR='不详' then '2' end as zhyl1100035,\n" +
+            "case when e1.MHOCCUR='是' then '1' when e1.MHOCCUR='否' then '0' when e1.MHOCCUR='不详' then '2' end as zhyl1100036,\n" +
+            "case when e2.MHOCCUR='是' then '1' when e2.MHOCCUR='否' then '0' when e2.MHOCCUR='不详' then '2' end as zhyl11000371,\n" +
+            "f.SBP as zhyl11000372,\n" +
+            "f.DBP as zhyl11000373, \n" +
+            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', f.VSDTC) as bigint )*1000 as zhyl11000374,\n" +
+            "case when e3.MHOCCUR='是' then '1' when e3.MHOCCUR='否' then '0' when e3.MHOCCUR='不详' then '2' end as zhyl1100042,\n" +
+            "case when e4.MHOCCUR='是' then '1' when e4.MHOCCUR='否' then '0' when e4.MHOCCUR='不详' then '2' end as zhyl1100043,\n" +
+            "case when e5.MHOCCUR='是' then '1' when e5.MHOCCUR='否' then '0' when e5.MHOCCUR='不详' then '2' end as zhyl1100044,\n" +
+            "case when e6.MHOCCUR='是' then '1' when e6.MHOCCUR='否' then '0' when e6.MHOCCUR='不详' then '2' end as zhyl1100045,\n" +
+            "case when e7.MHOCCUR='是' then '1' when e7.MHOCCUR='否' then '0' when e7.MHOCCUR='不详' then '2' end as zhyl1100046,\n" +
+            "coalesce(e.MHOTHER,e1.MHOTHER,e2.MHOTHER,e3.MHOTHER,e4.MHOTHER,e5.MHOTHER,e6.MHOTHER) as zhyl1100047\n" +
+            "from dbo.DM a \n" +
+            "left join dbo.DICTABLEINFO b on a.SUBPROVINCE=b.[Path] \n" +
             "left join dbo.area c on b.CODE=c.c  \n" +
-            "left join dbo.nation d on a.ETHNIC=d.a1  where a.id='?'";
+            "left join dbo.nation d on a.ETHNIC=d.a1\n" +
+            "left join (select * from dbo.mh   where [SOURCE] ='筛查表'  and MHTERM='肾脏病病史3个月' ) e on  a.ID =e.DMID \n" +
+            "left join (select * from dbo.mh  where [SOURCE] ='筛查表'  and MHTERM='蛋白尿') e1 on  a.ID =e1.DMID \n" +
+            "left join (select * from dbo.mh   where [SOURCE] ='筛查表'  and MHTERM='高血压' ) e2 on  a.ID =e2.DMID \n" +
+            "left join (select * from dbo.vs   where [SOURCE] ='筛查表' and DELMARK=0)f  on  a.ID =f.DMID \n" +
+            "left join (select * from dbo.mh   where [SOURCE] ='筛查表'  and MHTERM='少尿/无尿' ) e3 on  a.ID =e3.DMID \n" +
+            "left join (select * from dbo.mh   where [SOURCE] ='筛查表'  and MHTERM='多尿' ) e4 on  a.ID =e4.DMID \n" +
+            "left join (select * from dbo.mh   where [SOURCE] ='筛查表'  and MHTERM='夜尿增多' ) e5 on  a.ID =e5.DMID \n" +
+            "left join (select * from dbo.mh   where [SOURCE] ='筛查表'  and MHTERM='血肌酐增高' ) e6 on  a.ID =e6.DMID \n" +
+            "left join (select * from dbo.mh   where [SOURCE] ='筛查表'  and MHTERM='生长发育落后' ) e7 on  a.ID =e7.DMID \n" +
+            "left join hospital i on a.SITEID=i.h\n" +
+            "where a.id='?'";
 
     //现病史
     public final static String xianbingshi2 = "select * from dbo.mh2 where id='?'";
@@ -945,10 +968,10 @@ public class PediatricKidneyDatabaseConstant2 {
 
     //随访血常规
     public final static String suifangxuechanggui2 = " select \n" +
-            " cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', BRDTC ) as bigint )*1000 AS zhyl80000211,\n" +
+            " cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', HGBDTC ) as bigint )*1000 AS zhyl80000211,\n" +
             " HGB as zhyl800002131,\n" +
             " HGBREF as zhyl800002132\n" +
-            "from dbo.E_BR where  DELMARK=0  and  [SOURCE]='随访'   and SOURCEID ='?' ";
+            "from dbo.E_HGB where  DELMARK=0  and  [SOURCE]='随访'    and SOURCEID ='?' ";
 
     //24小时尿电解质
     public final static String suifang24niaodianjiezhi = " select *,cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', HEDTC ) as bigint )*1000 AS zhyl80000231\n" +
