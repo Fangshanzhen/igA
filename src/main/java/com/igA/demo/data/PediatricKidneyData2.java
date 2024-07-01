@@ -432,7 +432,7 @@ public class PediatricKidneyData2 {
                                     if (key.toUpperCase().equals("HESREF") && map1.get(key).toString().contains(",")) {
                                         refList = Arrays.asList(map1.get(key).toString().split(","));
                                     }
-                                    if (key.toUpperCase().equals("HEHOSP")) {//检查医院
+                                    if (key.toUpperCase().equals("HEHOSP")) {   //检查医院
                                         zhyl6000004JsonObject.put("zhyl600000403", map1.get(key));
                                     }
                                     if (key.equals("zhyl600000401")) {//是否为随访数据
@@ -826,8 +826,6 @@ public class PediatricKidneyData2 {
 
 
                     JSONArray zhyl6100055JSONArray = new JSONArray(); //免疫荧光-光镜
-                    JSONArray zhyl6100063JSONArray = new JSONArray(); //电镜
-
                     String guangjing2Sql = guangjing2.replace("?", s);
                     List<Map<String, Object>> guangjing2SqlList = commonExecute2(connection, guangjing2Sql, statement, resultSet);
                     if (guangjing2SqlList != null && guangjing2SqlList.size() > 0) {
@@ -896,6 +894,7 @@ public class PediatricKidneyData2 {
                         }
                     }
 
+                    JSONArray zhyl6100063JSONArray = new JSONArray(); //电镜
                     String dianjing2Sql = dianjing2.replace("?", s);
                     List<Map<String, Object>> dianjing2SqlSqlList = commonExecute2(connection, dianjing2Sql, statement, resultSet);
                     if (dianjing2SqlSqlList != null && dianjing2SqlSqlList.size() > 0) {
@@ -1328,10 +1327,6 @@ public class PediatricKidneyData2 {
                     zhyl6000000JSONObject.put("zhyl60000000", zhyl60000000JSONObject);
                     jsonObject.put("zhyl6000000", zhyl6000000JSONObject);
 
-//-----------------------------------结局----------------------------------------------------
-                    commonjiancha1(s, jieju2, jsonObject, "zhyl9000000", connection, statement, resultSet, Arrays.asList("zhyl9200002", "zhyl9200014"));
-
-
 //-----------------------------------------用药----------------------------------------------
                     JSONArray zhyl7000000Json = new JSONArray(); //用药
 
@@ -1358,7 +1353,7 @@ public class PediatricKidneyData2 {
                     }
 
 
-//---------------------------------------随访可能有多个，现在全部只取一个------------------------------------------------
+//---------------------------------------随访有多个数据的，现在全部只取一个------------------------------------------------
                     JSONObject zhyl8000000Json = new JSONObject();
                     JSONArray zhyl80000000JSONArray = new JSONArray(); //总随访
 
@@ -1372,6 +1367,12 @@ public class PediatricKidneyData2 {
                             //--------随访时间----------
                             String suifangtimeSql = suifangtime.replace("?", suifang);
                             List<String> suifangtimeList = commonExecute(connection, statement, resultSet, suifangtimeSql);//
+                            String suifangtimeSql1 = suifangtime1.replace("?", suifang);
+                            List<String> suifangtimeList1 = commonExecute(connection, statement, resultSet, suifangtimeSql1);//
+                            String suifangtime = null;
+                            if (suifangtimeList1 != null && suifangtimeList1.size() > 0) {
+                                suifangtime = suifangtimeList1.get(0);
+                            }
                             if (suifangtimeList != null && suifangtimeList.size() > 0) {
                                 zhyl80000001Json.put("zhyl8000009", suifangtimeList.get(0));
                             }
@@ -1589,7 +1590,7 @@ public class PediatricKidneyData2 {
 
                                         transJson(shenzaosuai, key, "zhyl800000502", zhyl8000005JSONObject, null);
                                         transJson(shenzaosuai, key, "zhyl800000503", zhyl8000005JSONObject, null);
-                                        transJson(shenzaosuai, key, "zhyl800000509", zhyl8000005JSONObject, null);
+                                        //   transJson(shenzaosuai, key, "zhyl800000509", zhyl8000005JSONObject, null);
 
                                         transJson(shenzaosuai, key, "zhyl8000005041", zhyl800000504JSONObject, null);
                                         transJson(shenzaosuai, key, "zhyl8000005042", zhyl800000504JSONObject, null);
@@ -1922,81 +1923,91 @@ public class PediatricKidneyData2 {
                             if (type.equals("2")) {//蛋白尿
                                 commonjiancha1(suifang, suifangchaoshen2, zhyl80000001Json, "zhyl8000028", connection, statement, resultSet, null);
                             }
-                            if (type.equals("9")) {//Alport综合征
+                            if (type.equals("1")) {//Alport综合征
                                 commonjiancha1(suifang, suifangchaoshen4, zhyl80000001Json, "zhyl8000028", connection, statement, resultSet, null);
                             }
 
 
                             //-------用药 每次随访可能有多个---------
-                            JSONObject zhyl80001001Json = new JSONObject();
-                            JSONArray zhyl80001002JsonArray = new JSONArray(); //
-                            String suifangyongyao2Sql = suifangyongyao2.replace("?", suifang);
-                            List<Map<String, Object>> suifangyongyao2SqlList = commonExecute2(connection, suifangyongyao2Sql, statement, resultSet);
-                            if (suifangyongyao2SqlList != null && suifangyongyao2SqlList.size() > 0) {
-                                for (Map<String, Object> yongyao2Map : suifangyongyao2SqlList) {
-                                    if (yongyao2Map != null && yongyao2Map.size() > 0) {
-                                        JSONObject zhyl80000100JSONObject = new JSONObject();
-                                        for (String key : yongyao2Map.keySet()) {
-                                            transJson(yongyao2Map, key, "zhyl8100039", zhyl80000100JSONObject, null);
-                                            transJson(yongyao2Map, key, "zhyl8100040", zhyl80000100JSONObject, null);
-                                            transJson(yongyao2Map, key, "zhyl8100038", zhyl80000100JSONObject, null);
+                            if (suifangtime != null) {
+                                JSONObject zhyl80001001Json = new JSONObject();
+                                JSONArray zhyl80001002JsonArray = new JSONArray(); //
+                                String suifangyongyao2Sql = suifangyongyao2.replace("?", suifangtime).replace("#", s);
+                                List<Map<String, Object>> suifangyongyao2SqlList = commonExecute2(connection, suifangyongyao2Sql, statement, resultSet);
+                                if (suifangyongyao2SqlList != null && suifangyongyao2SqlList.size() > 0) {
+                                    for (Map<String, Object> yongyao2Map : suifangyongyao2SqlList) {
+                                        if (yongyao2Map != null && yongyao2Map.size() > 0) {
+                                            JSONObject zhyl80000100JSONObject = new JSONObject();
+                                            for (String key : yongyao2Map.keySet()) {
+                                                transJson(yongyao2Map, key, "zhyl8100039", zhyl80000100JSONObject, null);
+                                                transJson(yongyao2Map, key, "zhyl8100040", zhyl80000100JSONObject, null);
+                                                transJson(yongyao2Map, key, "zhyl8100038", zhyl80000100JSONObject, null);
+                                            }
+                                            yongyao2Map.remove("zhyl8100038");
+                                            yongyao2Map.remove("zhyl8100039");
+                                            yongyao2Map.remove("zhyl8100040");
+
+                                            yongyao2Map.put("zhyl80000100", zhyl80000100JSONObject);
+                                            zhyl80001002JsonArray.add(yongyao2Map);
                                         }
-                                        yongyao2Map.remove("zhyl8100038");
-                                        yongyao2Map.remove("zhyl8100039");
-                                        yongyao2Map.remove("zhyl8100040");
-
-                                        yongyao2Map.put("zhyl80000100", zhyl80000100JSONObject);
-                                        zhyl80001002JsonArray.add(yongyao2Map);
                                     }
+                                    zhyl80001001Json.put("zhyl80001002", zhyl80001002JsonArray);
+                                    zhyl80000001Json.put("zhyl80001001", zhyl80001001Json);
                                 }
-                                zhyl80001001Json.put("zhyl80001002", zhyl80001002JsonArray);
-                                zhyl80000001Json.put("zhyl80001001", zhyl80001001Json);
-                            }
 
-                            JSONObject zhyl80000001 = new JSONObject();
-                            zhyl80000001.put("zhyl80000001", zhyl80000001Json);
-                            zhyl80000000JSONArray.add(zhyl80000001);
-                            zhyl8000000Json.put("zhyl80000000", zhyl80000000JSONArray);
+                                JSONObject zhyl80000001 = new JSONObject();
+                                zhyl80000001.put("zhyl80000001", zhyl80000001Json);
+                                zhyl80000000JSONArray.add(zhyl80000001);
+                                zhyl8000000Json.put("zhyl80000000", zhyl80000000JSONArray);
+                            }
                         }
 
 
                         jsonObject.put("zhyl8000000", zhyl8000000Json);
                     }
 
+//-----------------------------------结局----------------------------------------------------
+                    commonjiancha1(s, jieju2, jsonObject, "zhyl9000000", connection, statement, resultSet, Arrays.asList("zhyl9200002", "zhyl9200014"));
+
+
 //---------------------------------------累及其他系统------------------------------------------------
-                    JSONObject zhyl10000000Json = new JSONObject();
-                    JSONObject zhyl11000000Json = new JSONObject();
-                    //肌肉骨骼
-                    JSONArray zhyl10000001JSONArray = new JSONArray();
-                    commonjiancha(s, zhyl10000001JSONArray, jirouguge, zhyl11000000Json, "zhyl10000001", connection, statement, resultSet);
-                    //消化系统
-                    JSONArray zhyl10000002JSONArray = new JSONArray();
-                    commonjiancha(s, zhyl10000002JSONArray, xiaohuaxitong, zhyl11000000Json, "zhyl10000002", connection, statement, resultSet);
-                    //先天性心脏病
-                    JSONArray zhyl10000003JSONArray = new JSONArray();
-                    commonjiancha(s, zhyl10000003JSONArray, xiantianxingxinzangbing, zhyl11000000Json, "zhyl10000003", connection, statement, resultSet);
-                    //中枢神经系统
-                    JSONArray zhyl10000004JSONArray = new JSONArray();
-                    commonjiancha(s, zhyl10000004JSONArray, zhongshushenjing, zhyl11000000Json, "zhyl10000004", connection, statement, resultSet);
-                    //耳、面、颈部
-                    JSONArray zhyl10000005JSONArray = new JSONArray();
-                    commonjiancha(s, zhyl10000005JSONArray, ermianjing, zhyl11000000Json, "zhyl10000005", connection, statement, resultSet);
-                    //肺部 无数据
-                    JSONArray zhyl10000006JSONArray = new JSONArray();
-                    //唇和/或腭  无数据
-                    JSONArray zhyl10000007JSONArray = new JSONArray();
-                    //腹壁 无数据
-                    JSONArray zhyl10000008JSONArray = new JSONArray();
-                    //尿道下裂
-                    JSONArray zhyl10000009JSONArray = new JSONArray();
-                    commonjiancha(s, zhyl10000009JSONArray, niaodaoxielie, zhyl11000000Json, "zhyl10000009", connection, statement, resultSet);
-                    //膈疝\综合征 无数据
-                    //染色体检测
-                    JSONArray zhyl10000010JSONArray = new JSONArray();
-                    commonjiancha(s, zhyl10000010JSONArray, ranseti, zhyl11000000Json, "zhyl10000010", connection, statement, resultSet);
+                    if (type.equals("5")) {//先天性肾脏尿路畸形
+
+                        JSONObject zhyl10000000Json = new JSONObject();
+                        JSONObject zhyl11000000Json = new JSONObject();
+                        //肌肉骨骼
+                        JSONArray zhyl10000001JSONArray = new JSONArray();
+                        commonjiancha(s, zhyl10000001JSONArray, jirouguge, zhyl11000000Json, "zhyl10000001", connection, statement, resultSet);
+                        //消化系统
+                        JSONArray zhyl10000002JSONArray = new JSONArray();
+                        commonjiancha(s, zhyl10000002JSONArray, xiaohuaxitong, zhyl11000000Json, "zhyl10000002", connection, statement, resultSet);
+                        //先天性心脏病
+                        JSONArray zhyl10000003JSONArray = new JSONArray();
+                        commonjiancha(s, zhyl10000003JSONArray, xiantianxingxinzangbing, zhyl11000000Json, "zhyl10000003", connection, statement, resultSet);
+                        //中枢神经系统
+                        JSONArray zhyl10000004JSONArray = new JSONArray();
+                        commonjiancha(s, zhyl10000004JSONArray, zhongshushenjing, zhyl11000000Json, "zhyl10000004", connection, statement, resultSet);
+                        //耳、面、颈部
+                        JSONArray zhyl10000005JSONArray = new JSONArray();
+                        commonjiancha(s, zhyl10000005JSONArray, ermianjing, zhyl11000000Json, "zhyl10000005", connection, statement, resultSet);
+                        //肺部 无数据
+                        JSONArray zhyl10000006JSONArray = new JSONArray();
+                        //唇和/或腭  无数据
+                        JSONArray zhyl10000007JSONArray = new JSONArray();
+                        //腹壁 无数据
+                        JSONArray zhyl10000008JSONArray = new JSONArray();
+                        //尿道下裂
+                        JSONArray zhyl10000009JSONArray = new JSONArray();
+                        commonjiancha(s, zhyl10000009JSONArray, niaodaoxielie, zhyl11000000Json, "zhyl10000009", connection, statement, resultSet);
+                        //膈疝、综合征 无数据
+                        //染色体检测
+                        JSONArray zhyl10000010JSONArray = new JSONArray();
+                        commonjiancha(s, zhyl10000010JSONArray, ranseti, zhyl11000000Json, "zhyl10000010", connection, statement, resultSet);
 
 
-                    zhyl10000000Json.put("zhyl11000000", zhyl11000000Json);
+                        zhyl10000000Json.put("zhyl11000000", zhyl11000000Json);
+                        jsonObject.put("zhyl10000000", zhyl10000000Json);
+                    }
 
 //---------------------------------------------------------------------------------------
                     ObjectMapper mapper = new ObjectMapper();    //为了让json中的字段有序
@@ -2028,10 +2039,6 @@ public class PediatricKidneyData2 {
             log.error("Error closing resources: " + e, "");
         }
 
-//        LocalDateTime now1 = LocalDateTime.now();
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//        String timeString = now1.format(formatter);
-//        System.out.println("-----运行结束时间为：------" + timeString);
 
     }
 

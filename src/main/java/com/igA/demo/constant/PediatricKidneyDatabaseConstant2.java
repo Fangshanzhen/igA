@@ -10,7 +10,7 @@ public class PediatricKidneyDatabaseConstant2 {
     public final static String yibanziliao2 = "select a.id , i.a as zhyl11000001, SUBNAM as zhyl1100001,SUBJMRID as zhyl1100002,case when DMSUBRE='门诊' then '1' when DMSUBRE='住院' then '2' end as zhyl1100003,\n" +
             "case when SEX='男' then '1' when SEX='女' then '2' end as zhyl1100004, d.b1 as zhyl1100005,\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', BRIHDTC) as bigint )*1000 AS zhyl1100006, AGEY as zhyl1100023,\n" +
-            "c.a  as zhyl1110023, SUBADRRE as zhyl1110024,SUBZIPCD as zhyl1110026,SUBHTEL as zhyl1110028,SUBMTEL as zhyl1110029,\n" +
+            "c.a  as zhyl1110023, SUBADRRE as zhyl1110024,SUBZIPCD as zhyl1100026,SUBHTEL as zhyl1110028,SUBMTEL as zhyl1110029,\n" +
             "SUBMTEL2 as zhyl1110030, case when a.PACOMAT ='否' then 0  when a.PACOMAT ='是' then 1 end as  zhyl1200031, null as zhyl1200030,\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', DMVISDTC) as bigint )*1000 AS  zhyl1100031,\n" +
             "REGHOID as zhyl1100032,INVNAM as zhyl1100033,cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', DMDTC) as bigint )*1000 AS  zhyl1100034,\n" +
@@ -806,6 +806,7 @@ public class PediatricKidneyDatabaseConstant2 {
     public final static String suifang2 = "  SELECT ID from  dbo.VISIT where  DELMARK=0 and  DMID='?' ";
     //随访时间
     public final static String suifangtime = " select  cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', VDTC ) as bigint )*1000 as zhyl8000001 from  dbo.VISIT where ID='?'  ";
+    public final static String suifangtime1 = " select  VDTC  from  dbo.VISIT where ID='?'  ";
     //体格检查
     public final static String suifangtigejiancha2 = "select b.DMID,\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', b.VSDTC) as bigint )*1000 AS  zhyl8100000,\n" +
@@ -1112,7 +1113,7 @@ public class PediatricKidneyDatabaseConstant2 {
     //用药
     public final static String suifangyongyao2 = " select  \n" +
             "case when CMOCCUR='有' then '1'  when CMOCCUR='无' then '0'  end as zhyl8100037,\n" +
-            "case when CMCAT='降压药' then '100000' when CMCAT='利尿剂' then '200000' when CMCAT='免疫抑制药物' then '300000' when CMCAT='调节电解质、酸碱平衡药' then '400000' when CMCAT='维生素、微量元素药物' then '500000'   end as zhyl8100038,\n" +
+            "case when CMCAT='降压药' then '100000' when CMCAT='利尿剂' then '200000' when CMCAT='免疫抑制药物' then '300000'  end as zhyl8100038,\n" +
             "case when b.Column1 like '101%' or a.CMSCAT='ACEI' then '101000'\n" +
             "when b.Column1 like '102%' or a.CMSCAT='ARB' then '102000' \n" +
             "when b.Column1 like '201%' or a.CMSCAT='利尿剂' then '201000' \n" +
@@ -1121,7 +1122,8 @@ public class PediatricKidneyDatabaseConstant2 {
             "when b.Column1 like '401%' or a.CMSCAT='电解质' then '401000' \n" +
             "when b.Column1 like '501%' or a.CMSCAT='维生素、微量元素药物' then '501000' \n" +
             "end  as zhyl8100039,\n" +
-            "b.Column1 as zhyl8100040," +
+            "b.Column1 as zhyl8100040,\n" +
+            "\n" +
             "case when CMDOSFRM='片剂' then '1'when CMDOSFRM='注射剂' then '2'when CMDOSFRM='胶囊剂' then '3'when CMDOSFRM='颗粒剂' then '4'when CMDOSFRM='丸剂' then '5'\n" +
             "when CMDOSFRM='栓剂' then '6'\n" +
             "when CMDOSFRM='溶液' then '7' end as zhyl8100041,\n" +
@@ -1154,7 +1156,9 @@ public class PediatricKidneyDatabaseConstant2 {
             "case when CMSEOCCU='有' then '1' when CMSEOCCU='无' then '0' when CMSEOCCU='不详' then '2'  end as zhyl8100049,\n" +
             "CMSEDESC as zhyl8100050\n" +
             "\n" +
-            "from dbo.CM  a  left join dbo.drug b on a.CMTRT=b.Column2 where a. DELMARK=0 and  a.[SOURCE]='随访'   and a.SOURCEID ='?' ";
+            "from dbo.CM  a  left join dbo.drug b on a.CMTRT=b.Column2 where a. DELMARK=0  and (\n" +
+            " (CMSTDTC IS NOT NULL AND CMENDTC IS NOT NULL AND '?' BETWEEN CMSTDTC AND CMENDTC) \n" +
+            " or   (CMSTDTC IS NOT NULL AND CMENDTC IS NULL AND  '?' > CMSTDTC) )  and dmid='#'  ";
 
     //累及其他系统
     //肌肉骨骼
