@@ -208,10 +208,10 @@ public class PediatricKidneyData2 {
                                 for (String key : yaoWuMap.keySet()) {
                                     transJson(yaoWuMap, key, "zhyl5100022", zhyl5000022Json, null);
                                     transJson(yaoWuMap, key, "zhyl5100023", zhyl5000022Json, null);
-                                    transJson(yaoWuMap, key, "zhyl5100028", zhyl5000027Json, null);
-                                    transJson(yaoWuMap, key, "zhyl5100029", zhyl5000027Json, null);
-                                    transJson(yaoWuMap, key, "zhyl5100031", zhyl5000030Json, null);
-                                    transJson(yaoWuMap, key, "zhyl5100032", zhyl5000030Json, null);
+                                    transJson(yaoWuMap, key, "zhyl5000028", zhyl5000027Json, null);
+                                    transJson(yaoWuMap, key, "zhyl5000029", zhyl5000027Json, null);
+                                    transJson(yaoWuMap, key, "zhyl5000031", zhyl5000030Json, null);
+                                    transJson(yaoWuMap, key, "zhyl5000032", zhyl5000030Json, null);
                                     transJson(yaoWuMap, key, "zhyl5000051", zhyl5000050Json, null);
                                     transJson(yaoWuMap, key, "zhyl5000052", zhyl5000050Json, null);
                                     transJson(yaoWuMap, key, "zhyl5000053", zhyl5000050Json, null);
@@ -1139,6 +1139,7 @@ public class PediatricKidneyData2 {
                                     transJson(shenhuojianransemap, key, "zhyl600002978", zhyl60000297Json, null);
                                     transJson(shenhuojianransemap, key, "zhyl600002980", zhyl60000297Json, null);
                                     transJson(shenhuojianransemap, key, "zhyl600002982", zhyl60000297Json, null);
+                                    transJson(shenhuojianransemap, key, "zhyl600002985", zhyl60000297Json, null);
 
 
                                     if (key.equals("zhyl600002973")) {
@@ -1158,6 +1159,9 @@ public class PediatricKidneyData2 {
                                     }
                                     if (key.equals("zhyl600002983")) {
                                         transformQiangdu(zhyl60000297Json, shenhuojianransemap.get(key), "zhyl600002983");
+                                    }
+                                    if (key.equals("zhyl600002984")) {
+                                        transformQiangdu(zhyl60000297Json, shenhuojianransemap.get(key), "zhyl600002984");
                                     }
 
                                 }
@@ -1307,20 +1311,23 @@ public class PediatricKidneyData2 {
                                     transJson(xuejiazhuangpang, key, "zhyl600004032", zhyl60000403JSONObject, null);
                                 }
                                 zhyl6000040JSONObject.put("zhyl60000403", zhyl60000403JSONObject);
-                                zhyl6000039JSONArray.add(zhyl6000040JSONObject);
+                                zhyl6000040JSONArray.add(zhyl6000040JSONObject);
                             }
                         }
                         zhyl60000000JSONObject.put("zhyl6000040", zhyl6000040JSONArray);
                     }
 
                     JSONArray zhyl6000041JSONArray = new JSONArray(); //泌尿系统影像学检查
-                    commonjiancha(s, zhyl6000041JSONArray, jingmaishenyuzaoying2, zhyl60000000JSONObject, "zhyl6000041", connection, statement, resultSet);
+                    commonjiancha(s, zhyl6000041JSONArray, miniaoxitongyingxiang2, zhyl60000000JSONObject, "zhyl6000041", connection, statement, resultSet);
 
                     JSONArray zhyl6000042JSONArray = new JSONArray(); //静脉肾盂造影
-                    commonjiancha(s, zhyl6000042JSONArray, miniaoxitongyingxiang2, zhyl60000000JSONObject, "zhyl6000042", connection, statement, resultSet);
+                    commonjiancha(s, zhyl6000042JSONArray, jingmaishenyuzaoying2, zhyl60000000JSONObject, "zhyl6000042", connection, statement, resultSet);
 
                     JSONArray zhyl6000043JSONArray = new JSONArray(); //排泄性膀胱尿路造影
                     commonjiancha(s, zhyl6000043JSONArray, paixiexingpangguang2, zhyl60000000JSONObject, "zhyl6000043", connection, statement, resultSet);
+
+                    JSONArray zhyl60000144JSONArray = new JSONArray(); //泌尿系超声
+                    commonjiancha(s, zhyl60000144JSONArray, miniaoxichaoshen2, zhyl60000000JSONObject, "zhyl60000144", connection, statement, resultSet);
 
 //----------------
 
@@ -2001,8 +2008,8 @@ public class PediatricKidneyData2 {
                         commonjiancha(s, zhyl10000009JSONArray, niaodaoxielie, zhyl11000000Json, "zhyl10000009", connection, statement, resultSet);
                         //膈疝、综合征 无数据
                         //染色体检测
-                        JSONArray zhyl10000010JSONArray = new JSONArray();
-                        commonjiancha(s, zhyl10000010JSONArray, ranseti, zhyl11000000Json, "zhyl10000010", connection, statement, resultSet);
+                        JSONArray zhyl10000013JSONArray = new JSONArray();
+                        commonjiancha(s, zhyl10000013JSONArray, ranseti, zhyl11000000Json, "zhyl10000013", connection, statement, resultSet);
 
 
                         zhyl10000000Json.put("zhyl11000000", zhyl11000000Json);

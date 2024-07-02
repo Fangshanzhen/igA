@@ -583,7 +583,9 @@ public class PediatricKidneyDatabaseConstant2 {
             "case when A5BMSFBFS='阴性'  then 0  when A5BMSFBFS='间断阳性'  then 1  when A5BMSFBFS='连续阳性'  then 2 end as zhyl600002980,\n" +
             "A5BMSRSQD as zhyl600002981,\n" +
             "case when A5TBMFBFS='阴性'  then 0  when A5TBMFBFS='间断阳性'  then 1  when A5TBMFBFS='连续阳性'  then 2 end as zhyl600002982,\n" +
-            "A5TBMRSQD as zhyl600002983\n" +
+            "A5TBMRSQD as zhyl600002983," +
+            "case when A5GBMFBFS='阴性'  then 0  when A5GBMFBFS='间断阳性'  then 1  when A5GBMFBFS='连续阳性'  then 2 end as zhyl600002985,\n" +
+            "A5GBMRSQD as zhyl600002984\n" +
             "\n" +
             "from   dbo.RBTEMP  where   DMID='?'";
 
@@ -724,6 +726,24 @@ public class PediatricKidneyDatabaseConstant2 {
             "MCUDESC as zhyl60000433,\n" +
             "null as zhyl60000434\n" +
             "from dbo.E_MCU where DELMARK=0  and dmid='?' ";
+
+    //泌尿系超声
+    public final static String miniaoxichaoshen2=" select \n" +
+            "case when  [SOURCE]='随访'  then '1' else '0' end as zhyl600001441,\n" +
+            "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', KIDTC ) as bigint )*1000 AS zhyl600001442,\n" +
+            "KIHOSP as zhyl600001443,\n" +
+            "case when KIMETHOD='泌尿系超声' then 1 when KIMETHOD='CT' then 2 when KIMETHOD='MRI' then 3 end as zhyl600001444,\n" +
+            "case when KIORRES='正常' then '1'  when KIORRES='异常' then '0'  end as zhyl600001445,\n" +
+            "LSL as zhyl600001446,\n" +
+            "LSW as zhyl600001447,\n" +
+            "LSH as zhyl600001448,\n" +
+            "RSL as zhyl600001449,\n" +
+            "RSW as zhyl600001450,\n" +
+            "RSH as zhyl600001451,\n" +
+            "case when KIECHO='正常' then '1'  when KIECHO='增强' then '0'  end as zhyl600001452,\n" +
+            "KIDESC as zhyl600001453\n" +
+            "from dbo.E_KI \n" +
+            "where  DELMARK=0  and dmid='?'";
 
     //结局
     public final static String jieju2 = "  select \n" +
@@ -1201,7 +1221,7 @@ public class PediatricKidneyDatabaseConstant2 {
     public final static String ranseti = " select  \n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', VERDTC  ) as bigint )*1000 as  zhyl12000037,\n" +
             "CHU as zhyl12000034,\n" +
-            "case when CHOCCUR='无法判断' then 2  end as zhyl12000035,\n" +
+            "case when CHOCCUR='无法判断' then 2  when CHOCCUR='正常' then 1  when CHOCCUR='异常' then 0  end as zhyl12000035,\n" +
             "CHDESC as zhyl12000036\n" +
             "from dbo.Chromosome where DELMARK=0 and dmid='?' ";
 
