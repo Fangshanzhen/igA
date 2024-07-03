@@ -1441,9 +1441,9 @@ public class PediatricKidneyData2 {
                                     }
                                     zhyl8000001SONObject.put("zhyl800000105", zhyl800000105JSONObject);
                                     zhyl8000001SONObject.put("zhyl800000106", zhyl800000106JSONObject);
-                                    zhyl8000001SONObject.put("zhyl600000108", zhyl800000108JSONObject);
-                                    zhyl8000001SONObject.put("zhyl600000109", zhyl800000109JSONObject);
-                                    zhyl8000001SONObject.put("zhyl600000111", zhyl800000111JSONObject);
+                                    zhyl8000001SONObject.put("zhyl800000108", zhyl800000108JSONObject);
+                                    zhyl8000001SONObject.put("zhyl800000109", zhyl800000109JSONObject);
+                                    zhyl8000001SONObject.put("zhyl800000111", zhyl800000111JSONObject);
 
 
                                     zhyl80000001Json.put("zhyl8000001", zhyl8000001SONObject);

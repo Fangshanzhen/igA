@@ -19,7 +19,7 @@ public class a {
 
 
         PediatricKidneyData2.transformData(null, "admin","72d0645981154de34f35e03d06c626cc",
-                "2c95a1888b17bbc2019006246a07345a" ,"1","5");
+                null,"1","1");
     }
 
 

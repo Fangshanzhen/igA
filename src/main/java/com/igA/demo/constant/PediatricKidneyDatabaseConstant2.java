@@ -68,7 +68,7 @@ public class PediatricKidneyDatabaseConstant2 {
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', b.URDTC ) as bigint )*1000 AS zhyl600000102,\n" +
             "b.URHOSP as zhyl600000103,\n" +
             "case when b.UPL='-' then '0' when b.UPL='+-' then '1' when b.UPL='+' then '2' when b.UPL='++' then '3'  \n" +
-            "when b.UPL='+++' then '4'when b.UPL='+++++' then '5' end as zhyl600000104,\n" +
+            "when b.UPL='+++' then '4'when b.UPL='++++' then '5' end as zhyl600000104,\n" +
             "b.UPN as zhyl6000001051,\n" +
             "b.UPNREF as zhyl6000001052,\n" +
             "case when b.RBCAN='是' then '1' when b.RBCAN='否' then '0'  end as zhyl6000001061,\n" +
@@ -503,7 +503,7 @@ public class PediatricKidneyDatabaseConstant2 {
             "case when  [SOURCE]='随访'  then '1' else '0' end as zhyl60000241,\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', KIDTC ) as bigint )*1000 AS zhyl60000242,\n" +
             "KIHOSP as zhyl60000243,\n" +
-            "case when KIMETHOD='泌尿系超声' then 1 when KIMETHOD='CT' then 2 when KIMETHOD='MRI' then 3 end as zhyl60000244,\n" +
+            "case when KIMETHOD='泌尿系超声' then 1 when KIMETHOD='CT' then 2 when KIMETHOD='MRI' then 3 when KIMETHOD='腹部X线平片' then 4  end as zhyl60000244,\n" +
             "case when KIORRES='正常' then '1'  when KIORRES='异常' then '0'  end as zhyl60000245,\n" +
             "LSL as zhyl60000246,\n" +
             "LSW as zhyl60000247,\n" +
@@ -668,8 +668,14 @@ public class PediatricKidneyDatabaseConstant2 {
             "case when  [SOURCE]='随访'  then '1' else '0' end as  zhyl60000381,\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', KIDTC ) as bigint )*1000 AS zhyl60000382,\n" +
             "KIHOSP as zhyl60000383,\n" +
-            "case when KIOCCUR='是' then 1 when KIOCCUR='否' then 0 end  as zhyl60000387,\n" +
-            "case when KIMETHOD='泌尿系超声' then 1 when KIMETHOD='CT' then 2 when KIMETHOD='MRI' then 3 end as zhyl60000384,\n" +
+            "case when RCCOCCUR='是' then 1 when RCCOCCUR='否' then 0 end  as zhyl60000387,\n" +
+            "case when KIMETHOD='泌尿系超声' then 1 when KIMETHOD='CT' then 2 when KIMETHOD='MRI' then 3  when KIMETHOD='腹部X线平片' then 4 end as zhyl60000384,\n" +
+            "LSL as zhyl600003841,\n" +
+            "LSW as zhyl600003842,\n" +
+            "LSH as zhyl600003843,\n" +
+            "RSL as zhyl600003844,\n" +
+            "RSW as zhyl600003845,\n" +
+            "RSH as zhyl600003846," +
             "KIDESC as zhyl60000385\n" +
             "from dbo.E_KI   where DELMARK=0 and dmid='?' ";
 
@@ -732,7 +738,7 @@ public class PediatricKidneyDatabaseConstant2 {
             "case when  [SOURCE]='随访'  then '1' else '0' end as zhyl600001441,\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', KIDTC ) as bigint )*1000 AS zhyl600001442,\n" +
             "KIHOSP as zhyl600001443,\n" +
-            "case when KIMETHOD='泌尿系超声' then 1 when KIMETHOD='CT' then 2 when KIMETHOD='MRI' then 3 end as zhyl600001444,\n" +
+            "case when KIMETHOD='泌尿系超声' then 1 when KIMETHOD='CT' then 2 when KIMETHOD='MRI' then 3 when KIMETHOD='腹部X线平片' then 4 end as zhyl600001444,\n" +
             "case when KIORRES='正常' then '1'  when KIORRES='异常' then '0'  end as zhyl600001445,\n" +
             "LSL as zhyl600001446,\n" +
             "LSW as zhyl600001447,\n" +
@@ -1004,7 +1010,7 @@ public class PediatricKidneyDatabaseConstant2 {
             "\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', KIDTC ) as bigint )*1000 AS zhyl80000242,\n" +
             "KIHOSP as zhyl80000243,\n" +
-            "case when KIMETHOD='泌尿系超声' then 1 when KIMETHOD='CT' then 2 when KIMETHOD='MRI' then 3 end as zhyl80000244,\n" +
+            "case when KIMETHOD='泌尿系超声' then 1 when KIMETHOD='CT' then 2 when KIMETHOD='MRI' then 3 when KIMETHOD='腹部X线平片' then 4 end as zhyl80000244,\n" +
             "case when KIORRES='正常' then '1'  when KIORRES='异常' then '0'  end as zhyl80000245,\n" +
             "LSL as zhyl80000246,\n" +
             "LSW as zhyl80000247,\n" +
@@ -1044,8 +1050,8 @@ public class PediatricKidneyDatabaseConstant2 {
     //肾钙化/肾结石
     public final static String suifangshengaihua = "select \n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', KIDTC ) as bigint )*1000 AS zhyl80000382,\n" +
-            "case when KIOCCUR='是' then 1 when KIOCCUR='否' then 0 end  as zhyl80000387,\n" +
-            "case when KIMETHOD='泌尿系超声' then 1 when KIMETHOD='CT' then 2 when KIMETHOD='MRI' then 3 end as zhyl80000384\n" +
+            "case when RCCOCCUR='是' then 1 when RCCOCCUR='否' then 0 end  as zhyl80000387,\n" +
+            "case when KIMETHOD='泌尿系超声' then 1 when KIMETHOD='CT' then 2 when KIMETHOD='MRI' then 3 when KIMETHOD='腹部X线平片' then 4  end as zhyl80000384\n" +
             "\n" +
             "from dbo.E_KI   where DELMARK=0 and  [SOURCE]='随访'   and SOURCEID ='?' ";
 
@@ -1105,7 +1111,7 @@ public class PediatricKidneyDatabaseConstant2 {
     public final static String suifangchaoshen4 = "SELECT \n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', KIDTC ) as bigint )*1000 AS zhyl80000282,\n" +
             "KIHOSP as zhyl80000283,\n" +
-            "case when KIMETHOD='泌尿系超声' then 1 when KIMETHOD='CT' then 2 when KIMETHOD='MRI' then 3 end as zhyl80000284,\n" +
+            "case when KIMETHOD='泌尿系超声' then 1 when KIMETHOD='CT' then 2 when KIMETHOD='MRI' then 3 when KIMETHOD='腹部X线平片' then 4 end as zhyl80000284,\n" +
             "case when KIORRES='正常' then '1'  when KIORRES='异常' then '0'  end as zhyl80000285,\n" +
             "LSL as zhyl80000286,\n" +
             "LSW as zhyl80000287,\n" +
