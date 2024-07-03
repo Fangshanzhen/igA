@@ -175,6 +175,14 @@ public class HttpClientUtils {
                     "Hospital-7_0.json"
             );
         }
+        if (type.equals("0")) { //其它
+            builder.addBinaryBody(
+                    "file",
+                    multipartFile.getInputStream(),
+                    ContentType.create("multipart/form-data", StandardCharsets.UTF_8),
+                    "Hospital-11_0.json"
+            );
+        }
 
 
         HttpEntity multipart = builder.build();

@@ -12,6 +12,7 @@ public class a {
      * 3		肾小管疾病
      * 4		肾脏囊性疾病
      * 5		先天性肾脏尿路畸形
+     * 0        其它
      */
 
 
@@ -19,7 +20,7 @@ public class a {
 
 
         PediatricKidneyData2.transformData(null, "admin","72d0645981154de34f35e03d06c626cc",
-                null,"1","1");
+                "f9b45860588f33d40158ce2534a10183","1","0");
     }
 
 

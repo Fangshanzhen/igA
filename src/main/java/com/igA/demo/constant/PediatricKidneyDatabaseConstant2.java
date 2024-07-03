@@ -472,7 +472,7 @@ public class PediatricKidneyDatabaseConstant2 {
     public final static String zuizhongzhenduan2 = "SELECT \n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', DIDTC ) as bigint )*1000 AS zhyl6100098,\n" +
             "case when DITYPE='拟诊' then '1'  when DITYPE='确诊' then '2' end as  zhyl6100099,\n" +
-            "DICONTENT  as  zhyl6100100 \n" +
+            "coalesce(DICONTENT,OTHERDSC,DIDSC)  as  zhyl6100100 \n" +
             "\n" +
             "from dbo.DI where  DELMARK=0  and [SOURCE] is null  and DMID='?' ";
 

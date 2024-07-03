@@ -29,6 +29,7 @@ import static com.igA.demo.data.igAData.commonExecute;
  * 3		肾小管疾病          3
  * 4		肾脏囊性疾病        5
  * 5		先天性肾脏尿路畸形  7
+ * 0        其它               11
  */
 
 @Slf4j
