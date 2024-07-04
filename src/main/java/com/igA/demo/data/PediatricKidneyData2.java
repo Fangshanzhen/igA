@@ -2210,6 +2210,9 @@ public class PediatricKidneyData2 {
         if (s.contains("是")) {
             return "1";
         }
+        if (s.contains("有")) {
+            return "1";
+        }
         if (s.contains("否")) {
             return "0";
         }

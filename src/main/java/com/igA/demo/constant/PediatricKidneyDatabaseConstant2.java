@@ -1189,7 +1189,7 @@ public class PediatricKidneyDatabaseConstant2 {
     //累及其他系统
     //肌肉骨骼
     public final static String jirouguge = " select  \n" +
-            "case when OSOCCUR='其它' then  4  when OSOCCUR='多指畸形' then  2 end as zhyl12000001,\n" +
+            "case when OSOCCUR='其它' then  4  when OSOCCUR='多指畸形' then  2 when OSOCCUR='肢体减少缺陷' then  1 end as zhyl12000001,\n" +
             "cast( DATEDIFF(SECOND, '1970-01-01 00:00:00', OSDTC  ) as bigint )*1000 as  zhyl12000002,\n" +
             "OSDESC as zhyl12000003\n" +
             "from dbo.OtherSystem where DELMARK=0 and OSTYPE='肌肉骨骼' and dmid='?' ";
