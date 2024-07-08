@@ -457,7 +457,7 @@ public class PediatricKidneyDatabaseConstant2 {
             "\n" +
             "case when FATHER='是' then '1' when FATHER='否' then '0' when FATHER='不详' then '2' end as zhyl6200029,\n" +
             "FADSC as zhyl6200030,\n" +
-            "case when MOTHER='是' then '1' when MOTHER='否' then '0'  when MOTHER='不详' then '2' end as zhyl6200031,\n" +
+            "case when MOTHER='是' then '1' when MOTHER='否' then '0' when MOTHER='无' then '0'  when MOTHER='不详' then '2' end as zhyl6200031,\n" +
             "MODSC as zhyl6200032,\n" +
             "case when [OTHERS]='是' then '1' when [OTHERS]='否' then '0' when [OTHERS]='不详' then '2'  end as zhyl6200033,\n" +
             "OTHRELAT as zhyl6200034,\n" +
