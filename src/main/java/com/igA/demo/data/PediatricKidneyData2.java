@@ -2124,11 +2124,14 @@ public class PediatricKidneyData2 {
                         if (key.toUpperCase().equals("FHSTATUS")) {//生存状态
                             zhyl4100000Json.put("zhyl4100002", castDataShengCun((String) muqinMap.get(key)));
                         }
-                        if (key.toUpperCase().equals("FHITEM")) { //有无家族史
-                            zhyl4100000Json.put("zhyl4000001", castDataYinYang((String) muqinMap.get(key)));
+//                        if (key.toUpperCase().equals("FHITEM")) { //有无家族史
+//                            zhyl4100000Json.put("zhyl4000001", castDataYinYang((String) muqinMap.get(key)));
+//                        }
+                        if (key.toUpperCase().equals("NOK")) { //是否近亲结婚
+                            zhyl4100000Json.put("zhyl4000001", (String) muqinMap.get(key));
                         }
                         if (key.toUpperCase().equals("FHSUBREL")) { //与患者关系
-                            zhyl4100000Json.put("zhyl4100001", muqinMap.get(key));
+                            zhyl4100000Json.put("zhyl4100001", castDataGuanxi((String)muqinMap.get(key)));
                         }
                     }
                     if (nameList.size() > 0) {
@@ -2203,6 +2206,310 @@ public class PediatricKidneyData2 {
                 }
             }
         }
+
+    }
+
+    private static Object castDataGuanxi(String s) {
+        if(s!=null && s.length()>0){
+            if(s.trim().equals("外祖父")){
+                return 0;
+            }
+            if(s.trim().equals("外祖母")){
+                return 1;
+            }
+            if(s.trim().equals("祖父")){
+                return 2;
+            }
+            if(s.trim().equals("祖母")){
+                return 3;
+            }
+            if(s.trim().equals("父亲")){
+                return 4;
+            }
+            if(s.trim().equals("母亲")){
+                return 5;
+            }
+            if(s.trim().equals("哥哥")){
+                return 6;
+            }
+            if(s.trim().equals("姐姐")){
+                return 7;
+            }
+            if(s.trim().equals("弟弟")){
+                return 8;
+            }
+            if(s.trim().equals("妹妹")){
+                return 9;
+            }
+            if(s.trim().equals("母亲的哥哥")){
+                return 10;
+            }
+            if(s.trim().equals("母亲的姐姐")){
+                return 11;
+            }
+            if(s.trim().equals("母亲的弟弟")){
+                return 12;
+            }
+            if(s.trim().equals("母亲的妹妹")){
+                return 13;
+            }
+            if(s.trim().equals("父亲的哥哥")){
+                return 14;
+            }
+            if(s.trim().equals("父亲的姐姐")){
+                return 15;
+            }
+            if(s.trim().equals("父亲的弟弟")){
+                return 16;
+            }
+            if(s.trim().equals("父亲的妹妹")){
+                return 17;
+            }
+            if(s.trim().equals("母亲的姐姐的儿子")){
+                return 18;
+            }
+            if(s.trim().equals("母亲的姐姐的女儿")){
+                return 19;
+            }
+            if(s.trim().equals("母亲的妹妹的儿子")){
+                return 20;
+            }
+            if(s.trim().equals("母亲的妹妹的女儿")){
+                return 21;
+            }
+            if(s.trim().equals("母亲的弟弟的女儿")){
+                return 22;
+            }
+            if(s.trim().equals("母亲的弟弟的儿子")){
+                return 23;
+            }
+            if(s.trim().equals("母亲的哥哥的儿子")){
+                return 24;
+            }
+            if(s.trim().equals("母亲的哥哥的女儿")){
+                return 25;
+            }
+            if(s.trim().equals("父亲的哥哥的女儿")){
+                return 26;
+            }
+            if(s.trim().equals("父亲的哥哥的儿子")){
+                return 27;
+            }
+            if(s.trim().equals("父亲的姐姐的儿子")){
+                return 28;
+            }
+            if(s.trim().equals("父亲的姐姐的女儿")){
+                return 29;
+            }
+            if(s.trim().equals("父亲的妹妹的儿子")){
+                return 30;
+            }
+            if(s.trim().equals("父亲的妹妹的女儿")){
+                return 31;
+            }
+            if(s.trim().equals("父亲的弟弟的儿子")){
+                return 32;
+            }
+            if(s.trim().equals("父亲的弟弟的女儿")){
+                return 33;
+            }
+            if(s.trim().equals("外祖母的母亲")){
+                return 34;
+            }
+            if(s.trim().equals("外祖母的父亲")){
+                return 35;
+            }
+            if(s.trim().equals("外祖母的妹妹")){
+                return 36;
+            }
+            if(s.trim().equals("外祖母的姐姐")){
+                return 37;
+            }
+            if(s.trim().equals("外祖母的弟弟")){
+                return 38;
+            }
+            if(s.trim().equals("外祖母的哥哥")){
+                return 39;
+            }
+            if(s.trim().equals("外祖父的母亲")){
+                return 40;
+            }
+            if(s.trim().equals("外祖父的父亲")){
+                return 41;
+            }
+            if(s.trim().equals("外祖父的哥哥")){
+                return 42;
+            }
+            if(s.trim().equals("外祖父的姐姐")){
+                return 43;
+            }
+            if(s.trim().equals("外祖父的弟弟")){
+                return 44;
+            }
+            if(s.trim().equals("外祖父的妹妹")){
+                return 45;
+            }
+            if(s.trim().equals("祖母的父亲")){
+                return 46;
+            }
+            if(s.trim().equals("祖母的母亲")){
+                return 47;
+            }
+            if(s.trim().equals("祖母的哥哥")){
+                return 48;
+            }
+            if(s.trim().equals("祖母的姐姐")){
+                return 49;
+            }
+            if(s.trim().equals("祖母的妹妹")){
+                return 50;
+            }
+            if(s.trim().equals("祖母的弟弟")){
+                return 51;
+            }
+            if(s.trim().equals("祖父的父亲")){
+                return 52;
+            }
+            if(s.trim().equals("祖父的母亲")){
+                return 53;
+            }
+            if(s.trim().equals("祖父的哥哥")){
+                return 54;
+            }
+            if(s.trim().equals("祖父的姐姐")){
+                return 55;
+            }
+            if(s.trim().equals("祖父的妹妹")){
+                return 56;
+            }
+            if(s.trim().equals("祖父的弟弟")){
+                return 57;
+            }
+            if(s.trim().equals("患者儿子")){
+                return 58;
+            }
+            if(s.trim().equals("患者女儿")){
+                return 59;
+            }
+            if(s.trim().equals("姐姐的儿子")){
+                return 60;
+            }
+            if(s.trim().equals("哥哥的儿子")){
+                return 61;
+            }
+            if(s.trim().equals("母亲的姐姐的配偶")){
+                return 62;
+            }
+            if(s.trim().equals("母亲的妹妹的配偶")){
+                return 63;
+            }
+            if(s.trim().equals("母亲的弟弟的配偶")){
+                return 64;
+            }
+            if(s.trim().equals("母亲的哥哥的配偶")){
+                return 65;
+            }
+            if(s.trim().equals("父亲的弟弟的配偶")){
+                return 66;
+            }
+            if(s.trim().equals("父亲的哥哥的配偶")){
+                return 67;
+            }
+            if(s.trim().equals("父亲的姐姐的配偶")){
+                return 68;
+            }
+            if(s.trim().equals("父亲的妹妹的配偶")){
+                return 69;
+            }
+            if(s.trim().equals("患者的配偶")){
+                return 70;
+            }
+            if(s.trim().equals("姐姐的配偶")){
+                return 71;
+            }
+            if(s.trim().equals("哥哥的配偶")){
+                return 72;
+            }
+            if(s.trim().equals("妹妹的配偶")){
+                return 73;
+            }
+            if(s.trim().equals("弟弟的配偶")){
+                return 74;
+            }
+            if(s.trim().equals("姐姐的女儿")){
+                return 75;
+            }
+            if(s.trim().equals("哥哥的女儿")){
+                return 76;
+            }
+            if(s.trim().equals("妹妹的儿子")){
+                return 77;
+            }
+            if(s.trim().equals("妹妹的女儿")){
+                return 78;
+            }
+            if(s.trim().equals("弟弟的儿子")){
+                return 79;
+            }
+            if(s.trim().equals("弟弟的女儿")){
+                return 80;
+            }
+            if(s.trim().equals("外祖母的妹妹的配偶")){
+                return 81;
+            }
+            if(s.trim().equals("外祖母的姐姐的配偶")){
+                return 82;
+            }
+            if(s.trim().equals("外祖母的弟弟的配偶")){
+                return 83;
+            }
+            if(s.trim().equals("外祖母的哥哥的配偶")){
+                return 84;
+            }
+            if(s.trim().equals("外祖父的哥哥的配偶")){
+                return 85;
+            }
+            if(s.trim().equals("外祖父的姐姐的配偶")){
+                return 86;
+            }
+            if(s.trim().equals("外祖父的弟弟的配偶")){
+                return 87;
+            }
+            if(s.trim().equals("外祖父的妹妹的配偶")){
+                return 88;
+            }
+            if(s.trim().equals("祖母的哥哥的配偶")){
+                return 89;
+            }
+            if(s.trim().equals("祖母的姐姐的配偶")){
+                return 90;
+            }
+            if(s.trim().equals("祖母的妹妹的配偶")){
+                return 91;
+            }
+            if(s.trim().equals("祖母的弟弟的配偶")){
+                return 92;
+            }
+            if(s.trim().equals("祖父的哥哥的配偶")){
+                return 93;
+            }
+            if(s.trim().equals("祖父的姐姐的配偶")){
+                return 94;
+            }
+            if(s.trim().equals("祖父的妹妹的配偶")){
+                return 95;
+            }
+            if(s.trim().equals("祖父的弟弟的配偶")){
+                return 96;
+            }
+
+
+
+
+
+
+        }
+        return null;
 
     }
 
