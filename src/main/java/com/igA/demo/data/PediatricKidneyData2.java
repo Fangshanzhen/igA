@@ -2027,7 +2027,7 @@ public class PediatricKidneyData2 {
 
 //---------------------------------------------------------------------------------------
                     if (start.equals("1")) {
-                        transform("http://10.0.108.41/api-gate/cgkd-export/imexport/importData", jsonStr, s, connection, admin, password, type);
+                        transform(baseUrl, jsonStr, s, connection, admin, password, type);
                     }
 
 
@@ -2566,8 +2566,6 @@ public class PediatricKidneyData2 {
 //        String dataUrl = baseUrl + "/iga-export/imexport/importData";
 //        dataUrl = "http://10.0.108.41/api-gate/iga-export/imexport/importData";
 
-        String tokenurl = "http://10.0.108.41/api-gate";
-
 
         //   ----------------每隔30分钟获取一次token，避免多次调用---------------------------
         String accessToken = null;
@@ -2583,7 +2581,7 @@ public class PediatricKidneyData2 {
             }
             if (tokenList == null || (tokenList.size() == 0) || (tokenList.size() > 0 && tokenList.get(0) == null)
                     || (tokenList.size() > 0 && tokenList.get(0).equals("")) || (tokenList.size() > 0 && tokenList.get(0).equals("null"))) {
-                accessToken = getToken(tokenurl, admin, password, "cgkd");
+                accessToken = getToken(baseUrl, admin, password, "cgkd");
                 Date date = new Date();
                 long a = date.getTime() + 30 * 60 * 1000;  //30分钟
                 String sql = "UPDATE " + "dbo.token_time " + " SET token= " + "'" + accessToken + "'" + "  ,  token_time= " + a;
@@ -2603,7 +2601,7 @@ public class PediatricKidneyData2 {
                     if (Long.valueOf(timeList.get(0)) > a) {
                         accessToken = tokenList.get(0);
                     } else {
-                        accessToken = getToken(tokenurl, admin, password, "cgkd");
+                        accessToken = getToken(baseUrl, admin, password, "cgkd");
                         Date date1 = new Date();
                         long a1 = date1.getTime() + 30 * 60 * 1000;
                         String sql1 = "UPDATE " + "dbo.token_time  " + " SET token = " + "'" + accessToken + "'" + "  ,  token_time= " + a1;
@@ -2620,7 +2618,7 @@ public class PediatricKidneyData2 {
 
         if (accessToken != null) {
             MultipartFile multipartFile = FileTransformUtils.transform(jsonStr);
-            kettleResponse dataResponse = HttpClientUtils.uploadFile1(baseUrl, multipartFile, accessToken, type);
+            kettleResponse dataResponse = HttpClientUtils.uploadFile1(baseUrl + "/cgkd-export/imexport/importData", multipartFile, accessToken, type);
             if (dataResponse.getCode() == 200) {
                 log.info("病人id: " + id + "  传输数据成功!");
             }

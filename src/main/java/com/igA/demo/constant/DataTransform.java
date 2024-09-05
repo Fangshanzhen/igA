@@ -327,11 +327,12 @@ public class DataTransform {
     }
 
 
+    //iga项目
     public static void transform(String baseUrl, String jsonStr, String id, Connection connection, String admin, String password) throws Exception {
         LogChannelFactory logChannelFactory = new org.pentaho.di.core.logging.LogChannelFactory();
         LogChannel kettleLog = logChannelFactory.create("传输数据");
 
-//        String dataUrl = baseUrl + "/iga-export/imexport/importData";
+        String dataUrl = baseUrl + "/iga-export/imexport/importData";
 //        dataUrl = "http://10.0.108.41/api-gate/iga-export/imexport/importData";
 
 
@@ -387,7 +388,7 @@ public class DataTransform {
         if (accessToken != null) {
             MultipartFile multipartFile = FileTransformUtils.transform(jsonStr);
             //                    kettleLog.logBasic(jsonStr);
-            kettleResponse dataResponse = HttpClientUtils.uploadFile(baseUrl, multipartFile, accessToken);
+            kettleResponse dataResponse = HttpClientUtils.uploadFile(dataUrl, multipartFile, accessToken);
             if (dataResponse.getCode() == 200) {
                 log.info("病人id: " + id + "  传输数据成功!");
 //                kettleLog.logBasic("病人id: " + id + "  transform data success");
@@ -410,7 +411,7 @@ public class DataTransform {
 
     public static String getToken(String baseUrl, String admin, String password,String xiangmuid) throws Exception {
 
-        String tokenUrl  = "http://10.0.108.41/api-gate/auth/user/login";
+        String tokenUrl = baseUrl + "/auth/user/login";
 
         kettleResponse tokenResponse = null;  //
         Map<String, Object> tokenMap = new HashMap<String, Object>();
